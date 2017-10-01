@@ -3,24 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - FilmQZ</title>
     <link href="~/assets/css.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col">
-                @RenderBody()
-            </div>
-        </div>
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
-    <script src="~/assets/js.js"></script>
+    @RenderBody()
+    <script src="~/assets/vendors.js"></script>
+    <script src="~/assets/app.js"></script>
 </body>
 </html>

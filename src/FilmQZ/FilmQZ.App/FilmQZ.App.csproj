@@ -108,10 +108,18 @@
     <Content Include="assets\css.css">
       <Visible>false</Visible>
     </Content>
-    <Content Include="assets\js.js">
+    <Content Include="assets\bundle.map">
+      <Visible>false</Visible>
+    </Content>
+    <Content Include="assets\vendors.js">
+      <Visible>false</Visible>
+    </Content>
+    <Content Include="assets\**\*.html">
       <Visible>false</Visible>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\App\App.Component.html" />
+    <Content Include="Scripts\App\Home\Home.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +150,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\Custom\Test.ts" />
+    <TypeScriptCompile Include="Scripts\App.ts" />
+    <TypeScriptCompile Include="Scripts\App\App.Component.ts" />
+    <TypeScriptCompile Include="Scripts\App\Home\Home.Component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
