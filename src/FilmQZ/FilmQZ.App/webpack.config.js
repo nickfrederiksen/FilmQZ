@@ -11,7 +11,7 @@ var extractSass = new ExtractTextPlugin({
 });
 
 module.exports = {
-    devtool: "source-map",
+    devtool: "inline-source-map",
     entry: {
         app: [
             "./Scripts/App.ts"
