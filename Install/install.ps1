@@ -30,7 +30,6 @@ FILENAME = '$appLocation\App_Data\" + $databaseName + "_Log.ldf'
 )
 END";
 
-Write-Host $SqlCmd.CommandText
 $SqlCmd.Connection = $SqlConnection
 
 $SqlConnection.Open();
@@ -41,7 +40,7 @@ $SqlConnection.Close();
 
 Write-Host "Done setting up database"
 Write-Host "Connection string is:"
-Write-Host $SqlConnection.ConnectionString -ForegroundColor DarkCyan
+Write-Host "Server = (LocalDb)\FilmQZ; initial catalog=FilmQZ; Integrated Security = True;MultipleActiveResultSets=True;App=FilmQZ" -ForegroundColor DarkCyan
 Write-Host ""
 Write-Host ""
 Write-Host "Setting up node environment"
