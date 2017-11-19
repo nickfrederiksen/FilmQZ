@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace FilmQZ.App.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         // GET: Home

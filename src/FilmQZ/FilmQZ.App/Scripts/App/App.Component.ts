@@ -1,24 +1,46 @@
-﻿import { TransitionService, StateObject } from "@uirouter/angularjs";
+﻿import { StateObject, TransitionService } from "@uirouter/angularjs";
+import { AuthService } from "./Services/Auth.Service";
 class AppController implements ng.IController {
+
     public year = new Date().getFullYear();
     public topNavigation: ITopNavigationItem[] = [];
 
-    constructor(public $state: ng.ui.IStateService,
-        $transitions: TransitionService) {
+    private currentState: StateObject | ng.ui.IState | undefined;
+
+    constructor($scope: ng.IScope, private authService: AuthService, public $state: ng.ui.IStateService,
+                $transitions: TransitionService) {
 
         this.buildTopNavigation();
 
-        this.updateTopNavigation($state.current);
+        this.updateTopNavigationState();
         $transitions.onFinish({}, (transition) => {
-            this.updateTopNavigation(transition.$to());
+            this.currentState = transition.$to();
+            this.updateTopNavigationState();
         });
 
-        $state.transitionTo("app.home");
+        $scope.$watch(() => this.authService.authentication.isAuth, () => {
+            this.updateTopNavigationState();
+        });
+        // $state.transitionTo("app.home");
     }
 
-    private updateTopNavigation(currentState: StateObject | ng.ui.IState): void {
-        this.topNavigation.forEach(item => {
-            item.isActive = item.sref === currentState.name;
+    private updateTopNavigationState(): void {
+        this.topNavigation.forEach((item) => {
+            if (this.currentState != null) {
+                item.isActive = item.sref === this.currentState.name;
+            }
+
+            item.isVisible = false;
+
+            if (this.authService.authentication.isAuth === true) {
+                if (item.anonymousOnly === false) {
+                    item.isVisible = true;
+                }
+            } else {
+                if (item.authorizedOnly === false) {
+                    item.isVisible = true;
+                }
+            }
         });
     }
 
@@ -27,7 +49,26 @@ class AppController implements ng.IController {
         this.topNavigation.push({
             isActive: false,
             sref: "app.home",
-            text: "home"
+            text: "Home",
+            anonymousOnly: false,
+            authorizedOnly: false,
+            isVisible: true
+        });
+        this.topNavigation.push({
+            isActive: false,
+            sref: "app.register",
+            text: "Register",
+            anonymousOnly: true,
+            authorizedOnly: false,
+            isVisible: this.authService.authentication.isAuth === false
+        });
+        this.topNavigation.push({
+            isActive: false,
+            sref: "app.login",
+            text: "Login",
+            anonymousOnly: true,
+            authorizedOnly: false,
+            isVisible: this.authService.authentication.isAuth === false
         });
     }
 }
@@ -36,10 +77,13 @@ interface ITopNavigationItem {
     isActive: boolean;
     sref: string;
     text: string;
+    isVisible: boolean;
+    anonymousOnly: boolean;
+    authorizedOnly: boolean;
 }
 
 export class AppComponent implements ng.IComponentOptions {
-    static NAME: string = "appView";
-    controller = AppController;
-    templateUrl = require("./app.component.html");
+    public static NAME: string = "appView";
+    public controller = AppController;
+    public templateUrl = require("./app.component.html");
 }

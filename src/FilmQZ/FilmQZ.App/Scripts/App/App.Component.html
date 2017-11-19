@@ -1,12 +1,13 @@
 ﻿<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
     <a class="navbar-brand" href="#">FilmQZ</a>
 
-    <div>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item" data-ng-class="{active:item.isActive}" data-ng-repeat="item in $ctrl.topNavigation">
-                <a class="nav-link" ui-sref="{{item.sref}}">{{item.text}}</a>
-            </li>
-        </ul>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item" data-ng-class="{active:item.isActive}" data-ng-if="item.isVisible" data-ng-repeat="item in $ctrl.topNavigation">
+            <a class="nav-link" ui-sref="{{item.sref}}">{{item.text}}</a>
+        </li>
+    </ul>
+    <div class="navbar-text">
+        <div data-logout-button></div>
     </div>
 </nav>
 
