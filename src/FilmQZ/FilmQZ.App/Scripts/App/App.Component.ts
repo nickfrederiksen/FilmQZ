@@ -1,6 +1,7 @@
 ﻿import { StateObject, TransitionService } from "@uirouter/angularjs";
 import { AuthService } from "./Services/Auth.Service";
 class AppController implements ng.IController {
+    // testing
 
     public year = new Date().getFullYear();
     public topNavigation: ITopNavigationItem[] = [];
@@ -8,7 +9,7 @@ class AppController implements ng.IController {
     private currentState: StateObject | ng.ui.IState | undefined;
 
     constructor($scope: ng.IScope, private authService: AuthService, public $state: ng.ui.IStateService,
-                $transitions: TransitionService) {
+        $transitions: TransitionService) {
 
         this.buildTopNavigation();
 
