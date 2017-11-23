@@ -10,7 +10,7 @@
 
     public test(): void {
 
-        this.$http.get<string>("/api/Account/UserInfo")
+        this.$http.post<string>("/api/management/game", { name: "test" })
 
             .then((resp) => {
 

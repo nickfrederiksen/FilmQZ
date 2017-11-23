@@ -1,5 +1,7 @@
 namespace FilmQZ.Core
 {
+    using FilmQZ.Core.Entities;
+    using FilmQZ.Core.Entities.Relations;
     using FilmQZ.Core.Migrations;
     using System;
     using System.Data.Entity;
@@ -24,5 +26,10 @@ namespace FilmQZ.Core
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
+
+        public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<UserTeam> UserTeams { get; set; }
+        public virtual DbSet<UserGame> UserGames { get; set; }
     }
 }
