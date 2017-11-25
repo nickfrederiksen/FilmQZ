@@ -37,6 +37,9 @@ namespace FilmQZ.Core.Entities
         public string TeamOwnerId { get; set; }
 
         public virtual ICollection<Game> Games { get; set; }
-        public virtual ICollection<UserTeam> Users{ get; set; }
+
+        public virtual ICollection<UserTeam> Users { get; set; }
+
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }

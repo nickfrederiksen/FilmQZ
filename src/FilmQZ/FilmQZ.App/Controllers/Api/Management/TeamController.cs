@@ -37,7 +37,7 @@ namespace FilmQZ.App.Controllers.Api.Management
         {
             if (ModelState.IsValid)
             {
-                if (await GetTeamExistsAsync(createModel, cancellationToken))
+                if (await GetTeamExistsAsync(createModel, null, cancellationToken))
                 {
                     return Conflict();
                 }
@@ -175,7 +175,7 @@ namespace FilmQZ.App.Controllers.Api.Management
                     {
                         return StatusCode(HttpStatusCode.Forbidden);
                     }
-                    if (await GetTeamExistsAsync(model, cancellationToken))
+                    if (await GetTeamExistsAsync(model, id, cancellationToken))
                     {
                         return Conflict();
                     }
@@ -194,9 +194,16 @@ namespace FilmQZ.App.Controllers.Api.Management
             }
         }
 
-        private async Task<bool> GetTeamExistsAsync(CreateTeamModel createModel, CancellationToken cancellationToken)
+        private async Task<bool> GetTeamExistsAsync(CreateTeamModel createModel, Guid? teamId, CancellationToken cancellationToken)
         {
-            return await this.dbContext.Teams.AnyAsync(g => g.Name == createModel.Name, cancellationToken);
+            if (teamId.HasValue == true)
+            {
+                return await this.dbContext.Teams.AnyAsync(g => g.Name == createModel.Name && g.Id != teamId, cancellationToken);
+            }
+            else
+            {
+                return await this.dbContext.Teams.AnyAsync(g => g.Name == createModel.Name, cancellationToken);
+            }
         }
     }
 }

@@ -31,5 +31,12 @@ namespace FilmQZ.Core
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<UserTeam> UserTeams { get; set; }
         public virtual DbSet<UserGame> UserGames { get; set; }
+
+
+        public virtual DbSet<Answer> Answers { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Point> Points { get; set; }
+        public virtual DbSet<Round> Rounds { get; set; }
+        public virtual DbSet<AnswerPoint> AnswerPoints { get; set; }
     }
 }

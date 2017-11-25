@@ -115,7 +115,7 @@ namespace FilmQZ.App.Controllers.Api.Management
                     {
                         return StatusCode(HttpStatusCode.Forbidden);
                     }
-                    if (await GetGameExistsAsync(model, cancellationToken))
+                    if (await GetGameExistsAsync(model, id, cancellationToken))
                     {
                         return Conflict();
                     }
@@ -140,7 +140,7 @@ namespace FilmQZ.App.Controllers.Api.Management
         {
             if (ModelState.IsValid)
             {
-                if (await GetGameExistsAsync(createModel, cancellationToken))
+                if (await GetGameExistsAsync(createModel, null, cancellationToken))
                 {
                     return Conflict();
                 }
@@ -200,9 +200,16 @@ namespace FilmQZ.App.Controllers.Api.Management
             return Ok();
         }
 
-        private async Task<bool> GetGameExistsAsync(CreateGameModel createModel, CancellationToken cancellationToken)
+        private async Task<bool> GetGameExistsAsync(CreateGameModel createModel, Guid? gameId, CancellationToken cancellationToken)
         {
-            return await this.dbContext.Games.AnyAsync(g => g.Name == createModel.Name, cancellationToken);
+            if (gameId.HasValue == true)
+            {
+                return await this.dbContext.Games.AnyAsync(g => g.Name == createModel.Name && g.Id != gameId.Value, cancellationToken);
+            }
+            else
+            {
+                return await this.dbContext.Games.AnyAsync(g => g.Name == createModel.Name, cancellationToken);
+            }
         }
     }
 }

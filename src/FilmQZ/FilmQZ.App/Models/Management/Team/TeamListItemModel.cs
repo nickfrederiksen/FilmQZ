@@ -8,10 +8,10 @@ namespace FilmQZ.App.Models.Management.Team
 {
     public class TeamListItemModel
     {
-        public Guid Id { get; internal set; }
-        public string Name { get; internal set; }
-        public string URL { get; internal set; }
-        public DateTime CreatedDate { get; internal set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string URL { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string ManageUrl { get; set; }
     }
 }

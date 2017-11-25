@@ -50,10 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
+    <Compile Include="Entities\Answer.cs" />
+    <Compile Include="Entities\AnswerPoint.cs" />
     <Compile Include="Entities\Game.cs" />
+    <Compile Include="Entities\Point.cs" />
+    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\Round.cs" />
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\Relations\UserGame.cs" />
     <Compile Include="Entities\Relations\UserTeam.cs" />
+    <Compile Include="Enums\QuestionType.cs" />
     <Compile Include="Extensions\UserReferences.cs" />
     <Compile Include="Migrations\201711222038098_InitialEntitySetup.cs" />
     <Compile Include="Migrations\201711222038098_InitialEntitySetup.Designer.cs">
@@ -62,6 +68,18 @@
     <Compile Include="Migrations\201711242147022_addUniqueConstraintsAndCreatedDates.cs" />
     <Compile Include="Migrations\201711242147022_addUniqueConstraintsAndCreatedDates.Designer.cs">
       <DependentUpon>201711242147022_addUniqueConstraintsAndCreatedDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711251355109_addedGameEntities.cs" />
+    <Compile Include="Migrations\201711251355109_addedGameEntities.Designer.cs">
+      <DependentUpon>201711251355109_addedGameEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711251405174_replacedQuestionTypeWithEnum.cs" />
+    <Compile Include="Migrations\201711251405174_replacedQuestionTypeWithEnum.Designer.cs">
+      <DependentUpon>201711251405174_replacedQuestionTypeWithEnum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711251446377_addedMissingDefaultValuesForGameEntities.cs" />
+    <Compile Include="Migrations\201711251446377_addedMissingDefaultValuesForGameEntities.Designer.cs">
+      <DependentUpon>201711251446377_addedMissingDefaultValuesForGameEntities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +97,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711242147022_addUniqueConstraintsAndCreatedDates.resx">
       <DependentUpon>201711242147022_addUniqueConstraintsAndCreatedDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711251355109_addedGameEntities.resx">
+      <DependentUpon>201711251355109_addedGameEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711251405174_replacedQuestionTypeWithEnum.resx">
+      <DependentUpon>201711251405174_replacedQuestionTypeWithEnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711251446377_addedMissingDefaultValuesForGameEntities.resx">
+      <DependentUpon>201711251446377_addedMissingDefaultValuesForGameEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

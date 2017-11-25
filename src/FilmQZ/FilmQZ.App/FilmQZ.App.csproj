@@ -230,6 +230,7 @@
     <Compile Include="BusinessLogic\Interfaces\ICrudController.cs" />
     <Compile Include="Controllers\Api\AccountController.cs" />
     <Compile Include="Controllers\Api\Management\GameController.cs" />
+    <Compile Include="Controllers\Api\Management\RoundController.cs" />
     <Compile Include="Controllers\Api\Management\TeamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -241,6 +242,14 @@
     <Compile Include="Models\Management\Game\UpdateGameModel.cs" />
     <Compile Include="Models\Management\Game\CreateGameModel.cs" />
     <Compile Include="Models\Management\Game\GameListItemModel.cs" />
+    <Compile Include="Models\Management\Question\CreateQuestionModel.cs" />
+    <Compile Include="Models\Management\Question\QuestionEntityModel.cs" />
+    <Compile Include="Models\Management\Question\QuestionListItemModel.cs" />
+    <Compile Include="Models\Management\Question\UpdateQuestionModel.cs" />
+    <Compile Include="Models\Management\Round\CreateRoundModel.cs" />
+    <Compile Include="Models\Management\Round\RoundEntityModel.cs" />
+    <Compile Include="Models\Management\Round\RoundListItemModel.cs" />
+    <Compile Include="Models\Management\Round\UpdateRoundModel.cs" />
     <Compile Include="Models\Management\Team\CreateTeamModel.cs" />
     <Compile Include="Models\Management\Team\TeamEntityModel.cs" />
     <Compile Include="Models\Management\Team\TeamListItemModel.cs" />

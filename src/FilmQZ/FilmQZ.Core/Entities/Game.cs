@@ -15,6 +15,7 @@ namespace FilmQZ.Core.Entities
         {
             this.Teams = new HashSet<Team>();
             this.Users = new HashSet<UserGame>();
+            this.Rounds = new HashSet<Round>();
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -42,6 +43,8 @@ namespace FilmQZ.Core.Entities
         public virtual ICollection<Team> Teams { get; set; }
 
         public virtual ICollection<UserGame> Users { get; set; }
+
+        public virtual ICollection<Round> Rounds { get; set; }
 
     }
 }
