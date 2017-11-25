@@ -28,9 +28,6 @@ namespace FilmQZ.Core.Entities
         [Required]
         public string Text { get; set; }
 
-        [ForeignKey("Point")]
-        public Guid PointId { get; set; }
-
         [ForeignKey("Round")]
         [Index("UQ_Question", IsUnique = true, Order = 1)]
         public Guid RoundId { get; set; }

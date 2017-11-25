@@ -230,6 +230,7 @@
     <Compile Include="BusinessLogic\Interfaces\ICrudController.cs" />
     <Compile Include="Controllers\Api\AccountController.cs" />
     <Compile Include="Controllers\Api\Management\GameController.cs" />
+    <Compile Include="Controllers\Api\Management\QuestionController.cs" />
     <Compile Include="Controllers\Api\Management\RoundController.cs" />
     <Compile Include="Controllers\Api\Management\TeamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

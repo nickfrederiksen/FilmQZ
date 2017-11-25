@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FilmQZ.App.Models.Management.Question
 {
-    public class QuestionEntityModel
+    public class QuestionEntityModel : QuestionListItemModel
     {
-        
+        public string RoundManageUrl { get; set; }
     }
 }

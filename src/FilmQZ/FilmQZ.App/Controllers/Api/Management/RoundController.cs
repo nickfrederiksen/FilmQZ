@@ -31,31 +31,38 @@ namespace FilmQZ.App.Controllers.Api.Management
         [ResponseType(typeof(RoundEntityModel))]
         public async Task<IHttpActionResult> Create(Guid gameId, CreateRoundModel createModel, CancellationToken cancellationToken)
         {
-            var gameResult = await this.GetAndValidateGame(gameId, cancellationToken);
-            if (gameResult.success == false)
+            if (ModelState.IsValid)
             {
-                return gameResult.result;
+                var gameResult = await this.GetAndValidateGame(gameId, cancellationToken);
+                if (gameResult.success == false)
+                {
+                    return gameResult.result;
+                }
+
+                var game = gameResult.game;
+                if (await this.dbContext.Rounds.AnyAsync(r => r.GameId == gameId && r.Name == createModel.Name, cancellationToken))
+                {
+                    return Conflict();
+                }
+
+                var newRound = new Round()
+                {
+                    Name = createModel.Name,
+                    Description = createModel.Description
+                };
+
+                game.Rounds.Add(newRound);
+
+                await dbContext.SaveChangesAsync(cancellationToken);
+
+                RoundEntityModel model = GetEntityModel(gameId, newRound);
+
+                return Ok(model);
             }
-
-            var game = gameResult.game;
-            if (await this.dbContext.Rounds.AnyAsync(r => r.GameId == gameId && r.Name == createModel.Name, cancellationToken))
+            else
             {
-                return Conflict();
+                return BadRequest(ModelState);
             }
-
-            var newRound = new Round()
-            {
-                Name = createModel.Name,
-                Description = createModel.Description
-            };
-
-            game.Rounds.Add(newRound);
-
-            await dbContext.SaveChangesAsync(cancellationToken);
-
-            RoundEntityModel model = GetEntityModel(gameId, newRound);
-
-            return Ok(model);
         }
 
         [HttpDelete]
@@ -137,27 +144,34 @@ namespace FilmQZ.App.Controllers.Api.Management
         [Route("{id:Guid}")]
         public async Task<IHttpActionResult> Update(Guid gameId, Guid id, UpdateRoundModel model, CancellationToken cancellationToken)
         {
-            var gameResult = await this.GetAndValidateGame(gameId, cancellationToken);
-            if (gameResult.success == false)
+            if (ModelState.IsValid)
             {
-                return gameResult.result;
-            }
+                var gameResult = await this.GetAndValidateGame(gameId, cancellationToken);
+                if (gameResult.success == false)
+                {
+                    return gameResult.result;
+                }
 
-            var round = await dbContext.Rounds.SingleOrDefaultAsync(r => r.Id == id && r.GameId == gameId, cancellationToken);
-            if (round == null)
+                var round = await dbContext.Rounds.SingleOrDefaultAsync(r => r.Id == id && r.GameId == gameId, cancellationToken);
+                if (round == null)
+                {
+                    return NotFound();
+                }
+                else if (await dbContext.Rounds.AnyAsync(r => r.GameId == gameId && r.Name == model.Name && r.Id != id, cancellationToken))
+                {
+                    return Conflict();
+                }
+
+                round.Description = model.Description;
+                round.Name = model.Name;
+
+                await dbContext.SaveChangesAsync(cancellationToken);
+                return Ok();
+            }
+            else
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
-            else if (await dbContext.Rounds.AnyAsync(r => r.GameId == gameId && r.Name == model.Name && r.Id != id, cancellationToken))
-            {
-                return Conflict();
-            }
-
-            round.Description = model.Description;
-            round.Name = model.Name;
-
-            await dbContext.SaveChangesAsync(cancellationToken);
-            return Ok();
         }
 
         private async Task<(bool success, Game game, IHttpActionResult result)> GetAndValidateGame(Guid gameId, CancellationToken cancellationToken)

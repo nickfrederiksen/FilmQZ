@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Converters;
 using Ninject.Web.WebApi;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace FilmQZ.App
 
             config.Filters.Add(new AuthorizeAttribute());
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StringEnumConverter());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

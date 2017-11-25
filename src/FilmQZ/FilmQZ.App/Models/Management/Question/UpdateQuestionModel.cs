@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FilmQZ.App.Models.Management.Question
 {
-    public class UpdateQuestionModel
+    public class UpdateQuestionModel : CreateQuestionModel
     {
         
     }

@@ -25,4 +25,13 @@ namespace FilmQZ.App.BusinessLogic.Interfaces
         Task<IHttpActionResult> Create(Guid gameId, TCreateModel createModel, CancellationToken cancellationToken);
         Task<IHttpActionResult> Delete(Guid gameId, Guid id, CancellationToken cancellationToken);
     }
+
+    public interface IRoundIdCrudController<TUpdateModel, TCreateModel>
+    {
+        Task<IHttpActionResult> GetAll(Guid gameId, Guid roundId, CancellationToken cancellationToken);
+        Task<IHttpActionResult> GetSingle(Guid gameId, Guid roundId, Guid id, CancellationToken cancellationToken);
+        Task<IHttpActionResult> Update(Guid gameId, Guid roundId, Guid id, TUpdateModel model, CancellationToken cancellationToken);
+        Task<IHttpActionResult> Create(Guid gameId, Guid roundId, TCreateModel createModel, CancellationToken cancellationToken);
+        Task<IHttpActionResult> Delete(Guid gameId, Guid roundId, Guid id, CancellationToken cancellationToken);
+    }
 }
