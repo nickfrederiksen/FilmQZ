@@ -18,6 +18,9 @@ namespace FilmQZ.Core.Entities.Relations
         [StringLength(128)]
         public string UserId { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedDate { get; set; }
+
         [ForeignKey("TeamId")]
         public virtual Team Team { get; set; }
     }

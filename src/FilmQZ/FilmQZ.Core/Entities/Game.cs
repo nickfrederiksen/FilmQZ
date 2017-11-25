@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FilmQZ.Core.Entities.Relations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,18 +11,36 @@ namespace FilmQZ.Core.Entities
 {
     public class Game
     {
+        public Game()
+        {
+            this.Teams = new HashSet<Team>();
+            this.Users = new HashSet<UserGame>();
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Key { get; set; }
+        public Guid Id { get; set; }
 
+        [Index(IsUnique = true)]
+        [StringLength(20)]
         public string Name { get; set; }
 
+        [Required]
+        [Index(IsUnique = true)]
+        [StringLength(20)]
+        public string URL { get; set; }
+
         public bool IsOpen { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedDate { get; set; }
 
         [Required]
         [StringLength(128)]
         public string GameMasterId { get; set; }
 
         public virtual ICollection<Team> Teams { get; set; }
+
+        public virtual ICollection<UserGame> Users { get; set; }
+
     }
 }

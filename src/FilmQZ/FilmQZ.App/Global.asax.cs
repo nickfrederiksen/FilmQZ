@@ -19,6 +19,7 @@ using Ninject.Web.WebApi.Filter;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.AspNet.Identity.Owin;
+using Ninject.Extensions.Conventions;
 
 namespace FilmQZ.App
 {
@@ -63,7 +64,7 @@ namespace FilmQZ.App
                 .ToMethod(c => kernel.Get<IOwinContext>().GetUserManager<ApplicationUserManager>())
                 .InRequestScope();
 
-
+            kernel.Bind(k => k.FromThisAssembly().SelectAllClasses().EndingWith("Helpers").BindToSelf().Configure(c => c.InRequestScope()));
         }
     }
 }

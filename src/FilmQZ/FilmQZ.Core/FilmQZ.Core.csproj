@@ -54,9 +54,14 @@
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\Relations\UserGame.cs" />
     <Compile Include="Entities\Relations\UserTeam.cs" />
+    <Compile Include="Extensions\UserReferences.cs" />
     <Compile Include="Migrations\201711222038098_InitialEntitySetup.cs" />
     <Compile Include="Migrations\201711222038098_InitialEntitySetup.Designer.cs">
       <DependentUpon>201711222038098_InitialEntitySetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711242147022_addUniqueConstraintsAndCreatedDates.cs" />
+    <Compile Include="Migrations\201711242147022_addUniqueConstraintsAndCreatedDates.Designer.cs">
+      <DependentUpon>201711242147022_addUniqueConstraintsAndCreatedDates.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711222038098_InitialEntitySetup.resx">
       <DependentUpon>201711222038098_InitialEntitySetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711242147022_addUniqueConstraintsAndCreatedDates.resx">
+      <DependentUpon>201711242147022_addUniqueConstraintsAndCreatedDates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
