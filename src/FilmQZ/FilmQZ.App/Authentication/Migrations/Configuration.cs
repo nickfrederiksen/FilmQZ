@@ -20,11 +20,8 @@ namespace FilmQZ.App.Authentication.Migrations
         {
             //  This method will be called after migrating to the latest version.
             var systemAdmin = new IdentityRole(UserRoles.SystemAdministrator);
-            var gameMaster = new IdentityRole(UserRoles.GameMaster);
-            var player = new IdentityRole(UserRoles.Player);
-            var anonymous = new IdentityRole(UserRoles.Anonymous);
 
-            context.Roles.AddOrUpdate(i => i.Name, systemAdmin, gameMaster, player, anonymous);
+            context.Roles.AddOrUpdate(i => i.Name, systemAdmin);
         }
     }
 }

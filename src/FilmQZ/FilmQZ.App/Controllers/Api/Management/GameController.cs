@@ -1,6 +1,7 @@
 ﻿using FilmQZ.App.App_Start;
 using FilmQZ.App.Authentication.Constants;
 using FilmQZ.App.BusinessLogic.Helpers;
+using FilmQZ.App.BusinessLogic.Interfaces;
 using FilmQZ.App.Models.Management.Game;
 using FilmQZ.Core;
 using FilmQZ.Core.Entities;
@@ -11,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,27 +22,25 @@ using System.Web.Http;
 namespace FilmQZ.App.Controllers.Api.Management
 {
     [RoutePrefix("api/management/game")]
-    public class GameController : ApiController
+    public class GameController : ApiController, ICrudController<UpdateGameModel, CreateGameModel>
     {
-        private readonly ApplicationUserManager userManager;
         private readonly DatabaseContext dbContext;
         private readonly URLHelpers urlHelpers;
 
-        public GameController(ApplicationUserManager userManager, DatabaseContext dbContext, URLHelpers urlHelpers)
+        public GameController(DatabaseContext dbContext, URLHelpers urlHelpers)
         {
-            this.userManager = userManager;
             this.dbContext = dbContext;
             this.urlHelpers = urlHelpers;
         }
 
         [Route("")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetGames(CancellationToken cancellationToken)
+        public async Task<IHttpActionResult> GetAll(CancellationToken cancellationToken)
         {
             var userId = User.Identity.GetUserId();
             var games = from g in dbContext.Games
                         where g.GameMasterId == userId
-                        select new EntityModel()
+                        select new GameListItemModel()
                         {
                             Id = g.Id,
                             IsOpen = g.IsOpen,
@@ -49,44 +50,71 @@ namespace FilmQZ.App.Controllers.Api.Management
                         };
 
             var result = await games.ToListAsync(cancellationToken);
+            foreach (var item in result)
+            {
+                item.ManageUrl = Url.Link("manageGameId", new { id = item.Id });
+            }
             return Ok(result);
         }
 
         [Route("{id:Guid}", Name = "manageGameId")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetGame(Guid id, CancellationToken cancellationToken)
+        public async Task<IHttpActionResult> GetSingle(Guid id, CancellationToken cancellationToken)
         {
             var userId = User.Identity.GetUserId();
             var games = from g in dbContext.Games
-                        where g.Id == id && g.GameMasterId == userId
-                        select new ListItem()
+                        where g.Id == id
+                        select new
                         {
                             Id = g.Id,
                             IsOpen = g.IsOpen,
                             Name = g.Name,
                             URL = g.URL,
-                            CreatedDate = g.CreatedDate
+                            CreatedDate = g.CreatedDate,
+                            GameMasterId = g.GameMasterId
                         };
 
             var result = await games.SingleOrDefaultAsync(cancellationToken);
-            return Ok(result);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            else if (result.GameMasterId != userId)
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
+            var model = new GameEntityModel()
+            {
+                Id = result.Id,
+                CreatedDate = result.CreatedDate,
+                IsOpen = result.IsOpen,
+                Name = result.Name,
+                URL = result.URL,
+                ManageUrl = Url.Link("manageGameId", new { id = result.Id })
+            };
+
+            return Ok(model);
         }
 
-        [Route("")]
+        [Route("{id:Guid}")]
         [HttpPut]
-        [Authorize(Roles = UserRoles.GameMaster)]
-        public async Task<IHttpActionResult> UpdateGame(UpdateModel model, CancellationToken cancellationToken)
+        public async Task<IHttpActionResult> Update(Guid id, UpdateGameModel model, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
-                var userId = User.Identity.GetUserId();
-                var entity = dbContext.Games.SingleOrDefault(g => g.Id == model.Id && g.GameMasterId == userId);
+                var entity = await dbContext.Games.SingleOrDefaultAsync(g => g.Id == id, cancellationToken);
                 if (entity == null)
                 {
                     return NotFound();
                 }
                 else
                 {
+                    var userId = User.Identity.GetUserId();
+                    if (entity.GameMasterId != userId)
+                    {
+                        return StatusCode(HttpStatusCode.Forbidden);
+                    }
                     if (await GetGameExistsAsync(model, cancellationToken))
                     {
                         return Conflict();
@@ -108,19 +136,17 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> CreateGame(CreateModel createModel, CancellationToken cancellationToken)
+        public async Task<IHttpActionResult> Create(CreateGameModel createModel, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
-                var userId = User.Identity.GetUserId();
-                await AddUserToGameMasterRoleAsync(userId);
-
                 if (await GetGameExistsAsync(createModel, cancellationToken))
                 {
                     return Conflict();
                 }
                 else
                 {
+                    var userId = User.Identity.GetUserId();
                     var gameUrl = this.urlHelpers.GenerateCleanURL(createModel.Name);
                     var newGame = new Game()
                     {
@@ -136,7 +162,7 @@ namespace FilmQZ.App.Controllers.Api.Management
                     await this.dbContext.SaveChangesAsync(cancellationToken);
 
                     var manageUrl = Url.Link("manageGameId", new { id = newGame.Id });
-                    var model = new EntityModel()
+                    var model = new GameEntityModel()
                     {
                         CreatedDate = newGame.CreatedDate,
                         Id = newGame.Id,
@@ -153,17 +179,30 @@ namespace FilmQZ.App.Controllers.Api.Management
             return BadRequest(ModelState);
         }
 
-        private async Task<bool> GetGameExistsAsync(CreateModel createModel, CancellationToken cancellationToken)
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IHttpActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            return await this.dbContext.Games.AnyAsync(g => g.Name == createModel.Name, cancellationToken);
+            var userId = User.Identity.GetUserId();
+            var game = await dbContext.Games.SingleOrDefaultAsync(g => g.Id == id, cancellationToken);
+            if (game == null)
+            {
+                return NotFound();
+            }
+            else if (game.GameMasterId != userId)
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
+            dbContext.Games.Remove(game);
+            await dbContext.SaveChangesAsync(cancellationToken);
+
+            return Ok();
         }
 
-        private async Task AddUserToGameMasterRoleAsync(string userId)
+        private async Task<bool> GetGameExistsAsync(CreateGameModel createModel, CancellationToken cancellationToken)
         {
-            if (User.IsInRole(UserRoles.GameMaster) == false)
-            {
-                await this.userManager.AddToRoleAsync(userId, UserRoles.GameMaster);
-            }
+            return await this.dbContext.Games.AnyAsync(g => g.Name == createModel.Name, cancellationToken);
         }
     }
 }

@@ -52,6 +52,7 @@ namespace FilmQZ.App.Controllers.Api
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
+            Authentication.SignOut(OAuthDefaults.AuthenticationType);
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
         }

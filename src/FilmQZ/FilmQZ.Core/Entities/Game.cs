@@ -20,6 +20,7 @@ namespace FilmQZ.Core.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
+        [Required]
         [Index(IsUnique = true)]
         [StringLength(20)]
         public string Name { get; set; }

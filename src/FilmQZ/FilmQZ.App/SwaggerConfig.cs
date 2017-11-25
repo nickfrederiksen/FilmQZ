@@ -128,6 +128,7 @@ namespace FilmQZ.App
                         // complex Schema, use a Schema filter.
                         //
                         //c.MapType<ProductType>(() => new Schema { type = "integer", format = "int32" });
+                        c.MapType<Guid>(() => new Schema() { type = "string", format = "string" });
 
                         // If you want to post-modify "complex" Schemas once they've been generated, across the board or for a
                         // specific type, you can wire up one or more Schema filters.

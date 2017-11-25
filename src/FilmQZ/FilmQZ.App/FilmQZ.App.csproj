@@ -227,18 +227,24 @@
     </Compile>
     <Compile Include="Authentication\Migrations\Configuration.cs" />
     <Compile Include="BusinessLogic\Helpers\URLHelpers.cs" />
+    <Compile Include="BusinessLogic\Interfaces\ICrudController.cs" />
     <Compile Include="Controllers\Api\AccountController.cs" />
     <Compile Include="Controllers\Api\Management\GameController.cs" />
+    <Compile Include="Controllers\Api\Management\TeamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Management\Game\EntityModel.cs" />
-    <Compile Include="Models\Management\Game\UpdateModel.cs" />
-    <Compile Include="Models\Management\Game\CreateModel.cs" />
-    <Compile Include="Models\Management\Game\ListItem.cs" />
+    <Compile Include="Models\Management\Game\GameEntityModel.cs" />
+    <Compile Include="Models\Management\Game\UpdateGameModel.cs" />
+    <Compile Include="Models\Management\Game\CreateGameModel.cs" />
+    <Compile Include="Models\Management\Game\GameListItemModel.cs" />
+    <Compile Include="Models\Management\Team\CreateTeamModel.cs" />
+    <Compile Include="Models\Management\Team\TeamEntityModel.cs" />
+    <Compile Include="Models\Management\Team\TeamListItemModel.cs" />
+    <Compile Include="Models\Management\Team\UpdateTeamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />

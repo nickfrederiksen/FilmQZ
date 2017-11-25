@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace FilmQZ.App.Models.Management.Game
 {
-    public class ListItem
+    public class GameListItemModel
     {
         public Guid Id { get; internal set; }
         public bool IsOpen { get; internal set; }
         public string Name { get; internal set; }
         public string URL { get; internal set; }
         public DateTime CreatedDate { get; internal set; }
+        public string ManageUrl { get; set; }
     }
 }

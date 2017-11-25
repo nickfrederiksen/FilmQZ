@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace FilmQZ.App.Models.Management.Game
 {
-    public class EntityModel : ListItem
+    public class GameEntityModel : GameListItemModel
     {
-        public string ManageUrl { get; set; }
     }
 }

@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace FilmQZ.App.Models.Management.Game
 {
-    public class UpdateModel : CreateModel
+    public class CreateGameModel
     {
-        [Required]
-        public Guid Id { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        [RegularExpression(URLHelpers.BaseStringRegex)]
+        [StringLength(20)]
+        public string Name { get; set; }
     }
 }

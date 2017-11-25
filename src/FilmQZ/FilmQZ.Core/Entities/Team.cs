@@ -20,9 +20,14 @@ namespace FilmQZ.Core.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        [Index(IsUnique =true)]
+        [Index(IsUnique = true)]
         [StringLength(20)]
         public string Name { get; set; }
+
+        [Required]
+        [Index(IsUnique = true)]
+        [StringLength(20)]
+        public string URL { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedDate { get; set; }
