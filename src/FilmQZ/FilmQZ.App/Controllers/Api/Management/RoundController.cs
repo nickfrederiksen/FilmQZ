@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using System.Net;
 using System.Data.Entity;
 using FilmQZ.Core.Entities;
+using System.Web.Http.Description;
 
 namespace FilmQZ.App.Controllers.Api.Management
 {
@@ -27,6 +28,7 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [HttpPost]
         [Route("")]
+        [ResponseType(typeof(RoundEntityModel))]
         public async Task<IHttpActionResult> Create(Guid gameId, CreateRoundModel createModel, CancellationToken cancellationToken)
         {
             var gameResult = await this.GetAndValidateGame(gameId, cancellationToken);
@@ -80,6 +82,7 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [HttpGet]
         [Route("")]
+        [ResponseType(typeof(IEnumerable<RoundListItemModel>))]
         public async Task<IHttpActionResult> GetAll(Guid gameId, CancellationToken cancellationToken)
         {
             var gameResult = await this.GetAndValidateGame(gameId, cancellationToken);
@@ -110,6 +113,7 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [HttpGet]
         [Route("{id:Guid}", Name = "manageRoundId")]
+        [ResponseType(typeof(RoundEntityModel))]
         public async Task<IHttpActionResult> GetSingle(Guid gameId, Guid id, CancellationToken cancellationToken)
         {
             var gameResult = await this.GetAndValidateGame(gameId, cancellationToken);

@@ -48,7 +48,7 @@ namespace FilmQZ.App
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
-                        //c.PrettyPrint();
+                        c.PrettyPrint();
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swagger-Net which actions should be
@@ -198,7 +198,7 @@ namespace FilmQZ.App
                         // Use the "DocumentTitle" option to change the Document title.
                         // Very helpful when you have multiple Swagger pages open, to tell them apart.
                         //
-                        //c.DocumentTitle("My Swagger UI");
+                        c.DocumentTitle("FilmQZ Swagger UI");
 
                         // Use the "InjectStylesheet" option to enrich the UI with one or more additional CSS stylesheets.
                         // The file must be included in your project as an "Embedded Resource", and then the resource's
@@ -234,7 +234,7 @@ namespace FilmQZ.App
                         // the rendering for a given model by clicking the 'Model' and 'Example Value' links.) It can be
                         // set to 'model' or 'example', and the default is 'example'.
                         //
-                        c.DefaultModelRendering(DefaultModelRender.Model);
+                        c.DefaultModelRendering(DefaultModelRender.Example);
 
                         // Use this option to control the expansion depth for models.
                         //

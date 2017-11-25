@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace FilmQZ.App.Controllers.Api.Management
 {
@@ -35,6 +36,7 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [Route("")]
         [HttpGet]
+        [ResponseType(typeof(IEnumerable<GameListItemModel>))]
         public async Task<IHttpActionResult> GetAll(CancellationToken cancellationToken)
         {
             var userId = User.Identity.GetUserId();
@@ -59,6 +61,7 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [Route("{id:Guid}", Name = "manageGameId")]
         [HttpGet]
+        [ResponseType(typeof(GameEntityModel))]
         public async Task<IHttpActionResult> GetSingle(Guid id, CancellationToken cancellationToken)
         {
             var userId = User.Identity.GetUserId();
@@ -136,6 +139,7 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [HttpPost]
         [Route("")]
+        [ResponseType(typeof(GameEntityModel))]
         public async Task<IHttpActionResult> Create(CreateGameModel createModel, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)

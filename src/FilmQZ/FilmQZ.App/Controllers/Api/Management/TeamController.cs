@@ -16,6 +16,7 @@ using System.Data.Entity;
 using System.Net;
 using FilmQZ.Core.Entities;
 using FilmQZ.Core.Extensions;
+using System.Web.Http.Description;
 
 namespace FilmQZ.App.Controllers.Api.Management
 {
@@ -33,6 +34,7 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [Route("")]
         [HttpPost]
+        [ResponseType(typeof(TeamEntityModel))]
         public async Task<IHttpActionResult> Create(CreateTeamModel createModel, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
@@ -98,6 +100,7 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [Route("")]
         [HttpGet]
+        [ResponseType(typeof(IEnumerable<TeamListItemModel>))]
         public async Task<IHttpActionResult> GetAll(CancellationToken cancellationToken)
         {
             var userId = User.Identity.GetUserId();
@@ -121,6 +124,7 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         [Route("{id:Guid}", Name = "manageTeamId")]
         [HttpGet]
+        [ResponseType(typeof(TeamEntityModel))]
         public async Task<IHttpActionResult> GetSingle(Guid id, CancellationToken cancellationToken)
         {
             var userId = User.Identity.GetUserId();
