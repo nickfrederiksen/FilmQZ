@@ -17,6 +17,7 @@ using System.Net;
 using FilmQZ.Core.Entities;
 using FilmQZ.Core.Extensions;
 using System.Web.Http.Description;
+using FilmQZ.Core.Logging;
 
 namespace FilmQZ.App.Controllers.Api.Management
 {
@@ -25,11 +26,13 @@ namespace FilmQZ.App.Controllers.Api.Management
     {
         private readonly DatabaseContext dbContext;
         private readonly URLHelpers urlHelpers;
+        private readonly LogHelper logHelper;
 
-        public TeamController(DatabaseContext dbContext, URLHelpers urlHelpers)
+        public TeamController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper)
         {
             this.dbContext = dbContext;
             this.urlHelpers = urlHelpers;
+            this.logHelper = logHelper;
         }
 
         [Route("")]

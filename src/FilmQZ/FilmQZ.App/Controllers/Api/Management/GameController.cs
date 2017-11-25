@@ -7,6 +7,7 @@ using FilmQZ.Core;
 using FilmQZ.Core.Entities;
 using FilmQZ.Core.Entities.Relations;
 using FilmQZ.Core.Extensions;
+using FilmQZ.Core.Logging;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,13 @@ namespace FilmQZ.App.Controllers.Api.Management
     {
         private readonly DatabaseContext dbContext;
         private readonly URLHelpers urlHelpers;
+        private readonly LogHelper logHelper;
 
-        public GameController(DatabaseContext dbContext, URLHelpers urlHelpers)
+        public GameController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper)
         {
             this.dbContext = dbContext;
             this.urlHelpers = urlHelpers;
+            this.logHelper = logHelper;
         }
 
         [Route("")]

@@ -20,6 +20,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.AspNet.Identity.Owin;
 using Ninject.Extensions.Conventions;
+using log4net.Config;
+using FilmQZ.Core.Logging;
 
 namespace FilmQZ.App
 {
@@ -36,6 +38,7 @@ namespace FilmQZ.App
 
         protected override void OnApplicationStarted()
         {
+            XmlConfigurator.Configure();
             base.OnApplicationStarted();
 
             AreaRegistration.RegisterAllAreas();
@@ -63,6 +66,8 @@ namespace FilmQZ.App
             kernel.Bind<ApplicationUserManager>()
                 .ToMethod(c => kernel.Get<IOwinContext>().GetUserManager<ApplicationUserManager>())
                 .InRequestScope();
+
+            kernel.Bind<LogHelper>().ToMethod(c => LogHelper.GetHelper(c.Request.ParentRequest.Service)).InTransientScope();
 
             kernel.Bind(k => k.FromThisAssembly().SelectAllClasses().EndingWith("Helpers").BindToSelf().Configure(c => c.InRequestScope()));
         }
