@@ -1,5 +1,7 @@
 namespace FilmQZ.App.Authentication.Migrations
 {
+    using FilmQZ.App.Authentication.Constants;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -17,9 +19,9 @@ namespace FilmQZ.App.Authentication.Migrations
         protected override void Seed(FilmQZ.App.Authentication.AuthorizationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
+            var systemAdmin = new IdentityRole(UserRoles.SystemAdministrator);
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            context.Roles.AddOrUpdate(i => i.Name, systemAdmin);
         }
     }
 }

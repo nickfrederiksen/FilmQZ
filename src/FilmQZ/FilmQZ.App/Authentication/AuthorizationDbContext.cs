@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace FilmQZ.App.Authentication
 {
@@ -17,6 +18,11 @@ namespace FilmQZ.App.Authentication
         public static AuthorizationDbContext Create()
         {
             return new AuthorizationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

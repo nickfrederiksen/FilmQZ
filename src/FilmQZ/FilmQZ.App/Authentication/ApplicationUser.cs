@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using FilmQZ.Core.Entities;
+using FilmQZ.Core.Entities.Relations;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
