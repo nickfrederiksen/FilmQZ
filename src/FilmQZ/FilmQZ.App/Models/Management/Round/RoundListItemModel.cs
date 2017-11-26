@@ -13,7 +13,5 @@ namespace FilmQZ.App.Models.Management.Round
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid GameId { get; set; }
-
-        public string ManageUrl { get; set; }
     }
 }

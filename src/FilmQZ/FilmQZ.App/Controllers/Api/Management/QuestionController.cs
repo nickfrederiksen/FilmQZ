@@ -111,10 +111,6 @@ namespace FilmQZ.App.Controllers.Api.Management
                             };
 
             var result = await questions.ToListAsync(cancellationToken);
-            foreach (var item in result)
-            {
-                item.ManageUrl = Url.Link("manageQuestionId", new { id = item.Id });
-            }
 
             return Ok(result);
         }
@@ -234,8 +230,6 @@ namespace FilmQZ.App.Controllers.Api.Management
                 CreatedDate = question.CreatedDate,
                 Text = question.Text,
                 Id = question.Id,
-                ManageUrl = Url.Link("manageQuestionId", new { id = question.Id }),
-                RoundManageUrl = Url.Link("manageRoundId", new { id = roundId }),
                 Point = question.Point.Value,
                 QuestionType = question.QuestionType
             };

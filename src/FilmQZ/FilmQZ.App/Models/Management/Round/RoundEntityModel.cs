@@ -8,6 +8,5 @@ namespace FilmQZ.App.Models.Management.Round
 {
     public class RoundEntityModel : RoundListItemModel
     {
-        public string GameManageUrl { get; set; }
     }
 }

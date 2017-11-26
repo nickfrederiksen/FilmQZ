@@ -14,8 +14,6 @@ namespace FilmQZ.App.Models.Management.Question
 
         public string Text { get; set; }
 
-        public string ManageUrl { get; set; }
-
         public decimal Point { get; set; }
         public QuestionType QuestionType { get; internal set; }
     }

@@ -13,6 +13,5 @@ namespace FilmQZ.App.Models.Management.Game
         public string Name { get; set; }
         public string URL { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string ManageUrl { get; set; }
     }
 }
