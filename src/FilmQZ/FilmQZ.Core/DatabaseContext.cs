@@ -24,7 +24,8 @@ namespace FilmQZ.Core
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Question>().HasRequired(q => q.Point).WithRequiredDependent(d => d.Question).WillCascadeOnDelete(true);
+            modelBuilder.Entity<Point>().HasRequired(p => p.Question).WithOptional(d => d.Point).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Question>().HasOptional(q => q.Point).WithRequired(d => d.Question).WillCascadeOnDelete(true);
             base.OnModelCreating(modelBuilder);
         }
 

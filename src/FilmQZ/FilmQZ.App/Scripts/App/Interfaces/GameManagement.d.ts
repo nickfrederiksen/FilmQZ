@@ -1,4 +1,5 @@
 declare namespace ns.Management.Game {
+
     export interface IGameListItemModel {
         Id: string;
         IsOpen: boolean;

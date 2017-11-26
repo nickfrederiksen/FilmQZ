@@ -7,6 +7,7 @@ import { SetupComponents } from "./Setup/Components.Setup";
 import { SetupDirectives } from "./Setup/Directives.Setup";
 import { SetupRoutes } from "./Setup/Routes.Setup";
 import { SetupServices } from "./Setup/Services.Setup";
+import { SetupResources } from "./Setup/Resource.Setup";
 
 function Configure($stateProvider: ng.ui.IStateProvider,
     $urlRouterProvider: ng.ui.IUrlRouterProvider,
@@ -28,6 +29,7 @@ export let app: angular.IModule = module("app", [
 
 app.config(Configure);
 
+SetupResources(app);
 SetupDirectives(app);
 SetupComponents(app);
 SetupServices(app);

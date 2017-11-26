@@ -6,7 +6,6 @@
         <div class="card" data-ng-repeat="game in $ctrl.Games track by game.Id">
             <div class="card-header">
                 <span class="badge badge-secondary">{{game.CreatedDate | date:'dd/MM/yyyy'}}</span>
-
                 {{game.Name}}
             </div>
             <div class="card-body">
@@ -15,7 +14,7 @@
                 <a class="btn btn-primary" ui-sref="manage.manageGame({id:game.Id})">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
-                <button class="btn btn-danger">
+                <button class="btn btn-danger" data-ng-click="$ctrl.DeleteGame(game.Id)">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
             </div>

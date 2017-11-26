@@ -89,6 +89,10 @@
     <Compile Include="Migrations\201711251703143_removedPointIdFieldFromQuestion.Designer.cs">
       <DependentUpon>201711251703143_removedPointIdFieldFromQuestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711262113162_addedCascadeDeleteToPointQuestionRef.cs" />
+    <Compile Include="Migrations\201711262113162_addedCascadeDeleteToPointQuestionRef.Designer.cs">
+      <DependentUpon>201711262113162_addedCascadeDeleteToPointQuestionRef.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711251703143_removedPointIdFieldFromQuestion.resx">
       <DependentUpon>201711251703143_removedPointIdFieldFromQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711262113162_addedCascadeDeleteToPointQuestionRef.resx">
+      <DependentUpon>201711262113162_addedCascadeDeleteToPointQuestionRef.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
