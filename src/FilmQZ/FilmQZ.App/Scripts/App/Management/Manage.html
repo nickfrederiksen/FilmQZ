@@ -1,5 +1,7 @@
-﻿<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-    <a class="navbar-brand" href="#">FilmQZ</a>
+﻿<nav class="navbar navbar-light bg-light navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
 
     <ul class="navbar-nav mr-auto">
         <li class="nav-item" data-ng-class="{active:item.isActive}" data-ng-if="item.isVisible" data-ng-repeat="item in $ctrl.topNavigation">
@@ -12,7 +14,9 @@
 </nav>
 
 <div class="container-fluid">
-    <ui-view></ui-view>
+    <ui-view>
+        <h1>Management area</h1>
+    </ui-view>
     <hr />
     <footer>
         <p>{{$ctrl.year}} - Nick Frederiksen</p>

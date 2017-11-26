@@ -9,8 +9,8 @@ export class AuthService {
     private serviceBase = "/";
 
     constructor(private $http: ng.IHttpService, // DevSkim: ignore DS137138
-                private $q: ng.IQService,
-                private localStorageService: angular.local.storage.ILocalStorageService) {
+        private $q: ng.IQService,
+        private localStorageService: angular.local.storage.ILocalStorageService) {
     }
 
     public saveRegistration(registration: INewUserModel): ng.IPromise<ng.IHttpResponse<void>> {
@@ -26,8 +26,10 @@ export class AuthService {
 
     public login(loginData: ILoginInfo): angular.IPromise<IAuthenticationResponse> {
 
+        const encodedPassword = encodeURIComponent(loginData.Password);
+        const encodedEmail = encodeURIComponent(loginData.Email);
         const data: string = "grant_type=password&username=" +
-            loginData.Email + "&password=" + loginData.Password + "&client_id=NgAuth.App";
+            encodedEmail + "&password=" + encodedPassword + "&client_id=NgAuth.App";
 
         const deferred: angular.IDeferred<IAuthenticationResponse> = this.$q.defer<IAuthenticationResponse>();
 

@@ -1,10 +1,9 @@
 ﻿import { StateObject, TransitionService } from "@uirouter/angularjs";
 import { AuthService } from "./Services/Auth.Service";
 class AppController implements ng.IController {
-    // testing
 
     public year = new Date().getFullYear();
-    public topNavigation: ITopNavigationItem[] = [];
+    public topNavigation: ns.ITopNavigationItem[] = [];
 
     private currentState: StateObject | ng.ui.IState | undefined;
 
@@ -71,17 +70,18 @@ class AppController implements ng.IController {
             authorizedOnly: false,
             isVisible: this.authService.authentication.isAuth === false
         });
+        this.topNavigation.push({
+            isActive: false,
+            sref: "manage",
+            text: "Manage",
+            anonymousOnly: false,
+            authorizedOnly: true,
+            isVisible: this.authService.authentication.isAuth === true
+        });
     }
 }
 
-interface ITopNavigationItem {
-    isActive: boolean;
-    sref: string;
-    text: string;
-    isVisible: boolean;
-    anonymousOnly: boolean;
-    authorizedOnly: boolean;
-}
+
 
 export class AppComponent implements ng.IComponentOptions {
     public static NAME: string = "appView";

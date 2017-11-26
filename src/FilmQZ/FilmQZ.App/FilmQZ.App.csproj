@@ -205,7 +205,10 @@
     <Content Include="Scripts\App\Components\Account\login.html" />
     <Content Include="Scripts\App\Components\Account\register.html" />
     <Content Include="Scripts\App\Components\Home\Home.html" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\App\Management\Manage.Component.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -291,6 +294,7 @@
     <TypeScriptCompile Include="Scripts\App\Components\Account\Register.Component.ts" />
     <TypeScriptCompile Include="Scripts\App\Components\Home\Home.Component.ts" />
     <TypeScriptCompile Include="Scripts\App\Components\Account\Directives\LogoutButton.Directive.ts" />
+    <TypeScriptCompile Include="Scripts\App\Management\Manage.Component.ts" />
     <TypeScriptCompile Include="Scripts\App\Services\Auth.Service.ts" />
     <TypeScriptCompile Include="Scripts\App\Services\AuthInterceptor.Service.ts" />
     <TypeScriptCompile Include="Scripts\Setup\Components.Setup.ts" />

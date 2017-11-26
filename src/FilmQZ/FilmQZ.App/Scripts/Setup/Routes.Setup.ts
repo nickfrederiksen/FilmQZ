@@ -2,6 +2,7 @@
 import { LoginComponent } from "../App/Components/Account/Login.Component";
 import { RegisterComponent } from "../App/Components/Account/Register.Component";
 import { HomeComponent } from "../App/Components/Home/Home.Component";
+import { ManageComponent } from "../App/Management/Manage.Component";
 
 export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
     $stateProvider.state({
@@ -10,24 +11,27 @@ export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
         component: AppComponent.NAME,
     });
 
-    $stateProvider.state(
-        {
-            name: "app.home",
-            url: "^/home",
-            component: HomeComponent.NAME,
-        });
+    $stateProvider.state({
+        name: "app.home",
+        url: "^/home",
+        component: HomeComponent.NAME,
+    });
 
-    $stateProvider.state(
-        {
-            name: "app.register",
-            url: "^/account/register",
-            component: RegisterComponent.NAME,
-        });
+    $stateProvider.state({
+        name: "app.register",
+        url: "^/account/register",
+        component: RegisterComponent.NAME,
+    });
 
-    $stateProvider.state(
-        {
-            name: "app.login",
-            url: "^/account/login",
-            component: LoginComponent.NAME,
-        });
+    $stateProvider.state({
+        name: "app.login",
+        url: "^/account/login",
+        component: LoginComponent.NAME,
+    });
+
+    $stateProvider.state({
+        name: "manage",
+        url: "/manage",
+        component: ManageComponent.NAME,
+    });
 }

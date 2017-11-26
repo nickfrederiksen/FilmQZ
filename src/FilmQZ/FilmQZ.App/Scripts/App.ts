@@ -9,9 +9,9 @@ import { SetupRoutes } from "./Setup/Routes.Setup";
 import { SetupServices } from "./Setup/Services.Setup";
 
 function Configure($stateProvider: ng.ui.IStateProvider,
-                   $urlRouterProvider: ng.ui.IUrlRouterProvider,
-                   $httpProvider: ng.IHttpProvider,
-                   localStorageServiceProvider: angular.local.storage.ILocalStorageServiceProvider,
+    $urlRouterProvider: ng.ui.IUrlRouterProvider,
+    $httpProvider: ng.IHttpProvider,
+    localStorageServiceProvider: angular.local.storage.ILocalStorageServiceProvider,
 ): void {
 
     SetupRoutes($stateProvider);
