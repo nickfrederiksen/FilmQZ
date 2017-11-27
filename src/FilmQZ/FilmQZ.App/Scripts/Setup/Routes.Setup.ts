@@ -3,8 +3,9 @@ import { LoginComponent } from "../App/Components/Account/Login.Component";
 import { RegisterComponent } from "../App/Components/Account/Register.Component";
 import { HomeComponent } from "../App/Components/Home/Home.Component";
 import { ManageComponent } from "../App/Management/Manage.Component";
-import { ManageGameComponent } from "../App/Management/Games/ManageGame.Component";
+import { EditGameComponent } from "../App/Management/Games/EditGame.Component";
 import { ManageGamesComponent } from "../App/Management/Games/ManageGames.Component";
+import { CreateGameComponent } from "../App/Management/Games/CreateGame.Component";
 
 export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
     $stateProvider.state({
@@ -44,8 +45,14 @@ export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
     });
 
     $stateProvider.state({
-        name: "manage.manageGame",
+        name: "manage.createGame",
+        url: "^/manage/games/create",
+        component: CreateGameComponent.NAME,
+    });
+
+    $stateProvider.state({
+        name: "manage.editGame",
         url: "^/manage/games/{id}",
-        component: ManageGameComponent.NAME,
+        component: EditGameComponent.NAME,
     });
 }

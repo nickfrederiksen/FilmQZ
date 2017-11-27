@@ -9,7 +9,7 @@ namespace FilmQZ.App.BusinessLogic.Helpers
 {
     public class URLHelpers
     {
-        public const string BaseStringRegex = @"(?!^( |-|\.)+$)^(\w| |\.|\d|-|æ|ø|å)+$$";
+        public const string BaseStringRegex = @"(?!^( |-|\.)+$)^(\w| |\.|\d|-|æ|ø|å)+$";
         private readonly Regex BaseStringValidationRegex = new Regex(BaseStringRegex, RegexOptions.IgnoreCase);
 
 
