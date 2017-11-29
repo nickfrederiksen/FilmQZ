@@ -8,7 +8,7 @@ class ManageController implements ng.IController {
     private currentState: StateObject | ng.ui.IState | undefined;
 
     constructor(public $state: ng.ui.IStateService,
-        $transitions: TransitionService) {
+                $transitions: TransitionService) {
 
         this.buildTopNavigation();
 
@@ -42,6 +42,6 @@ class ManageController implements ng.IController {
 
 export class ManageComponent implements ng.IComponentOptions {
     public static NAME: string = "manageView";
-    public controller = ManageController;
+    public controller = ["$state", "$transitions", ManageController];
     public templateUrl = require("./manage.html");
 }

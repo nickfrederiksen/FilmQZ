@@ -12,19 +12,21 @@
 <div class="row">
     <div class="col-2">
         <div class="card" data-ng-repeat="game in $ctrl.Games track by game.Id">
-            <div class="card-header">
-                <span class="badge badge-secondary">{{game.CreatedDate | date:'dd/MM/yyyy'}}</span>
-                {{game.Name}}
-            </div>
             <div class="card-body">
-                <h4 class="card-title">{{game.URL}}</h4>
-                <p></p>
-                <a class="btn btn-primary" ui-sref="manage.editGame({id:game.Id})">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </a>
-                <button class="btn btn-danger" data-ng-click="$ctrl.DeleteGame(game.Id)">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </button>
+                <h4>
+                    {{game.Name}}
+                </h4>
+                <span class="badge badge-secondary">{{game.CreatedDate | date:'dd/MM/yyyy'}}</span>
+                <div class="btn-group" role="group">
+                    <a class="btn btn-primary" ui-sref="manage.editGame({id:game.Id})">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                    <button class="btn btn-outline-danger" data-ng-click="$ctrl.DeleteGame(game.Id)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
     </div>

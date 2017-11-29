@@ -3,6 +3,6 @@ import { AuthInterceptorService } from "../App/Services/AuthInterceptor.Service"
 
 export function SetupServices(app: angular.IModule): void {
 
-    app.service("authService", AuthService);
-    app.service("authInterceptorService", AuthInterceptorService);
+    app.service("authService", ["$http", "$q", "localStorageService", AuthService]);
+    app.service("authInterceptorService", ["$q", "$state", "localStorageService", AuthInterceptorService]);
 }

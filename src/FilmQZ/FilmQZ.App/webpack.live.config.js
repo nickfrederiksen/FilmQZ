@@ -15,14 +15,13 @@ var extractSass = new ExtractTextPlugin({
 module.exports = {
     entry: {
         app: [
-            "./Scripts/App.ts"
-        ],
-        vendor: [
+            "./Scripts/App.ts",
+            "jquery",
+            "bootstrap",
             "angular/angular.js",
             "@uirouter/angularjs/release/angular-ui-router.js",
-            "angular-sanitize"
-        ],
-        css: ["font-awesome-sass-loader!./Config/font-awesome.config.js",
+            "angular-sanitize",
+            "font-awesome-sass-loader!./Config/font-awesome.config.js",
             "./Content/Custom/Site.scss"]
     },
     context: __dirname + "",
@@ -104,8 +103,14 @@ module.exports = {
     plugins: [
         extractSass,
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            filename: "vendors.js"
+            name: "app",
+            filename: "app.js"
+        }),
+        new webpack.ProvidePlugin({    // <added>
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery',
+            'Popper': 'popper.js'   // </added>
         }),
 
         new webpack.optimize.AggressiveMergingPlugin(),
@@ -131,7 +136,7 @@ module.exports = {
             output: {
                 comments: false,
             },
-            exclude: [/\.min\.js$/gi] // skip pre-minified libs
+            //exclude: [/\.min\.js$/gi] // skip pre-minified libs
         })
     ]
 };

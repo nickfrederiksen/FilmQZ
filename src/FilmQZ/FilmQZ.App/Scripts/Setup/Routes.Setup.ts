@@ -2,10 +2,10 @@
 import { LoginComponent } from "../App/Components/Account/Login.Component";
 import { RegisterComponent } from "../App/Components/Account/Register.Component";
 import { HomeComponent } from "../App/Components/Home/Home.Component";
-import { ManageComponent } from "../App/Management/Manage.Component";
+import { CreateGameComponent } from "../App/Management/Games/CreateGame.Component";
 import { EditGameComponent } from "../App/Management/Games/EditGame.Component";
 import { ManageGamesComponent } from "../App/Management/Games/ManageGames.Component";
-import { CreateGameComponent } from "../App/Management/Games/CreateGame.Component";
+import { ManageComponent } from "../App/Management/Manage.Component";
 
 export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
     $stateProvider.state({

@@ -14,14 +14,13 @@ module.exports = {
     devtool: "inline-source-map",
     entry: {
         app: [
-            "./Scripts/App.ts"
-        ],
-        vendor: [
-            "angular/angular.js",
-            "@uirouter/angularjs/release/angular-ui-router.js",
-            "angular-sanitize"
-        ],
-        css: ["font-awesome-sass-loader!./Config/font-awesome.config.js",
+            "./Scripts/App.ts",
+            "jquery",
+            "bootstrap",
+            "@uirouter/angularjs",
+            "angular",
+            "angular-sanitize",
+            "font-awesome-sass-loader!./Config/font-awesome.config.js",
             "./Content/Custom/Site.scss"]
     },
     context: __dirname + "",
@@ -103,10 +102,16 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            filename: "vendors.js"
+            name: "app",
+            filename: "app.js"
         }),
 
-        extractSass
+        extractSass,
+        new webpack.ProvidePlugin({    // <added>
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery',
+            'Popper': 'popper.js'   // </added>
+        })
     ]
 };

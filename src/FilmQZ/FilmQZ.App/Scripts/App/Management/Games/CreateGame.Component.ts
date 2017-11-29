@@ -6,7 +6,6 @@ class CreateGameController implements ng.IController {
 
     constructor(private gameResources: ManageGameResources, private $state: ng.ui.IStateService) {
 
-
     }
 
     public CreateGame() {
@@ -25,7 +24,7 @@ export class CreateGameComponent implements ng.IComponentOptions {
 
     public static NAME: string = "createGameView";
 
-    public controller = CreateGameController;
+    public controller = ["gameResources", "$state", CreateGameController];
 
     public templateUrl = require("./createGame.html");
 

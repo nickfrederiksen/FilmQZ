@@ -9,8 +9,8 @@ export class AuthService {
     private serviceBase = "/";
 
     constructor(private $http: ng.IHttpService, // DevSkim: ignore DS137138
-        private $q: ng.IQService,
-        private localStorageService: angular.local.storage.ILocalStorageService) {
+                private $q: ng.IQService,
+                private localStorageService: angular.local.storage.ILocalStorageService) {
     }
 
     public saveRegistration(registration: INewUserModel): ng.IPromise<ng.IHttpResponse<void>> {

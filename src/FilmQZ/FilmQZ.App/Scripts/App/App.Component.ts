@@ -7,8 +7,9 @@ class AppController implements ng.IController {
 
     private currentState: StateObject | ng.ui.IState | undefined;
 
-    constructor($scope: ng.IScope, private authService: AuthService, public $state: ng.ui.IStateService,
-        $transitions: TransitionService) {
+    constructor($scope: ng.IScope,
+                private authService: AuthService,
+                $transitions: TransitionService) {
 
         this.buildTopNavigation();
 
@@ -21,7 +22,6 @@ class AppController implements ng.IController {
         $scope.$watch(() => this.authService.authentication.isAuth, () => {
             this.updateTopNavigationState();
         });
-        // $state.transitionTo("app.home");
     }
 
     private updateTopNavigationState(): void {
@@ -81,10 +81,8 @@ class AppController implements ng.IController {
     }
 }
 
-
-
 export class AppComponent implements ng.IComponentOptions {
     public static NAME: string = "appView";
-    public controller = AppController;
+    public controller = ["$scope", "authService", "$transitions", AppController];
     public templateUrl = require("./app.component.html");
 }

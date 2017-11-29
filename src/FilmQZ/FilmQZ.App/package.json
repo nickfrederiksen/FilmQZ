@@ -14,6 +14,7 @@
     "@types/angular-local-storage": "^0.6.0",
     "@types/angular-ui-router": "^1.1.39",
     "@types/angularjs": "^1.5.14-alpha",
+    "@types/bootstrap": "^3.3.36",
     "@types/jquery": "^3.2.12",
     "@types/node": "^8.0.31",
     "@types/signalr": "^2.2.35",

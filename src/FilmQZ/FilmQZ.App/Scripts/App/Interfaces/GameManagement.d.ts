@@ -18,4 +18,8 @@ declare namespace ns.Management.Game {
 
     export interface IUpdateGameModel extends ICreateGameModel {
     }
+
+    export interface IEditGameComponentScope extends ng.IScope {
+        editGame: ng.IFormController;
+    }
 }
