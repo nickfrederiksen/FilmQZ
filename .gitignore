@@ -290,3 +290,5 @@ __pycache__/
 **/.tscache
 src/FilmQZ/FilmQZ.App/assets
 **/.vscode
+src/FilmQZ/FilmQZ.App/App_Data/Logs/
+src/FilmQZ/FilmQZ.App/npm-debug.log.*
