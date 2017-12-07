@@ -1,10 +1,12 @@
 ﻿// app.ts
+import "@uirouter/angularjs";
 import { bootstrap, element, module } from "angular";
 import "angular-local-storage";
 import { AuthService } from "./App/Services/Auth.Service";
 
 import { SetupComponents } from "./Setup/Components.Setup";
 import { SetupDirectives } from "./Setup/Directives.Setup";
+import { SetupResources } from "./Setup/Resource.Setup";
 import { SetupRoutes } from "./Setup/Routes.Setup";
 import { SetupServices } from "./Setup/Services.Setup";
 
@@ -26,15 +28,16 @@ export let app: angular.IModule = module("app", [
     "ui.router", "LocalStorageModule",
 ]);
 
-app.config(Configure);
+app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", "localStorageServiceProvider", Configure]);
 
+SetupServices(app);
+SetupResources(app);
 SetupDirectives(app);
 SetupComponents(app);
-SetupServices(app);
 
-app.run((authService: AuthService) => {
+app.run(["authService", (authService: AuthService) => {
     authService.fillAuthData();
-});
+}]);
 
 element(document).ready(() => {
     bootstrap(document, ["app"]);

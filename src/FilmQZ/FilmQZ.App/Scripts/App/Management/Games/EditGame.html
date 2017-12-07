@@ -1,0 +1,24 @@
+<form name="editGame" data-ng-submit="$ctrl.saveGame()">
+    <div class="form-group">
+        <input type="text" data-ng-model="$ctrl.gameModel.Name" data-ng-class="{'is-invalid':editGame.editGameName.$dirty && editGame.editGameName.$valid===false}"
+            class="form-control form-control-lg" id="editGameName" name="editGameName" required pattern="(?!^( |-|\.)+$)^(\w| |\.|\d|-|æ|ø|å)+$"
+            aria-describedby="create-game-name-help" placeholder="Enter the name of the game">
+        <small id="create-game-name-help" class="form-text text-muted">Can only contain letters, a-z, spaces and dashes,(-)</small>
+        <span class="badge badge-secondary">{{$ctrl.gameModel.CreatedDate | date:'dd/MM/yyyy'}}</span>
+    </div>
+    <div class="btn-group" role="group">
+        <button data-ng-disabled="editGame.$invalid || editGame.$pristine" type="submit" class="btn btn-primary">Save</button>
+        <a class="btn btn-outline-secondary" ui-sref="manage.manageGames">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Cancel
+        </a>
+        <button type="button" class="btn btn-success" data-ng-click="$ctrl.addRound()">
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+            Add new round</button>
+    </div>
+    <div id="rounds" role="tablist" data-collapse="" data-list="$ctrl.rounds" data-onshow="$ctrl.onRoundOpen(scope)">
+        <div class="card collapse" data-ng-repeat="round in $ctrl.rounds | filter:{isDeleted: '!true'} track by round.Id" data-ng-class="{deleted:round.isDeleted}">
+            <div data-edit-round data-model="round" data-form="editGame"></div>
+        </div>
+    </div>
+</form>

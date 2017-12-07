@@ -23,6 +23,6 @@ class LoginController implements ng.IController {
 
 export class LoginComponent implements ng.IComponentOptions {
     public static NAME: string = "loginView";
-    public controller = LoginController;
+    public controller = ["$state", "authService", LoginController];
     public templateUrl = require("./login.html");
 }

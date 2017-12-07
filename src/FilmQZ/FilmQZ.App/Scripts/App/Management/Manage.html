@@ -1,0 +1,36 @@
+﻿<nav class="navbar navbar-dark bg-info navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
+
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item" data-ng-class="{active:item.isActive}" data-ng-if="item.isVisible" data-ng-repeat="item in $ctrl.topNavigation">
+            <a class="nav-link" ui-sref="{{item.sref}}">{{item.text}}</a>
+        </li>
+    </ul>
+    <div class="navbar-text">
+        <div data-logout-button></div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <ui-view>
+        <h1>Management area</h1>
+        <div class="row">
+            <div class="col-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Games</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Manage your games</h6>
+                        <p class="card-text">Create, update or delete games.</p>
+                        <a ui-sref="manage.manageGames" class="card-link">Manage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui-view>
+    <hr />
+    <footer>
+        <p>{{$ctrl.year}} - Nick Frederiksen</p>
+    </footer>
+</div>

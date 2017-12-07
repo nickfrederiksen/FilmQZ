@@ -48,6 +48,6 @@ class RegisterController implements ng.IController {
 
 export class RegisterComponent implements ng.IComponentOptions {
     public static NAME: string = "registerView";
-    public controller = RegisterController;
+    public controller = ["$state", "$timeout", "authService", RegisterController];
     public templateUrl = require("./register.html");
 }

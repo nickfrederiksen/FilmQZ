@@ -110,10 +110,6 @@ namespace FilmQZ.App.Controllers.Api.Management
                          };
 
             var result = await rounds.ToListAsync(cancellationToken);
-            foreach (var item in result)
-            {
-                item.ManageUrl = Url.Link("manageRoundId", new { id = item.Id });
-            }
 
             return Ok(result);
         }
@@ -199,17 +195,13 @@ namespace FilmQZ.App.Controllers.Api.Management
 
         private RoundEntityModel GetEntityModel(Guid gameId, Round round)
         {
-            var manageUrl = Url.Link("manageRoundId", new { id = round.Id });
-            var gameManageUrl = Url.Link("manageGameId", new { id = gameId });
             var model = new RoundEntityModel()
             {
                 CreatedDate = round.CreatedDate,
                 Id = round.Id,
-                ManageUrl = manageUrl,
                 Name = round.Name,
                 Description = round.Description,
                 GameId = gameId,
-                GameManageUrl = gameManageUrl
             };
             return model;
         }

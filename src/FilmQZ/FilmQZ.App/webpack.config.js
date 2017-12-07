@@ -14,14 +14,14 @@ module.exports = {
     devtool: "inline-source-map",
     entry: {
         app: [
-            "./Scripts/App.ts"
-        ],
-        vendor: [
-            "angular/angular.js",
-            "@uirouter/angularjs/release/angular-ui-router.js",
-            "angular-sanitize"
-        ],
-        css: ["./Content/Custom/Site.scss"]
+            "./Scripts/App.ts",
+            "jquery",
+            "bootstrap",
+            "@uirouter/angularjs",
+            "angular",
+            "angular-sanitize",
+            "font-awesome-sass-loader!./Config/font-awesome.config.js",
+            "./Content/Custom/Site.scss"]
     },
     context: __dirname + "",
     output: {
@@ -83,17 +83,35 @@ module.exports = {
                 ]
             },
             {
-                test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.woff2$|\.ttf$|\.wav$|\.mp3$|\.eot$/,
+                test: /\.jpe?g$|\.gif$|\.png$|\.wav$|\.mp3$/,
+                loader: require.resolve("file-loader") + "?name=../assets/[path][name].[ext]"
+            },
+
+            /*
+             * Font loaders, required for font-awesome-sass-loader and bootstrap-loader
+             */
+            {
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "url-loader?limit=10000&mimetype=application/font-woff&name=../assets/[path][name].[ext]"
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: require.resolve("file-loader") + "?name=../assets/[path][name].[ext]"
             }
         ]
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            filename: "vendors.js"
+            name: "app",
+            filename: "app.js"
         }),
 
-        extractSass
+        extractSass,
+        new webpack.ProvidePlugin({    // <added>
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery',
+            'Popper': 'popper.js'   // </added>
+        })
     ]
 };

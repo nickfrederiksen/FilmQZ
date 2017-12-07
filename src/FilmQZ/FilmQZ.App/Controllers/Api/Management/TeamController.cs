@@ -62,13 +62,11 @@ namespace FilmQZ.App.Controllers.Api.Management
                     this.dbContext.Teams.Add(newTeam);
 
                     await this.dbContext.SaveChangesAsync(cancellationToken);
-
-                    var manageUrl = Url.Link("manageTeamId", new { id = newTeam.Id });
+                    
                     var model = new TeamEntityModel()
                     {
                         CreatedDate = newTeam.CreatedDate,
                         Id = newTeam.Id,
-                        ManageUrl = manageUrl,
                         Name = newTeam.Name,
                         URL = newTeam.URL
                     };
@@ -118,10 +116,6 @@ namespace FilmQZ.App.Controllers.Api.Management
                         };
 
             var listItems = await teams.ToListAsync(cancellationToken);
-            foreach (var item in listItems)
-            {
-                item.ManageUrl = Url.Link("manageTeamId", new { id = item.Id });
-            }
             return base.Ok(listItems);
         }
 
@@ -157,8 +151,7 @@ namespace FilmQZ.App.Controllers.Api.Management
                 Id = result.Id,
                 CreatedDate = result.CreatedDate,
                 Name = result.Name,
-                URL = result.URL,
-                ManageUrl = Url.Link("manageTeamId", new { id = result.Id })
+                URL = result.URL
             };
 
             return Ok(model);

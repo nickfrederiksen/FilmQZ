@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup>
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
@@ -37,6 +38,19 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -188,24 +202,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\css.css">
+    <Content Include="assets\*.*">
       <Visible>false</Visible>
     </Content>
-    <Content Include="assets\vendors.js">
-      <Visible>false</Visible>
-    </Content>
-    <Content Include="assets\app.js">
-      <Visible>false</Visible>
-    </Content>
-    <Content Include="assets\**\*.html">
+    <Content Include="assets\**\*.*">
       <Visible>false</Visible>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\App\App.Component.html" />
-    <Content Include="Scripts\App\Components\Account\login.html" />
-    <Content Include="Scripts\App\Components\Account\register.html" />
-    <Content Include="Scripts\App\Components\Home\Home.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -267,12 +273,10 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Content\Custom\Site.scss" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Config\log4net.config" />
-    <None Include="Content\Custom\Components\Buttons.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -284,22 +288,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\App.ts" />
-    <TypeScriptCompile Include="Scripts\App\App.Component.ts" />
-    <Content Include="Scripts\App\Components\Account\Directives\LogoutButton.html" />
-    <TypeScriptCompile Include="Scripts\App\Components\Account\Login.Component.ts" />
-    <TypeScriptCompile Include="Scripts\App\Components\Account\Register.Component.ts" />
-    <TypeScriptCompile Include="Scripts\App\Components\Home\Home.Component.ts" />
-    <TypeScriptCompile Include="Scripts\App\Components\Account\Directives\LogoutButton.Directive.ts" />
-    <TypeScriptCompile Include="Scripts\App\Services\Auth.Service.ts" />
-    <TypeScriptCompile Include="Scripts\App\Services\AuthInterceptor.Service.ts" />
-    <TypeScriptCompile Include="Scripts\Setup\Components.Setup.ts" />
-    <TypeScriptCompile Include="Scripts\Setup\Directives.Setup.ts" />
-    <TypeScriptCompile Include="Scripts\Setup\Routes.Setup.ts" />
-    <TypeScriptCompile Include="Scripts\Setup\Services.Setup.ts" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FilmQZ.Core\FilmQZ.Core.csproj">

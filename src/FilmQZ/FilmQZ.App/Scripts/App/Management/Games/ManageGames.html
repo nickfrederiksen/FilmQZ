@@ -1,0 +1,33 @@
+<h1>
+    Manage games
+</h1>
+
+<nav class="nav nav-pills flex-column flex-sm-row">
+    <a class="flex-sm-fill text-sm-center nav-link" ui-sref="manage.createGame">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        New game
+    </a>
+</nav>
+
+<div class="row">
+    <div class="col-2">
+        <div class="card" data-ng-repeat="game in $ctrl.Games track by game.Id">
+            <div class="card-body">
+                <h4>
+                    {{game.Name}}
+                </h4>
+                <span class="badge badge-secondary">{{game.CreatedDate | date:'dd/MM/yyyy'}}</span>
+                <div class="btn-group" role="group">
+                    <a class="btn btn-primary" ui-sref="manage.editGame({id:game.Id})">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                    <button class="btn btn-outline-danger" data-ng-click="$ctrl.DeleteGame(game.Id)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

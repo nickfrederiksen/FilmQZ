@@ -1,4 +1,4 @@
-﻿import { AuthService } from "../../../Services/Auth.Service";
+﻿import { AuthService } from "../Services/Auth.Service";
 
 export class LogoutButtonDirective implements angular.IDirective {
 
@@ -7,22 +7,20 @@ export class LogoutButtonDirective implements angular.IDirective {
     }
 
     public scope = {};
-    public templateUrl = require("./LogoutButton.html");
-    public controller = LogoutButtonController;
+    public templateUrl = require("./Views/LogoutButton.html");
+    public controller = "directive.logoutButtonController";
     public controllerAs = "ctrl";
 }
-class LogoutButtonController {
+export class LogoutButtonController {
     public isAuthorized = this.authService.authentication.isAuth;
-    constructor($scope: ng.IScope, private $state: ng.ui.IStateService, private authService: AuthService) {
+
+    constructor($scope: ng.IScope, private authService: AuthService) {
         $scope.$watch(() => this.authService.authentication.isAuth, (newValue) => {
             this.isAuthorized = newValue;
         });
     }
 
     public logout() {
-        this.authService.logOut()
-            .then(() => {
-                this.$state.transitionTo("app.home");
-            });
+        this.authService.logOut();
     }
 }

@@ -1,0 +1,15 @@
+<form name="createGame" data-ng-submit="$ctrl.CreateGame()">
+    <div class="form-group">
+        <input type="text" data-ng-model="$ctrl.createGameModel.Name" data-ng-class="{'is-invalid':createGame.createGameName.$dirty && createGame.createGameName.$valid===false}"
+            class="form-control form-control-lg" id="createGameName" name="createGameName" required pattern="(?!^( |-|\.)+$)^(\w| |\.|\d|-|æ|ø|å)+$"
+            aria-describedby="create-game-name-help" placeholder="Enter the name of the game">
+        <small id="create-game-name-help" class="form-text text-muted">Can only contain letters, a-z, spaces and dashes,(-)</small>
+    </div>
+    <div class="btn-group" role="group">
+        <button data-ng-disabled="createGame.$invalid || createGame.$pristine" type="submit" class="btn btn-primary">Save</button>
+        <a class="btn btn-outline-secondary" ui-sref="manage.manageGames">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Cancel
+        </a>
+    </div>
+</form>

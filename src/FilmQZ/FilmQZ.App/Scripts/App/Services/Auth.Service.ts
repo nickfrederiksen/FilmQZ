@@ -26,8 +26,10 @@ export class AuthService {
 
     public login(loginData: ILoginInfo): angular.IPromise<IAuthenticationResponse> {
 
+        const encodedPassword = encodeURIComponent(loginData.Password);
+        const encodedEmail = encodeURIComponent(loginData.Email);
         const data: string = "grant_type=password&username=" +
-            loginData.Email + "&password=" + loginData.Password + "&client_id=NgAuth.App";
+            encodedEmail + "&password=" + encodedPassword + "&client_id=NgAuth.App";
 
         const deferred: angular.IDeferred<IAuthenticationResponse> = this.$q.defer<IAuthenticationResponse>();
 

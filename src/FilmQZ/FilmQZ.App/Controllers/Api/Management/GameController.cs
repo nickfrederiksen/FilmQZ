@@ -55,10 +55,6 @@ namespace FilmQZ.App.Controllers.Api.Management
                         };
 
             var result = await games.ToListAsync(cancellationToken);
-            foreach (var item in result)
-            {
-                item.ManageUrl = Url.Link("manageGameId", new { id = item.Id });
-            }
             return Ok(result);
         }
 
@@ -96,8 +92,7 @@ namespace FilmQZ.App.Controllers.Api.Management
                 CreatedDate = result.CreatedDate,
                 IsOpen = result.IsOpen,
                 Name = result.Name,
-                URL = result.URL,
-                ManageUrl = Url.Link("manageGameId", new { id = result.Id })
+                URL = result.URL
             };
 
             return Ok(model);
@@ -167,14 +162,12 @@ namespace FilmQZ.App.Controllers.Api.Management
                     this.dbContext.Games.Add(newGame);
 
                     await this.dbContext.SaveChangesAsync(cancellationToken);
-
-                    var manageUrl = Url.Link("manageGameId", new { id = newGame.Id });
+                    
                     var model = new GameEntityModel()
                     {
                         CreatedDate = newGame.CreatedDate,
                         Id = newGame.Id,
                         IsOpen = newGame.IsOpen,
-                        ManageUrl = manageUrl,
                         Name = newGame.Name,
                         URL = newGame.URL
                     };
