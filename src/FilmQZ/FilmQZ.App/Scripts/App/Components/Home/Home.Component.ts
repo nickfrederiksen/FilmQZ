@@ -2,7 +2,7 @@
 
     public welcome: string = "hello ng";
 
-    constructor(private $http: ng.IHttpService) { // DevSkim: ignore DS137138 
+    constructor(private $http: ng.IHttpService) { // DevSkim: ignore DS137138
 
         console.log("Hello world...");
 

@@ -1,0 +1,29 @@
+<div class="input-group" role="tab" id="round-heading-{{$ctrl.model.Id}}">
+    <div class="input-group-btn">
+        <a role="button" class="btn btn-lg btn-outline-secondary" href="#round-{{$ctrl.model.Id}}" data-toggle="collapse" aria-expanded="false"
+            aria-controls="round-{{$ctrl.model.Id}}">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <i class="fa fa-minus" aria-hidden="true"></i>
+            &nbsp;
+        </a>
+    </div>
+    <input type="text" class="form-control form-control-lg" id="round-name-{{$ctrl.model.Id}}" placeholder="Enter a name for the round"
+        required data-ng-model="$ctrl.model.Name" />
+    <div class="round-action input-group-btn">
+        <button type="button" class="btn btn-lg btn-outline-danger" data-ng-click="$ctrl.delete($ctrl.model)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+
+<div id="round-{{$ctrl.model.Id}}" class="collapse" role="tabpanel" aria-labelledby="round-heading-{{$ctrl.model.Id}}" data-parent="#rounds">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="round-description-{{$ctrl.model.Id}}">Description</label>
+            <textarea class="form-control" id="round-description-{{$ctrl.model.Id}}" rows="3" placeholder="Enter a description for the round"
+                data-ng-model="$ctrl.model.Description"></textarea>
+        </div>
+
+    </div>
+</div>

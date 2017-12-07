@@ -1,0 +1,41 @@
+
+.collapse{
+    a[data-toggle="collapse"]{
+        width:50px;
+        cursor: pointer;
+        i{
+            transform: translate3d(-5px, 6px, 0);
+            position: absolute;
+        }
+        i.fa-plus{
+            opacity: 1;
+            transform: translate3d(-5px, 6px, 0);
+            transition:100ms linear;    
+        }  
+        i.fa-minus{
+            opacity: 0;
+            transform: translate3d(-5px, -20px, 0);
+            transition:100ms linear;    
+        } 
+        &[aria-expanded="true"]{
+            i.fa-plus{
+                opacity: 0;
+                transform: translate3d(-5px, 20px, 0);
+                transition:100ms linear;    
+            }  
+            i.fa-minus{
+                opacity: 1;
+                transform: translate3d(-5px, 6px, 0);
+                transition:100ms linear;    
+            }       
+        }
+    }
+
+    max-height: 100%;
+    &.deleted{
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0s 250ms linear, opacity 250ms linear 0s;
+        }
+}

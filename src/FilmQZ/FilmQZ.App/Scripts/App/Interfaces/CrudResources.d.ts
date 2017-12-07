@@ -16,10 +16,10 @@ declare namespace ns.Resources {
     }
 
     export interface IRoundIdCrudResource<TUpdateModel, TCreateModel> {
-        GetAll(gameId: string);
-        GetSingle(gameId: string, id: string);
-        Update(gameId: string, id: string, model: TUpdateModel);
-        Create(gameId: string, model: TCreateModel);
-        Delete(gameId: string, id: string);
+        GetAll(gameId: string, roundId: string);
+        GetSingle(gameId: string, roundId: string, id: string);
+        Update(gameId: string, roundId: string, id: string, model: TUpdateModel);
+        Create(gameId: string, roundId: string, model: TCreateModel);
+        Delete(gameId: string, roundId: string, id: string);
     }
 }

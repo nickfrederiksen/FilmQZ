@@ -12,23 +12,13 @@
             <i class="fa fa-ban" aria-hidden="true"></i>
             Cancel
         </a>
+        <button type="button" class="btn btn-success" data-ng-click="$ctrl.addRound()">
+            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+            Add new round</button>
+    </div>
+    <div id="rounds" role="tablist" data-collapse="" data-list="$ctrl.rounds" data-onshow="$ctrl.onRoundOpen(scope)">
+        <div class="card collapse" data-ng-repeat="round in $ctrl.rounds | filter:{isDeleted: '!true'} track by round.Id" data-ng-class="{deleted:round.isDeleted}">
+            <div data-edit-round data-model="round" data-form="editGame"></div>
+        </div>
     </div>
 </form>
-<div id="rounds" role="tablist" data-collapse="" data-collapse-list="$ctrl.rounds">
-    <div class="card" data-ng-repeat="round in $ctrl.rounds track by round.Id">
-        <div class="card-header" role="tab" id="round-heading-{{round.Id}}">
-            <h5 class="mb-0">
-                <button data-toggle="collapse" data-target="#round-{{round.Id}}" aria-expanded="{{$first}}" aria-controls="round-{{round.Id}}">
-                    {{round.Name}}
-                </button>
-            </h5>
-        </div>
-
-        <div id="round-{{round.Id}}" class="collapse" data-ng-class="{'show':$first}" role="tabpanel" aria-labelledby="round-heading-{{round.Id}}"
-            data-parent="#rounds">
-            <div class="card-body">
-                {{round.Description}}
-            </div>
-        </div>
-    </div>
-</div>

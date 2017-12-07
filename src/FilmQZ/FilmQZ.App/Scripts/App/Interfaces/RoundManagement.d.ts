@@ -19,4 +19,10 @@ declare namespace ns.Management.Round {
 
     export interface IUpdateRoundModel extends ICreateRoundModel {
     }
+
+    export interface IEditiableRoundListItem extends IRoundListItemModel {
+        isNew?: boolean;
+        isDeleted?: boolean;
+        isCollapsed?: boolean;
+    }
 }
