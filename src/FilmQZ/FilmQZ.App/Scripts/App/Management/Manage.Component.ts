@@ -30,12 +30,12 @@ class ManageController implements ng.IController {
     private buildTopNavigation(): void {
         this.topNavigation = [];
         this.topNavigation.push({
-            isActive: false,
-            sref: "manage",
-            text: "Manage",
             anonymousOnly: false,
             authorizedOnly: false,
-            isVisible: true
+            isActive: false,
+            isVisible: true,
+            sref: "manage",
+            text: "Manage"
         });
     }
 }

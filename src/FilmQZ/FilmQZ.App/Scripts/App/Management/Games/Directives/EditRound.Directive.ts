@@ -1,3 +1,4 @@
+import { QuestionType } from "../../../Enums/QuestionTypes";
 import { ManageQuestionResources } from "../../../Resources/Manage.Question.Resources";
 
 export class EditRoundDirective implements angular.IDirective {
@@ -5,11 +6,11 @@ export class EditRoundDirective implements angular.IDirective {
     public static Instance() {
         return new EditRoundDirective();
     }
-    public scope: true;
+    public scope = true;
     public bindToController = {
-        onRoundDelete: "&",
+        form: "=",
         model: "=",
-        form: "="
+        onRoundDelete: "&"
     };
 
     public templateUrl = require("./Views/EditRound.html");
@@ -19,12 +20,33 @@ export class EditRoundDirective implements angular.IDirective {
 
 export class EditRoundController {
 
-    public HasLoadedQuestions = false;
-    public onRoundDelete: (round: ns.Management.Round.IEditiableRoundListItem) => void;
-    public model: ns.Management.Round.IEditiableRoundListItem;
-    public form: ng.IFormController;
+    public onRoundDelete!: (round: ns.Management.Round.IEditiableRoundListItem) => void;
+    public model!: ns.Management.Round.IEditiableRoundListItem;
+    public form!: ng.IFormController;
+
     // tslint:disable-next-line:no-empty
-    constructor(private manageQuestionResource: ManageQuestionResources) {
+    constructor($scope: ng.IScope, private questionResources: ManageQuestionResources) {
+        $scope.$watch(() => this.model, () => {
+            this.loadQuestions();
+        });
+    }
+
+    public addQuestion() {
+        if (this.model.questions == null) {
+            this.model.questions = [];
+        }
+        const newQuestionModel: ns.Management.Question.IEditiableQuestionListItem = {
+            CreatedDate: new Date(),
+            Id: "new-question-" + new Date().valueOf(),
+            Point: 0,
+            QuestionType: QuestionType.TextField,
+            Text: "",
+            isNew: true
+        };
+
+        this.model.questions.push(newQuestionModel);
+
+        this.form.$setDirty();
     }
 
     public delete(round: ns.Management.Round.IEditiableRoundListItem) {
@@ -35,12 +57,11 @@ export class EditRoundController {
     }
 
     public loadQuestions() {
-        if (this.HasLoadedQuestions === false) {
+        if (this.model.isNew !== true) {
 
-            this.manageQuestionResource.GetAll(this.model.GameId, this.model.Id)
+            this.questionResources.GetAll(this.model.GameId, this.model.Id)
                 .then((response) => {
-                    this.HasLoadedQuestions = true;
-                    console.log(response.data);
+                    this.model.questions = response.data;
                 });
         }
     }

@@ -12,4 +12,10 @@
             Cancel
         </a>
     </div>
+
+    <div data-ng-hide="$ctrl.errorMessage == null" class="alert alert-danger">
+
+        {{$ctrl.errorMessage}}
+
+    </div>
 </form>

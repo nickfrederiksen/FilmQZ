@@ -21,7 +21,6 @@ module.exports = {
             "angular/angular.js",
             "@uirouter/angularjs/release/angular-ui-router.js",
             "angular-sanitize",
-            "font-awesome-sass-loader!./Config/font-awesome.config.js",
             "./Content/Custom/Site.scss"]
     },
     context: __dirname + "",

@@ -20,7 +20,6 @@ module.exports = {
             "@uirouter/angularjs",
             "angular",
             "angular-sanitize",
-            "font-awesome-sass-loader!./Config/font-awesome.config.js",
             "./Content/Custom/Site.scss"]
     },
     context: __dirname + "",

@@ -47,36 +47,36 @@ class AppController implements ng.IController {
     private buildTopNavigation(): void {
         this.topNavigation = [];
         this.topNavigation.push({
-            isActive: false,
-            sref: "app.home",
-            text: "Home",
             anonymousOnly: false,
             authorizedOnly: false,
-            isVisible: true
+            isActive: false,
+            isVisible: true,
+            sref: "app.home",
+            text: "Home"
         });
         this.topNavigation.push({
+            anonymousOnly: true,
+            authorizedOnly: false,
             isActive: false,
+            isVisible: this.authService.authentication.isAuth === false,
             sref: "app.register",
-            text: "Register",
-            anonymousOnly: true,
-            authorizedOnly: false,
-            isVisible: this.authService.authentication.isAuth === false
+            text: "Register"
         });
         this.topNavigation.push({
+            anonymousOnly: true,
+            authorizedOnly: false,
             isActive: false,
+            isVisible: this.authService.authentication.isAuth === false,
             sref: "app.login",
-            text: "Login",
-            anonymousOnly: true,
-            authorizedOnly: false,
-            isVisible: this.authService.authentication.isAuth === false
+            text: "Login"
         });
         this.topNavigation.push({
-            isActive: false,
-            sref: "manage",
-            text: "Manage",
             anonymousOnly: false,
             authorizedOnly: true,
-            isVisible: this.authService.authentication.isAuth === true
+            isActive: false,
+            isVisible: this.authService.authentication.isAuth === true,
+            sref: "manage",
+            text: "Manage"
         });
     }
 }
