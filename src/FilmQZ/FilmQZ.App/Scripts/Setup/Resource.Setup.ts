@@ -6,5 +6,5 @@ export function SetupResources(app: angular.IModule): void {
 
     app.factory("gameResources", ["$http", ManageGameResources.Instance]);
     app.factory("roundResources", ["$http", ManageRoundResources.Instance]);
-    app.factory("manageQuestionResource", ["$http", ManageQuestionResources.Instance]);
+    app.factory("questionResources", ["$http", ManageQuestionResources.Instance]);
 }

@@ -19,11 +19,40 @@
 
 <div id="round-{{$ctrl.model.Id}}" class="collapse" role="tabpanel" aria-labelledby="round-heading-{{$ctrl.model.Id}}" data-parent="#rounds">
     <div class="card-body">
-        <div class="form-group">
-            <label for="round-description-{{$ctrl.model.Id}}">Description</label>
-            <textarea class="form-control" id="round-description-{{$ctrl.model.Id}}" rows="3" placeholder="Enter a description for the round"
-                data-ng-model="$ctrl.model.Description"></textarea>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="round-description-{{$ctrl.model.Id}}">Description</label>
+                    <textarea class="form-control" id="round-description-{{$ctrl.model.Id}}" rows="3" placeholder="Enter a description for the round"
+                        data-ng-model="$ctrl.model.Description"></textarea>
+                </div>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
 
+                <div data-ng-show="$ctrl.model.isNew !== true" data-ng-repeat="question in $ctrl.model.questions | filter:{isDeleted: '!true'} track by question.Id"
+                    data-ng-class="{deleted:question.isDeleted}">
+                    <div data-edit-question data-model="question" data-form="$ctrl.form"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div data-ng-show="$ctrl.model.isNew !== true">
+                    <button class="btn btn-success" type="button" data-ng-click="$ctrl.addQuestion()">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Add new question</button>
+                </div>
+
+                <div data-ng-show="$ctrl.model.isNew !== true && $ctrl.model.questions.length === 0" class="alert alert-info" role="alert">
+                    This round has no questions.
+                </div>
+
+                <div data-ng-hide="$ctrl.model.isNew !== true" class="alert alert-info" role="alert">
+                    You need to save the game before you can add questions.
+                </div>
+            </div>
+        </div>
     </div>
 </div>

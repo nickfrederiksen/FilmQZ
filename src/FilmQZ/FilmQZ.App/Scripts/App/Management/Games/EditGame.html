@@ -16,7 +16,7 @@
             <i class="fa fa-plus-square-o" aria-hidden="true"></i>
             Add new round</button>
     </div>
-    <div id="rounds" role="tablist" data-collapse="" data-list="$ctrl.rounds" data-onshow="$ctrl.onRoundOpen(scope)">
+    <div role="tablist" data-collapse="" data-list="$ctrl.rounds">
         <div class="card collapse" data-ng-repeat="round in $ctrl.rounds | filter:{isDeleted: '!true'} track by round.Id" data-ng-class="{deleted:round.isDeleted}">
             <div data-edit-round data-model="round" data-form="editGame"></div>
         </div>

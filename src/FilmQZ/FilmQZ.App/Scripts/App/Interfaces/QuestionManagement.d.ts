@@ -5,6 +5,7 @@ declare namespace ns.Management.Question {
         CreatedDate: Date;
         Point: number;
         QuestionType: QuestionType;
+        Text: string;
     }
 
     export interface ICreateQuestionModel {
@@ -18,5 +19,11 @@ declare namespace ns.Management.Question {
     }
 
     export interface IUpdateQuestionModel extends ICreateQuestionModel {
+    }
+
+    export interface IEditiableQuestionListItem extends IQuestionListItemModel {
+        isNew?: boolean;
+        isDeleted?: boolean;
+        isCollapsed?: boolean;
     }
 }

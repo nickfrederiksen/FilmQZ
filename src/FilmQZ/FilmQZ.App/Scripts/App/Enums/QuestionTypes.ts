@@ -1,6 +1,6 @@
 export enum QuestionType {
-    TextArea,
-    TextField,
-    MultipleTextFields,
-    MultipleTextAreas
+    TextArea = "TextArea",
+    TextField = "TextField",
+    MultipleTextFields = "MultipleTextFields",
+    MultipleTextAreas = "MultipleTextAreas"
 }

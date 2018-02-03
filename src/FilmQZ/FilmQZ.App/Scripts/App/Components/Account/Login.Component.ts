@@ -16,6 +16,7 @@ class LoginController implements ng.IController {
 
         },
             (err) => {
+                console.log(err);
                 this.message = err.error_description;
             });
     }

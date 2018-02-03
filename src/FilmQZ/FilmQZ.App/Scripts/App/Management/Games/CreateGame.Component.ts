@@ -4,17 +4,20 @@ class CreateGameController implements ng.IController {
 
     public createGameModel: ns.Management.Game.ICreateGameModel = { Name: "" };
 
+    public errorMessage: string | undefined;
+
     constructor(private gameResources: ManageGameResources, private $state: ng.ui.IStateService) {
 
     }
 
     public CreateGame() {
+        this.errorMessage = undefined;
         this.gameResources.Create(this.createGameModel)
             .then((resp) => {
                 const newId = resp.data.Id;
                 this.$state.transitionTo("manage.editGame", { id: newId });
             }, (error) => {
-                console.error(error);
+                this.errorMessage = error.statusText;
             });
     }
 

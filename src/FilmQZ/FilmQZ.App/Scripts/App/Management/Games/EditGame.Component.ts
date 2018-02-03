@@ -1,6 +1,6 @@
 import { ManageGameResources } from "../../Resources/Manage.Game.Resources";
+import { ManageQuestionResources } from "../../Resources/Manage.Question.Resources";
 import { ManageRoundResources } from "../../Resources/Manage.Round.Resources";
-import { EditRoundController } from "./Directives/EditRound.Directive";
 
 class EditGameController implements ng.IController {
 
@@ -9,9 +9,10 @@ class EditGameController implements ng.IController {
     private asyncJobs: string[] = [];
 
     constructor(private $scope: ns.Management.Game.IEditGameComponentScope,
-        private $stateParams: ng.ui.IStateParamsService,
-        private gameResources: ManageGameResources,
-        private roundResources: ManageRoundResources) {
+                private $stateParams: ng.ui.IStateParamsService,
+                private gameResources: ManageGameResources,
+                private roundResources: ManageRoundResources,
+                private questionResources: ManageQuestionResources) {
 
         this.loadGame();
     }
@@ -48,19 +49,15 @@ class EditGameController implements ng.IController {
                 CreatedDate: new Date(),
                 Description: "",
                 GameId: gameId,
+                Id: "new-round-" + (new Date().valueOf()),
                 isDeleted: false,
                 isNew: true,
                 Name: "",
-                Id: "new-round-" + (new Date().valueOf())
+                questions: []
             };
 
             this.rounds.push(roundModel);
         }
-    }
-
-    public onRoundOpen(scope: ns.IControllerScope) {
-        const controller = scope.$ctrl as EditRoundController;
-        controller.loadQuestions();
     }
 
     private saveRounds(gameId: string) {
@@ -79,6 +76,29 @@ class EditGameController implements ng.IController {
                 this.createRound(gameId, round);
             } else {
                 this.updateRound(gameId, round);
+            }
+        }
+    }
+
+    private saveQuestions(gameId: string, round: ns.Management.Round.IEditiableRoundListItem) {
+        if (round.questions != null) {
+
+            for (const question of round.questions) {
+                this.asyncJobs.push(question.Id);
+                if (question.isDeleted === true) {
+                    if (question.isNew !== true) {
+                        this.deleteQuestion(gameId, round.Id, question);
+                    } else {
+                        this.asyncJobs.splice(this.asyncJobs.indexOf(question.Id), 1);
+                        if (this.asyncJobs.length === 0) {
+                            this.loadGame();
+                        }
+                    }
+                } else if (question.isNew === true) {
+                    this.createQuestion(gameId, round.Id, question);
+                } else {
+                    this.updateQuestion(gameId, round.Id, question);
+                }
             }
         }
     }
@@ -121,6 +141,58 @@ class EditGameController implements ng.IController {
                     this.loadGame();
                 }
             });
+
+        this.saveQuestions(gameId, round);
+    }
+
+    private deleteQuestion(gameId: string,
+                           roundId: string,
+                           question: ns.Management.Question.IEditiableQuestionListItem) {
+
+        this.questionResources.Delete(gameId, roundId, question.Id)
+            .then(() => {
+                this.asyncJobs.splice(this.asyncJobs.indexOf(question.Id), 1);
+                if (this.asyncJobs.length === 0) {
+                    this.loadGame();
+                }
+            });
+    }
+
+    private createQuestion(gameId: string,
+                           roundId: string,
+                           question: ns.Management.Question.IEditiableQuestionListItem) {
+
+        const createModel: ns.Management.Question.ICreateQuestionModel = {
+            Point: question.Point,
+            QuestionType: question.QuestionType,
+            Text: question.Text
+        };
+
+        this.questionResources.Create(gameId, roundId, createModel)
+            .then(() => {
+                this.asyncJobs.splice(this.asyncJobs.indexOf(question.Id), 1);
+                if (this.asyncJobs.length === 0) {
+                    this.loadGame();
+                }
+            });
+    }
+
+    private updateQuestion(gameId: string,
+                           roundId: string,
+                           question: ns.Management.Question.IEditiableQuestionListItem) {
+
+        const roundUpdateModel: ns.Management.Question.IUpdateQuestionModel = {
+            Point: question.Point,
+            QuestionType: question.QuestionType,
+            Text: question.Text
+        };
+        this.questionResources.Update(gameId, roundId, question.Id, roundUpdateModel)
+            .then(() => {
+                this.asyncJobs.splice(this.asyncJobs.indexOf(question.Id), 1);
+                if (this.asyncJobs.length === 0) {
+                    this.loadGame();
+                }
+            });
     }
 
     private loadGame() {
@@ -131,9 +203,9 @@ class EditGameController implements ng.IController {
                 this.gameModel = resp.data;
                 this.$scope.editGame.$setPristine();
             },
-            (error) => {
-                console.error(error);
-            });
+                (error) => {
+                    console.error(error);
+                });
     }
 
     private loadRounds() {
@@ -142,9 +214,9 @@ class EditGameController implements ng.IController {
             .then((resp) => {
                 this.rounds = resp.data;
             },
-            (error) => {
-                console.error(error);
-            });
+                (error) => {
+                    console.error(error);
+                });
     }
 
 }
@@ -153,7 +225,8 @@ export class EditGameComponent implements ng.IComponentOptions {
 
     public static NAME: string = "editGameView";
 
-    public controller = ["$scope", "$stateParams", "gameResources", "roundResources", EditGameController];
+    public controller = ["$scope",
+        "$stateParams", "gameResources", "roundResources", "questionResources", EditGameController];
 
     public templateUrl = require("./editGame.html");
 

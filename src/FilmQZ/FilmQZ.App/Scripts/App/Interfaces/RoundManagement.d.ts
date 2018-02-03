@@ -24,5 +24,6 @@ declare namespace ns.Management.Round {
         isNew?: boolean;
         isDeleted?: boolean;
         isCollapsed?: boolean;
+        questions?: ns.Management.Question.IEditiableQuestionListItem[];
     }
 }
