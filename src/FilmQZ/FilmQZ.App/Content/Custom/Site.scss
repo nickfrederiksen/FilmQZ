@@ -1,5 +1,6 @@
 ﻿$fa-font-path: '/assets/node_modules/font-awesome/fonts';
 @import "~font-awesome/scss/font-awesome";
 @import "~bootstrap/scss/bootstrap";
+@import "~angular/angular-csp";
 @import "./Components/Buttons";
 @import "./Components/collapse";

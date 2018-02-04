@@ -38,6 +38,7 @@ namespace FilmQZ.App
 
         protected override void OnApplicationStarted()
         {
+            MvcHandler.DisableMvcResponseHeader = true;
             XmlConfigurator.Configure();
             base.OnApplicationStarted();
 
