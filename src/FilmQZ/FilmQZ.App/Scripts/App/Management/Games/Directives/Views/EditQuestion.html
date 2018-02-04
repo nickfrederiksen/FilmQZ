@@ -1,27 +1,29 @@
 <div class="card" data-ng-class="{'border-info':$ctrl.model.isNew}">
-    <div class="card-body">
-
-        <div class="form-group row">
-
-            <label for="question-{{$ctrl.model.Id}}" class="col-sm-2 col-form-label">Question:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="question-{{$ctrl.model.Id}}" data-ng-model="$ctrl.model.Text">
+    <div class="card-body ">
+        <div class="row">
+            <label for="question-{{$ctrl.model.Id}}" class="col-sm-7 col-form-label">Question:</label>
+            <label for="question-point-{{$ctrl.model.Id}}" class="col-sm-1 col-form-label">Point value:</label>
+            <label class="col-sm-3 col-form-label">Question type:</label>
+            <div class="col-md-1">
+                <button class="btn btn-sm btn-danger pull-right" type="button" data-ng-click="$ctrl.delete()">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
             </div>
-
         </div>
-        <div class="form-group row">
-
-            <label for="question-point-{{$ctrl.model.Id}}" class="col-sm-2 col-form-label">Point value:</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" id="question-point-{{$ctrl.model.Id}}" data-ng-model="$ctrl.model.Point">
+        <div class="row">
+            <div class="col-md-7">
+                <input type="text" class="form-control" id="question-{{$ctrl.model.Id}}" required data-ng-model="$ctrl.model.Text">
             </div>
-
-        </div>
-
-        <div class="form-check form-check-inline" data-ng-repeat="type in $ctrl.questionTypes">
-            <input class="form-check-input" type="radio" name="question-type-{{$ctrl.model.Id}}" id="question-type-{{$ctrl.model.Id}}-{{$index}}"
-                value="{{type}}" data-ng-model="$ctrl.model.QuestionType">
-            <label class="form-check-label" for="question-type-{{$ctrl.model.Id}}-{{$index}}">{{type}}</label>
+            <div class="col-md-1">
+                <input type="number" class="form-control" id="question-point-{{$ctrl.model.Id}}" required data-ng-model="$ctrl.model.Point">
+            </div>
+            <div class="col-md-3">
+                <div class="form-check" data-ng-repeat="type in $ctrl.questionTypes">
+                    <input class="form-check-input" type="radio" name="question-type-{{$ctrl.model.Id}}" id="question-type-{{$ctrl.model.Id}}-{{$index}}"
+                        value="{{type}}" data-ng-model="$ctrl.model.QuestionType">
+                    <label class="form-check-label" for="question-type-{{$ctrl.model.Id}}-{{$index}}">{{type}}</label>
+                </div>
+            </div>
         </div>
     </div>
 </div>

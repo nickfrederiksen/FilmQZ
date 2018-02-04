@@ -26,9 +26,9 @@ export class EditQuestionController {
 
     public questionTypes = QuestionType;
 
-    public delete(round: ns.Management.Question.IEditiableQuestionListItem) {
-        if (confirm("Are you sure you want to remove this round?")) {
-            round.isDeleted = true;
+    public delete() {
+        if (confirm("Are you sure you want to remove this question?")) {
+            this.model.isDeleted = true;
             this.form.$setDirty();
         }
     }
