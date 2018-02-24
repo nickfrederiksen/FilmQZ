@@ -22,6 +22,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Ninject.Extensions.Conventions;
 using log4net.Config;
 using FilmQZ.Core.Logging;
+using FilmQZ.App.BusinessLogic.Helpers;
 
 namespace FilmQZ.App
 {
@@ -69,8 +70,9 @@ namespace FilmQZ.App
                 .InRequestScope();
 
             kernel.Bind<LogHelper>().ToMethod(c => LogHelper.GetHelper(c.Request.ParentRequest.Service)).InTransientScope();
-
-            kernel.Bind(k => k.FromThisAssembly().SelectAllClasses().EndingWith("Helpers").BindToSelf().Configure(c => c.InRequestScope()));
+			
+			kernel.Bind<URLHelpers>().ToSelf().InRequestScope();
+            //kernel.Bind(k => k.FromThisAssembly().SelectAllClasses().EndingWith("Helpers").BindToSelf().Configure(c => c.InRequestScope()));
         }
     }
 }

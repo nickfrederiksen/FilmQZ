@@ -3,8 +3,8 @@ import "angular-local-storage";
 
 export class AuthService {
     public authentication = {
-        isAuth: false,
-        Email: ""
+        Email: "",
+        isAuth: false
     };
     private serviceBase = "/";
 
@@ -15,7 +15,7 @@ export class AuthService {
 
     public saveRegistration(registration: INewUserModel): ng.IPromise<ng.IHttpResponse<void>> {
 
-        this.logOut();
+        this.SignOffLocal();
 
         return this.$http.post<void>(this.serviceBase + "api/account/register", registration)
             .then((response) => {
@@ -49,10 +49,10 @@ export class AuthService {
                 deferred.resolve(responseData);
 
             },
-            (err) => {
-                this.logOut();
-                deferred.reject(err);
-            });
+                (err) => {
+                    this.logOut();
+                    deferred.reject(err);
+                });
 
         return deferred.promise;
 
@@ -65,17 +65,20 @@ export class AuthService {
         this.$http.post("/api/Account/Logout", {})
             .then(() => {
 
-                this.localStorageService.remove("authorizationData");
-
-                this.authentication.isAuth = false;
-                this.authentication.Email = "";
-
+                this.SignOffLocal();
                 deferred.resolve();
             }, (err) => {
+                this.SignOffLocal();
                 deferred.reject(err);
             });
 
         return deferred.promise;
+    }
+
+    private SignOffLocal() {
+        this.localStorageService.remove("authorizationData");
+        this.authentication.isAuth = false;
+        this.authentication.Email = "";
     }
 
     public fillAuthData(): void {

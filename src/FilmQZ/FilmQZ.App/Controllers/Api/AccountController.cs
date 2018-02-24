@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using PasswordTester;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,7 +107,13 @@ namespace FilmQZ.App.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
+			var passwordTest = await PasswordLookup.Lookup(model.NewPassword).ConfigureAwait(false);
+			if (passwordTest.HasHit)
+			{
+				return GetErrorResult(IdentityResult.Failed($"The chosen password was found {passwordTest.HitCount} times on a public list."));
+			}
+
+			IdentityResult result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
 
             if (!result.Succeeded)
@@ -126,7 +133,13 @@ namespace FilmQZ.App.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await userManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+			var passwordTest = await PasswordLookup.Lookup(model.NewPassword).ConfigureAwait(false);
+			if (passwordTest.HasHit)
+			{
+				return GetErrorResult(IdentityResult.Failed($"The chosen password was found {passwordTest.HitCount} times on a public list."));
+			}
+
+			IdentityResult result = await userManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
 
             if (!result.Succeeded)
             {
@@ -313,7 +326,13 @@ namespace FilmQZ.App.Controllers.Api
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await userManager.CreateAsync(user, model.Password);
+			var passwordTest = await PasswordLookup.Lookup(model.Password).ConfigureAwait(false);
+			if (passwordTest.HasHit)
+			{
+				return GetErrorResult(IdentityResult.Failed($"The chosen password was found {passwordTest.HitCount} times on a public list."));
+			}
+
+			IdentityResult result = await userManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {

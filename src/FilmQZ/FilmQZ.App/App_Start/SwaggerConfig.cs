@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using FilmQZ.App;
 using Swagger.Net.Application;
 using Swagger.Net;
-using FilmQZ.App.Authentication.Constants;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -48,7 +47,7 @@ namespace FilmQZ.App
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
-                        c.PrettyPrint();
+                        //c.PrettyPrint();
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swagger-Net which actions should be
@@ -128,7 +127,6 @@ namespace FilmQZ.App
                         // complex Schema, use a Schema filter.
                         //
                         //c.MapType<ProductType>(() => new Schema { type = "integer", format = "int32" });
-                        c.MapType<Guid>(() => new Schema() { type = "string", format = "string" });
 
                         // If you want to post-modify "complex" Schemas once they've been generated, across the board or for a
                         // specific type, you can wire up one or more Schema filters.
@@ -170,7 +168,7 @@ namespace FilmQZ.App
                         // to inspect some attribute on each action and infer which (if any) OAuth2 scopes are required
                         // to execute the operation
                         //
-                        c.OperationFilter<AssignOAuth2SecurityRequirements>();
+                        //c.OperationFilter<AssignOAuth2SecurityRequirements>();
 
                         // Post-modify the entire Swagger document by wiring up one or more Document filters.
                         // This gives full control to modify the final SwaggerDocument. You should have a good understanding of
@@ -178,8 +176,6 @@ namespace FilmQZ.App
                         // before using this option.
                         //
                         //c.DocumentFilter<ApplyDocumentVendorExtensions>();
-
-                        c.OAuth2("oauth2").TokenUrl("/token").Flow("password").AuthorizationUrl("/token");
 
                         // In contrast to WebApi, Swagger 2.0 does not include the query string component when mapping a URL
                         // to an action. As a result, Swagger-Net will raise an exception if it encounters multiple actions
@@ -198,7 +194,7 @@ namespace FilmQZ.App
                         // Use the "DocumentTitle" option to change the Document title.
                         // Very helpful when you have multiple Swagger pages open, to tell them apart.
                         //
-                        c.DocumentTitle("FilmQZ Swagger UI");
+                        //c.DocumentTitle("My Swagger UI");
 
                         // Use the "InjectStylesheet" option to enrich the UI with one or more additional CSS stylesheets.
                         // The file must be included in your project as an "Embedded Resource", and then the resource's
@@ -218,6 +214,11 @@ namespace FilmQZ.App
                         //
                         //c.BooleanValues(new[] { "0", "1" });
 
+                        // Controls the display of vendor extension (x-) fields and values for Operations, Parameters, and Schema.
+                        // The default is false.
+                        //
+                        c.ShowExtensions(true);
+
                         // By default, swagger-ui will validate specs against swagger.io's online validator and display the result
                         // in a badge at the bottom of the page. Use these options to set a different validator URL or to disable the
                         // feature entirely.
@@ -234,11 +235,15 @@ namespace FilmQZ.App
                         // the rendering for a given model by clicking the 'Model' and 'Example Value' links.) It can be
                         // set to 'model' or 'example', and the default is 'example'.
                         //
-                        c.DefaultModelRendering(DefaultModelRender.Example);
+                        //c.DefaultModelRendering(DefaultModelRender.Model);
 
-                        // Use this option to control the expansion depth for models.
+                        // Use this option to control the expansion depth for the model on the model-example section.
                         //
                         //c.DefaultModelExpandDepth(0);
+
+                        // The default expansion depth for models (set to -1 completely hide the models).
+                        //
+                        //c.DefaultModelsExpandDepth(0);
 
                         // Limit the number of operations shown to a smaller value
                         //
@@ -345,7 +350,5 @@ namespace FilmQZ.App
                 }
             }
         }
-
-
     }
 }

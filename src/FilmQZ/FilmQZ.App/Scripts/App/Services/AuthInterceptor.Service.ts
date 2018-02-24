@@ -24,6 +24,7 @@ export class AuthInterceptorService {
 
     public responseError = (rejection: ng.IHttpResponse<any>): ng.IPromise<never> => {
         if (rejection.status === 401) {
+
             this.$state.transitionTo("app.login");
         }
         return this.$q.reject(rejection);

@@ -4,9 +4,9 @@ class RegisterController implements ng.IController {
     public message: string = "";
 
     public registration: INewUserModel = {
+        ConfirmPassword: "",
         Email: "",
-        Password: "",
-        ConfirmPassword: ""
+        Password: ""
     };
 
     constructor(private $state: ng.ui.IStateService,
@@ -24,16 +24,19 @@ class RegisterController implements ng.IController {
                 this.startTimer();
 
             },
-            (response) => {
-                const errors: string[] = [];
-                for (const element of response.data.modelState) {
-
-                    for (const item of element) {
-                        errors.push(item);
+                (response) => {
+                    const errors: string[] = [];
+                    for (const key in response.data.ModelState) {
+                        if (response.data.ModelState.hasOwnProperty(key)) {
+                            const element = response.data.ModelState[key];
+                            for (const item of element) {
+                                errors.push(item);
+                            }
+                        }
                     }
-                }
-                this.message = "Failed to register user due to:" + errors.join(" ");
-            });
+
+                    this.message = "Failed to register user due to:" + errors.join(" ");
+                });
 
     }
 

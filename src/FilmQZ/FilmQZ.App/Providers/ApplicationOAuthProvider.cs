@@ -31,6 +31,7 @@ namespace FilmQZ.App.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
+
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
