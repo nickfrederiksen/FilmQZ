@@ -1,0 +1,37 @@
+$font-expletus: "expletus";
+
+@font-face {
+    font-family: $font-expletus;
+    src: url('../Fonts/expletussans/expletussans-regular-webfont.woff2') format('woff2'),
+         url('../Fonts/expletussans/expletussans-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: $font-expletus;
+    src: url('../Fonts/expletussans/expletussans-bold-webfont.woff2') format('woff2'),
+         url('../Fonts/expletussans/expletussans-bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: $font-expletus;
+    src: url('../Fonts/expletussans/expletussans-bolditalic-webfont.woff2') format('woff2'),
+         url('../Fonts/expletussans/expletussans-bolditalic-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: $font-expletus;
+    src: url('../Fonts/expletussans/expletussans-italic-webfont.woff2') format('woff2'),
+         url('../Fonts/expletussans/expletussans-italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+
+}

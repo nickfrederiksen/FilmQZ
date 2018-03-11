@@ -1,0 +1,15 @@
+@import "../Mixins/Fonts";
+.navbar{
+    
+    font-family: $font-expletus;
+    
+.navbar-brand{
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 2em;
+    span{
+        font-weight: bold;
+        font-style: normal;
+    }
+}
+}

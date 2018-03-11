@@ -1,9 +1,11 @@
 ﻿using FilmQZ.App.App_Start;
 using FilmQZ.App.Authentication;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using PasswordTester;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +42,14 @@ namespace FilmQZ.App.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
+			var passwordTest = await PasswordLookup.Lookup(context.Password);
+			if (passwordTest)
+			{
+				string errorMessage = $"The chosen password was found {passwordTest.HitCount} times on a public list.";
+				context.Response.Headers.Set("x-password-warning",errorMessage);
+			}
+
+			ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);

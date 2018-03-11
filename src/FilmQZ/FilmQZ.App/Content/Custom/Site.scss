@@ -1,6 +1,11 @@
-﻿$fa-font-path: '/assets/node_modules/font-awesome/fonts';
+﻿$fa-font-path: "~font-awesome/fonts";
+
+@import "./Mixins/Fonts";
+
 @import "~font-awesome/scss/font-awesome";
 @import "~bootstrap/scss/bootstrap";
 @import "~angular/angular-csp";
 @import "./Components/Buttons";
 @import "./Components/collapse";
+@import "./Components/Header";
+@import "./Components/headers";
