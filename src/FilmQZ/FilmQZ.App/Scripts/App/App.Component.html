@@ -13,9 +13,17 @@
 </nav>
 
 <div class="container-fluid">
-    <ui-view></ui-view>
-    <hr />
-    <footer>
-        <p>{{$ctrl.year}} - Nick Frederiksen</p>
-    </footer>
+    <div class="row">
+        <div class="col-12">
+            <ui-view></ui-view>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+            <footer>
+                <p>{{$ctrl.year}} - Nick Frederiksen</p>
+            </footer>
+        </div>
+    </div>
 </div>

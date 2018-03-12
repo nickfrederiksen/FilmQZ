@@ -1,0 +1,6 @@
+@import "../Mixins/Colors";
+
+body{
+    background-color: $color-background;
+    color: $color-brand-primary;
+}

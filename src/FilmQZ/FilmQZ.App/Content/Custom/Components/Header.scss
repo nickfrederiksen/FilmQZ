@@ -1,15 +1,30 @@
 @import "../Mixins/Fonts";
+@import "../Mixins/Colors";
+
 .navbar{
     
     font-family: $font-expletus;
+    background-color: $color-navbar-bgr;
+    
+    color:$color-navbar-text;
+    margin-bottom: 20px;
+    a{
+        color:$color-navbar-text;
+    }
     
 .navbar-brand{
     font-weight: normal;
     text-transform: uppercase;
     font-size: 2em;
+    color: $color-brand-primary;
     span{
         font-weight: bold;
         font-style: normal;
+        color:$color-navbar-text;
     }
+}
+
+&.manage-nav{
+    background-color: $color-navbar-manager-bgr;
 }
 }
