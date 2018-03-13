@@ -6,6 +6,7 @@ import { CreateGameComponent } from "../App/Management/Games/CreateGame.Componen
 import { EditGameComponent } from "../App/Management/Games/EditGame.Component";
 import { ManageGamesComponent } from "../App/Management/Games/ManageGames.Component";
 import { ManageComponent } from "../App/Management/Manage.Component";
+import { ManageTeamsComponent } from "../App/Management/Teams/ManageTeams.Component";
 
 export function SetupComponents(app: angular.IModule): void {
     app.component(AppComponent.NAME, new AppComponent());
@@ -17,4 +18,5 @@ export function SetupComponents(app: angular.IModule): void {
     app.component(ManageGamesComponent.NAME, new ManageGamesComponent());
     app.component(EditGameComponent.NAME, new EditGameComponent());
     app.component(CreateGameComponent.NAME, new CreateGameComponent());
+    app.component(ManageTeamsComponent.NAME, new ManageTeamsComponent());
 }

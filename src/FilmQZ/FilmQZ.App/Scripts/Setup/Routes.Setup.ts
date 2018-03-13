@@ -6,53 +6,60 @@ import { CreateGameComponent } from "../App/Management/Games/CreateGame.Componen
 import { EditGameComponent } from "../App/Management/Games/EditGame.Component";
 import { ManageGamesComponent } from "../App/Management/Games/ManageGames.Component";
 import { ManageComponent } from "../App/Management/Manage.Component";
+import { ManageTeamsComponent } from "../App/Management/Teams/ManageTeams.Component";
 
 export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
     $stateProvider.state({
+        component: AppComponent.NAME,
         name: "app",
         url: "/",
-        component: AppComponent.NAME,
     });
 
     $stateProvider.state({
+        component: HomeComponent.NAME,
         name: "app.home",
         url: "^/home",
-        component: HomeComponent.NAME,
     });
 
     $stateProvider.state({
+        component: RegisterComponent.NAME,
         name: "app.register",
         url: "^/account/register",
-        component: RegisterComponent.NAME,
     });
 
     $stateProvider.state({
+        component: LoginComponent.NAME,
         name: "app.login",
         url: "^/account/login",
-        component: LoginComponent.NAME,
     });
 
     $stateProvider.state({
+        component: ManageComponent.NAME,
         name: "manage",
         url: "/manage",
-        component: ManageComponent.NAME,
     });
 
     $stateProvider.state({
+        component: ManageGamesComponent.NAME,
         name: "manage.manageGames",
         url: "^/manage/games",
-        component: ManageGamesComponent.NAME,
     });
 
     $stateProvider.state({
+        component: CreateGameComponent.NAME,
         name: "manage.createGame",
         url: "^/manage/games/create",
-        component: CreateGameComponent.NAME,
     });
 
     $stateProvider.state({
+        component: EditGameComponent.NAME,
         name: "manage.editGame",
         url: "^/manage/games/{id}",
-        component: EditGameComponent.NAME,
+    });
+
+    $stateProvider.state({
+        component: ManageTeamsComponent.NAME,
+        name: "manage.manageTeams",
+        url: "^/manage/teams",
     });
 }

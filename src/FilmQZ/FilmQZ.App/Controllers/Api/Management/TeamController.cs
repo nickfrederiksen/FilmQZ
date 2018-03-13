@@ -49,6 +49,12 @@ namespace FilmQZ.App.Controllers.Api.Management
                 else
                 {
                     var userId = User.Identity.GetUserId();
+					var hasExistingTeam = this.dbContext.Teams.Any(t => t.TeamOwnerId == userId);
+					if (hasExistingTeam)
+					{
+						return Conflict();
+					}
+
                     var teamUrl = this.urlHelpers.GenerateCleanURL(createModel.Name);
                     var newTeam = new Team()
                     {
@@ -97,29 +103,47 @@ namespace FilmQZ.App.Controllers.Api.Management
             await dbContext.SaveChangesAsync(cancellationToken);
 
             return Ok();
-        }
+		}
 
-        [Route("")]
-        [HttpGet]
-        [ResponseType(typeof(IEnumerable<TeamListItemModel>))]
-        public async Task<IHttpActionResult> GetAll(CancellationToken cancellationToken)
-        {
-            var userId = User.Identity.GetUserId();
-            var teams = from t in dbContext.Teams
-                        where t.TeamOwnerId == userId
-                        select new TeamListItemModel()
-                        {
-                            CreatedDate = t.CreatedDate,
-                            Id = t.Id,
-                            Name = t.Name,
-                            URL = t.URL
-                        };
+		[Route("")]
+		[HttpGet]
+		[ResponseType(typeof(IEnumerable<TeamListItemModel>))]
+		public async Task<IHttpActionResult> GetAll(CancellationToken cancellationToken)
+		{
+			var teams = from t in dbContext.Teams
+						select new TeamListItemModel()
+						{
+							CreatedDate = t.CreatedDate,
+							Id = t.Id,
+							Name = t.Name,
+							URL = t.URL
+						};
 
-            var listItems = await teams.ToListAsync(cancellationToken);
-            return base.Ok(listItems);
-        }
+			var listItems = await teams.ToListAsync(cancellationToken);
+			return base.Ok(listItems);
+		}
 
-        [Route("{id:Guid}", Name = "manageTeamId")]
+		[Route("mine")]
+		[HttpGet]
+		[ResponseType(typeof(IEnumerable<TeamListItemModel>))]
+		public async Task<IHttpActionResult> GetMine(CancellationToken cancellationToken)
+		{
+			var userId = User.Identity.GetUserId();
+			var teams = from t in dbContext.Teams
+						where t.TeamOwnerId == userId
+						select new TeamListItemModel()
+						{
+							CreatedDate = t.CreatedDate,
+							Id = t.Id,
+							Name = t.Name,
+							URL = t.URL
+						};
+
+			var listItems = await teams.ToListAsync(cancellationToken);
+			return base.Ok(listItems);
+		}
+
+		[Route("{id:Guid}", Name = "manageTeamId")]
         [HttpGet]
         [ResponseType(typeof(TeamEntityModel))]
         public async Task<IHttpActionResult> GetSingle(Guid id, CancellationToken cancellationToken)

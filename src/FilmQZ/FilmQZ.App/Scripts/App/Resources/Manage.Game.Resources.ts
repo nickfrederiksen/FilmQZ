@@ -1,6 +1,5 @@
 
-export class ManageGameResources implements
-    ns.Resources.ICrudResource<ns.Management.Game.IUpdateGameModel, ns.Management.Game.ICreateGameModel> {
+export class ManageGameResources {
 
     public static Instance($http: ng.IHttpService) { // DevSkim: ignore DS137138
         return new ManageGameResources($http);
@@ -20,7 +19,7 @@ export class ManageGameResources implements
     }
 
     public Update(id: string, model: ns.Management.Game.IUpdateGameModel) {
-        return this.$http.put(this.baseUrl + "/" + id, model);
+        return this.$http.put<void>(this.baseUrl + "/" + id, model);
     }
 
     public Create(model: ns.Management.Game.ICreateGameModel) {
@@ -28,6 +27,6 @@ export class ManageGameResources implements
     }
 
     public Delete(id: string) {
-        return this.$http.delete(this.baseUrl + "/" + id);
+        return this.$http.delete<void>(this.baseUrl + "/" + id);
     }
 }

@@ -1,8 +1,6 @@
 import { getApiUrl } from "../Utils/ApiUrlHelper";
 
-export class ManageRoundResources
-    implements ns.Resources.IGameIdCrudResource
-    <ns.Management.Round.IUpdateRoundModel, ns.Management.Round.ICreateRoundModel> {
+export class ManageRoundResources {
 
     public static Instance($http: ng.IHttpService) { // DevSkim: ignore DS137138
         return new ManageRoundResources($http);

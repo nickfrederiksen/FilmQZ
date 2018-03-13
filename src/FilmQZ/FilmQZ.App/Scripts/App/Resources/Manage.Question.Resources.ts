@@ -1,8 +1,6 @@
 import { getApiUrl } from "../Utils/ApiUrlHelper";
 
-export class ManageQuestionResources
-    implements ns.Resources.IRoundIdCrudResource
-    <ns.Management.Question.IUpdateQuestionModel, ns.Management.Question.ICreateQuestionModel> {
+export class ManageQuestionResources {
 
     public static Instance($http: ng.IHttpService) { // DevSkim: ignore DS137138
         return new ManageQuestionResources($http);

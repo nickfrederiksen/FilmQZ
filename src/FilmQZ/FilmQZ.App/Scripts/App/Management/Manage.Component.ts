@@ -7,8 +7,7 @@ class ManageController implements ng.IController {
 
     private currentState: StateObject | ng.ui.IState | undefined;
 
-    constructor(public $state: ng.ui.IStateService,
-                $transitions: TransitionService) {
+    constructor(public $state: ng.ui.IStateService, $transitions: TransitionService) {
 
         this.buildTopNavigation();
 
@@ -34,8 +33,35 @@ class ManageController implements ng.IController {
             authorizedOnly: false,
             isActive: false,
             isVisible: true,
+            sref: "app.home",
+            text: "Home"
+        });
+
+        this.topNavigation.push({
+            anonymousOnly: false,
+            authorizedOnly: false,
+            isActive: false,
+            isVisible: true,
             sref: "manage",
             text: "Manage"
+        });
+
+        this.topNavigation.push({
+            anonymousOnly: false,
+            authorizedOnly: false,
+            isActive: false,
+            isVisible: true,
+            sref: "manage.manageGames",
+            text: "Games"
+        });
+
+        this.topNavigation.push({
+            anonymousOnly: false,
+            authorizedOnly: false,
+            isActive: false,
+            isVisible: true,
+            sref: "manage.manageTeams",
+            text: "Teams"
         });
     }
 }
