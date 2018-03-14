@@ -6,6 +6,8 @@ import { CreateGameComponent } from "../App/Management/Games/CreateGame.Componen
 import { EditGameComponent } from "../App/Management/Games/EditGame.Component";
 import { ManageGamesComponent } from "../App/Management/Games/ManageGames.Component";
 import { ManageComponent } from "../App/Management/Manage.Component";
+import { CreateTeamComponent } from "../App/Management/Teams/CreateTeam.Component";
+import { EditTeamComponent } from "../App/Management/Teams/EditTeam.Component";
 import { ManageTeamsComponent } from "../App/Management/Teams/ManageTeams.Component";
 
 export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
@@ -61,5 +63,17 @@ export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
         component: ManageTeamsComponent.NAME,
         name: "manage.manageTeams",
         url: "^/manage/teams",
+    });
+
+    $stateProvider.state({
+        component: CreateTeamComponent.NAME,
+        name: "manage.createTeam",
+        url: "^/manage/teams/create",
+    });
+
+    $stateProvider.state({
+        component: EditTeamComponent.NAME,
+        name: "manage.editTeam",
+        url: "^/manage/teams/{id}",
     });
 }

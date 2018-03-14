@@ -9,6 +9,7 @@ namespace FilmQZ.Core.Logging
 {
     public class LogHelper
     {
+		private static readonly object locker = new object();
         private static readonly IDictionary<Type, LogHelper> Loggers = new Dictionary<Type, LogHelper>();
         private readonly ILog logger;
 
@@ -19,14 +20,17 @@ namespace FilmQZ.Core.Logging
 
         public static LogHelper GetHelper(Type type)
         {
-            if (Loggers.TryGetValue(type, out var helper) == false)
-            {
-                var logger = LogManager.GetLogger(type);
-                helper = new LogHelper(logger);
-                Loggers.Add(type, helper);
-            }
+			lock (locker)
+			{
+				if (Loggers.TryGetValue(type, out var helper) == false)
+				{
+					var logger = LogManager.GetLogger(type);
+					helper = new LogHelper(logger);
+					Loggers.Add(type, helper);
+				}
 
-            return helper;
+				return helper; 
+			}
         }
     }
 }

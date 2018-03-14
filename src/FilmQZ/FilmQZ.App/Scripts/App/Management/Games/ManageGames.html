@@ -10,8 +10,8 @@
 </nav>
 
 <div class="row">
-    <div class="col-2">
-        <div class="card" data-ng-repeat="game in $ctrl.Games track by game.Id">
+    <div class="col-2" data-ng-repeat="game in $ctrl.Games track by game.Id">
+        <div class="card">
             <div class="card-body">
                 <h4>
                     {{game.Name}}

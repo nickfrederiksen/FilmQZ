@@ -1,22 +1,20 @@
+import { TeamFilter } from "../Enums/TeamFilter";
+
 export class ManageTeamResources {
 
     public static Instance($http: ng.IHttpService) { // DevSkim: ignore DS137138
         return new ManageTeamResources($http);
     }
-    private readonly baseUrl = "/api/management/team";
+    private readonly baseUrl = "/api/management/teams";
 
     constructor(private $http: ng.IHttpService) { // DevSkim: ignore DS137138
     }
 
-    public GetAll() {
-        const url = this.baseUrl;
-        return this.$http.get<ns.Management.Team.ITeamListItemModel[]>(url);
-    }
+    public Get(filterType: TeamFilter) {
+        const newLocal: string = TeamFilter[filterType];
 
-    public GetMine() {
-        const url = this.baseUrl + "/mine";
+        const url = this.baseUrl + "/" + newLocal;
         return this.$http.get<ns.Management.Team.ITeamListItemModel[]>(url);
-
     }
 
     public GetSingle(id: string) {
@@ -37,5 +35,10 @@ export class ManageTeamResources {
     public Delete(id: string) {
         const url = this.baseUrl;
         return this.$http.delete(url + "/" + id);
+    }
+
+    public UnSubscribe(id: string) {
+        const url = this.baseUrl;
+        return this.$http.delete(url + "/" + id + "/unsubscribe");
     }
 }

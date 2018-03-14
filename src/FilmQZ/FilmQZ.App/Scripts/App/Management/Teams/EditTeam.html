@@ -1,0 +1,21 @@
+<form name="createTeam" data-ng-submit="$ctrl.updateTeam()">
+    <div class="form-group">
+        <input type="text" data-ng-model="$ctrl.model.Name" data-ng-class="{'is-invalid':createTeam.createTeamName.$dirty && createTeam.createTeamName.$valid===false}"
+            class="form-control form-control-lg" id="createTeamName" name="createTeamName" required pattern="(?!^( |-|\.)+$)^(\w| |\.|\d|-|æ|ø|å)+$"
+            aria-describedby="create-game-name-help" placeholder="Enter the name of the game">
+        <small id="create-game-name-help" class="form-text text-muted">Can only contain letters, a-z, spaces and dashes,(-)</small>
+    </div>
+    <div class="btn-group" role="group">
+        <button data-ng-disabled="createTeam.$invalid || createTeam.$pristine" type="submit" class="btn btn-primary">Save</button>
+        <a class="btn btn-outline-secondary" ui-sref="manage.manageTeams">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Cancel
+        </a>
+    </div>
+
+    <div data-ng-hide="$ctrl.errorMessage == null" class="alert alert-danger">
+
+        {{$ctrl.errorMessage}}
+
+    </div>
+</form>

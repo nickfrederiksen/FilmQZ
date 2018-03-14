@@ -235,6 +235,7 @@
       <DependentUpon>201711242212131_addReferenceToUsersOnTeamsAndGames.cs</DependentUpon>
     </Compile>
     <Compile Include="Authentication\Migrations\Configuration.cs" />
+    <Compile Include="BusinessLogic\Enums\TeamFilter.cs" />
     <Compile Include="BusinessLogic\Helpers\URLHelpers.cs" />
     <Compile Include="BusinessLogic\Interfaces\ICrudController.cs" />
     <Compile Include="Controllers\Api\AccountController.cs" />
