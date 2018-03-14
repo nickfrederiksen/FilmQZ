@@ -41,4 +41,9 @@ export class ManageTeamResources {
         const url = this.baseUrl;
         return this.$http.delete(url + "/" + id + "/unsubscribe");
     }
+
+    public GetMembers(id: string) {
+        const url = this.baseUrl;
+        return this.$http.get<ns.Management.Team.ITeamMemberModel[]>(url + "/" + id + "/members");
+    }
 }

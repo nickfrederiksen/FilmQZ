@@ -1,21 +1,43 @@
-<form name="createTeam" data-ng-submit="$ctrl.updateTeam()">
-    <div class="form-group">
-        <input type="text" data-ng-model="$ctrl.model.Name" data-ng-class="{'is-invalid':createTeam.createTeamName.$dirty && createTeam.createTeamName.$valid===false}"
-            class="form-control form-control-lg" id="createTeamName" name="createTeamName" required pattern="(?!^( |-|\.)+$)^(\w| |\.|\d|-|æ|ø|å)+$"
-            aria-describedby="create-game-name-help" placeholder="Enter the name of the game">
-        <small id="create-game-name-help" class="form-text text-muted">Can only contain letters, a-z, spaces and dashes,(-)</small>
-    </div>
-    <div class="btn-group" role="group">
-        <button data-ng-disabled="createTeam.$invalid || createTeam.$pristine" type="submit" class="btn btn-primary">Save</button>
-        <a class="btn btn-outline-secondary" ui-sref="manage.manageTeams">
-            <i class="fa fa-ban" aria-hidden="true"></i>
-            Cancel
-        </a>
-    </div>
+<div class="row">
+    <div class="col-12">
+        <form name="createTeam" data-ng-submit="$ctrl.updateTeam()">
+            <div class="form-group">
+                <input type="text" data-ng-model="$ctrl.model.Name" data-ng-class="{'is-invalid':createTeam.createTeamName.$dirty && createTeam.createTeamName.$valid===false}"
+                    class="form-control form-control-lg" id="createTeamName" name="createTeamName" required pattern="(?!^( |-|\.)+$)^(\w| |\.|\d|-|æ|ø|å)+$"
+                    aria-describedby="create-game-name-help" placeholder="Enter the name of the game">
+                <small id="create-game-name-help" class="form-text text-muted">Can only contain letters, a-z, spaces and dashes,(-)</small>
+            </div>
+            <div class="btn-group" role="group">
+                <button data-ng-disabled="createTeam.$invalid || createTeam.$pristine" type="submit" class="btn btn-primary">Save</button>
+                <a class="btn btn-outline-secondary" ui-sref="manage.manageTeams">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                    Cancel
+                </a>
+            </div>
 
-    <div data-ng-hide="$ctrl.errorMessage == null" class="alert alert-danger">
+            <div data-ng-hide="$ctrl.errorMessage == null" class="alert alert-danger">
 
-        {{$ctrl.errorMessage}}
+                {{$ctrl.errorMessage}}
 
+            </div>
+        </form>
     </div>
-</form>
+</div>
+<div class="row">
+    <div class="col-4" data-ng-repeat="member in $ctrl.teamMembers track by member.Id">
+        <div class="card">
+            <div class="card-body">
+                <h4>
+                    {{member.Name}}
+                </h4>
+                <span class="badge badge-secondary">{{member.CreatedDate | date:'dd/MM/yyyy'}}</span>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-outline-danger" data-ng-click="$ctrl.UnSubscribe(member.Id)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -265,6 +265,7 @@
     <Compile Include="Models\Management\Team\CreateTeamModel.cs" />
     <Compile Include="Models\Management\Team\TeamEntityModel.cs" />
     <Compile Include="Models\Management\Team\TeamListItemModel.cs" />
+    <Compile Include="Models\Management\Team\TeamMemberModel.cs" />
     <Compile Include="Models\Management\Team\UpdateTeamModel.cs" />
     <Compile Include="Models\Play\GameListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

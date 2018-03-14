@@ -4,6 +4,8 @@ class EditTeamController implements ng.IController {
 
     public model: ns.Management.Team.IUpdateTeamModel = { Name: "" };
 
+    public teamMembers: ns.Management.Team.ITeamMemberModel[] = [];
+
     public errorMessage: string | undefined;
 
     constructor(private $stateParams: ng.ui.IStateParamsService,
@@ -29,6 +31,11 @@ class EditTeamController implements ng.IController {
         this.teamResources.GetSingle(teamId)
             .then((resp) => {
                 this.model = resp.data;
+            });
+
+        this.teamResources.GetMembers(teamId)
+            .then((resp) => {
+                this.teamMembers = resp.data;
             });
     }
 }

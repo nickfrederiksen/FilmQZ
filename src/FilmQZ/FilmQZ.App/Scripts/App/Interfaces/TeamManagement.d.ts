@@ -18,4 +18,10 @@ declare namespace ns.Management.Team {
     export interface ICreateTeamModel {
         Name: string;
     }
+
+    export interface ITeamMemberModel {
+        UserId: string;
+        Name: string;
+        CreatedDate: string;
+    }
 }

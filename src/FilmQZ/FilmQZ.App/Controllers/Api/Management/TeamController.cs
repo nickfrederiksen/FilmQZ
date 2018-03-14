@@ -28,12 +28,14 @@ namespace FilmQZ.App.Controllers.Api.Management
 		private readonly DatabaseContext dbContext;
 		private readonly URLHelpers urlHelpers;
 		private readonly LogHelper logHelper;
+		private readonly ApplicationUserManager userManager;
 
-		public TeamController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper)
+		public TeamController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper, ApplicationUserManager userManager)
 		{
 			this.dbContext = dbContext;
 			this.urlHelpers = urlHelpers;
 			this.logHelper = logHelper;
+			this.userManager = userManager;
 		}
 
 		[Route("")]
@@ -117,7 +119,6 @@ namespace FilmQZ.App.Controllers.Api.Management
 
 			return Ok();
 		}
-
 
 		[Route("{filter}")]
 		[HttpGet]
@@ -218,6 +219,34 @@ namespace FilmQZ.App.Controllers.Api.Management
 			{
 				return BadRequest(ModelState);
 			}
+		}
+
+		[Route("{id:Guid}/members")]
+		[HttpGet]
+		[ResponseType(typeof(IEnumerable<TeamMemberModel>))]
+		public async Task<IHttpActionResult> GetMembers(Guid id, CancellationToken cancellationToken)
+		{
+			var userId = User.Identity.GetUserId();
+
+			var subscriptionsQuery = from ut in this.dbContext.UserTeams
+									 where ut.TeamId == id && ut.UserId != userId
+									 select new { ut.UserId, ut.CreatedDate };
+
+			var subscriptions = await subscriptionsQuery.ToListAsync(cancellationToken);
+			var userIds = subscriptions.Select(s => s.UserId);
+			var users = await this.userManager.Users.Where(u => userIds.Contains(u.Id)).ToListAsync(cancellationToken);
+
+			var join = from s in subscriptions
+					   join u in users on s.UserId equals u.Id
+					   select new TeamMemberModel
+					   {
+						   UserId = u.Id,
+						   Name = u.UserName, // TODO: Change to profile name
+						   CreatedDate = s.CreatedDate
+					   };
+
+			return Ok(join);
+
 		}
 
 		private async Task<bool> GetTeamExistsAsync(CreateTeamModel createModel, Guid? teamId, CancellationToken cancellationToken)
