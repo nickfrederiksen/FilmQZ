@@ -63,6 +63,7 @@
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\Relations\UserGame.cs" />
     <Compile Include="Entities\Relations\UserTeam.cs" />
+    <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Enums\QuestionType.cs" />
     <Compile Include="Extensions\UserReferences.cs" />
     <Compile Include="Logging\LogHelper.cs" />
@@ -93,6 +94,10 @@
     <Compile Include="Migrations\201711262113162_addedCascadeDeleteToPointQuestionRef.cs" />
     <Compile Include="Migrations\201711262113162_addedCascadeDeleteToPointQuestionRef.Designer.cs">
       <DependentUpon>201711262113162_addedCascadeDeleteToPointQuestionRef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803150551059_AddUserProfile.cs" />
+    <Compile Include="Migrations\201803150551059_AddUserProfile.Designer.cs">
+      <DependentUpon>201803150551059_AddUserProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711262113162_addedCascadeDeleteToPointQuestionRef.resx">
       <DependentUpon>201711262113162_addedCascadeDeleteToPointQuestionRef.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803150551059_AddUserProfile.resx">
+      <DependentUpon>201803150551059_AddUserProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -229,19 +229,17 @@ namespace FilmQZ.App.Controllers.Api.Management
 			var userId = User.Identity.GetUserId();
 
 			var subscriptionsQuery = from ut in this.dbContext.UserTeams
+									 join up in this.dbContext.UserProfiles on ut.UserId equals up.UserId
 									 where ut.TeamId == id && ut.UserId != userId
-									 select new { ut.UserId, ut.CreatedDate };
+									 select new { ut.UserId, up.FullName, ut.CreatedDate };
 
 			var subscriptions = await subscriptionsQuery.ToListAsync(cancellationToken);
-			var userIds = subscriptions.Select(s => s.UserId);
-			var users = await this.userManager.Users.Where(u => userIds.Contains(u.Id)).ToListAsync(cancellationToken);
 
 			var join = from s in subscriptions
-					   join u in users on s.UserId equals u.Id
 					   select new TeamMemberModel
 					   {
-						   UserId = u.Id,
-						   Name = u.UserName, // TODO: Change to profile name
+						   UserId = s.UserId,
+						   Name = s.FullName,
 						   CreatedDate = s.CreatedDate
 					   };
 

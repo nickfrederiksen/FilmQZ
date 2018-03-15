@@ -3,6 +3,8 @@ using FilmQZ.App.Authentication;
 using FilmQZ.App.Models;
 using FilmQZ.App.Providers;
 using FilmQZ.App.Results;
+using FilmQZ.Core;
+using FilmQZ.Core.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -12,11 +14,13 @@ using Microsoft.Owin.Security.OAuth;
 using PasswordTester;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -28,11 +32,13 @@ namespace FilmQZ.App.Controllers.Api
     {
         private const string LocalLoginProvider = "Local";
         private readonly ApplicationUserManager userManager;
+		private readonly DatabaseContext databaseContext;
 
-        public AccountController(ApplicationUserManager userManager)
+		public AccountController(ApplicationUserManager userManager, DatabaseContext databaseContext)
         {
             this.userManager = userManager;
-        }
+			this.databaseContext = databaseContext;
+		}
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -374,6 +380,31 @@ namespace FilmQZ.App.Controllers.Api
             }
             return Ok();
         }
+		
+		[Route("Profile")]
+		[HttpPut]
+		public async Task<IHttpActionResult> UpdateProfile(UserProfileUpdateModel model,CancellationToken cancellationToken)
+		{
+			if (ModelState.IsValid == false)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var userId = User.Identity.GetUserId();
+			var profile = await this.databaseContext.UserProfiles.SingleOrDefaultAsync(p => p.UserId == userId, cancellationToken);
+			if (profile == null)
+			{
+				profile = new UserProfile() { UserId = userId };
+				this.databaseContext.UserProfiles.Add(profile);
+			}
+
+			profile.Description = model.Description;
+			profile.FullName = model.FullName;
+			profile.PhoneNumber = model.PhoneNumber;
+
+			await this.databaseContext.SaveChangesAsync(cancellationToken);
+			return Ok();
+		}
 
         protected override void Dispose(bool disposing)
         {

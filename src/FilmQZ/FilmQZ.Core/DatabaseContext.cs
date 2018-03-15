@@ -45,5 +45,7 @@ namespace FilmQZ.Core
         public virtual DbSet<Point> Points { get; set; }
         public virtual DbSet<Round> Rounds { get; set; }
         public virtual DbSet<AnswerPoint> AnswerPoints { get; set; }
-    }
+
+        public virtual DbSet<UserProfile> UserProfiles { get; set; }
+	}
 }
