@@ -5,7 +5,8 @@
 
             <label for="question-{{$ctrl.model.Id}}" class="col-sm-2 col-form-label">Question:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="question-{{$ctrl.model.Id}}" data-ng-model="$ctrl.model.Text">
+
+                <div data-markdown-editor="" data-model="$ctrl.model.Text" data-name="question-{{$ctrl.model.Id}}"></div>
             </div>
 
         </div>

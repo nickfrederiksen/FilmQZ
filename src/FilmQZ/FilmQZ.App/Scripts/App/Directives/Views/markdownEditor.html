@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-6">
+        <textarea class="form-control" id="{{ctrl.name}}" aria-describedby="{{ctrl.name}}Help" rows="5" data-ng-model="ctrl.model"></textarea>
+
+        <small id="{{ctrl.name}}Help" class="form-text text-muted">You can use markdown,
+            <a href="https://daringfireball.net/projects/markdown/" target="_blank">read more</a>.</small>
+    </div>
+    <div class="col-6">
+        <div data-ng-bind-html="ctrl.renderedHtml">
+        </div>
+    </div>
+</div>

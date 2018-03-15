@@ -23,8 +23,8 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="round-description-{{$ctrl.model.Id}}">Description</label>
-                    <textarea class="form-control" id="round-description-{{$ctrl.model.Id}}" rows="3" placeholder="Enter a description for the round"
-                        data-ng-model="$ctrl.model.Description"></textarea>
+
+                    <div data-markdown-editor="" data-model="$ctrl.model.Description" data-name="round-description-{{$ctrl.model.Id}}"></div>
                 </div>
             </div>
         </div>

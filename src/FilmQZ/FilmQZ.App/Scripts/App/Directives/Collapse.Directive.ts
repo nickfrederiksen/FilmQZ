@@ -3,7 +3,6 @@ import "bootstrap";
 import * as jQuery from "jquery";
 export class CollapseDirective implements angular.IDirective<ICollapseDirectiveScope> {
 
-
     public static Instance() {
         return new CollapseDirective();
     }
