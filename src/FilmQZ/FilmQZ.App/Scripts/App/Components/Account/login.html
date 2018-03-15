@@ -1,4 +1,4 @@
-﻿<form class="form-login" role="form" data-ng-submit="$ctrl.login()">
+﻿<form class="form-login" role="form" name="loginForm" data-ng-submit="$ctrl.login()">
 
     <h2 class="form-login-heading">Login</h2>
 
@@ -6,7 +6,7 @@
 
     <input type="password" class="form-control" placeholder="Password" data-ng-model="$ctrl.loginData.Password" required>
 
-    <button class="btn btn-lg btn-info btn-block" type="submit">Login</button>
+    <button class="btn btn-lg btn-info btn-block" data-ng-disabled="loginForm.$invalid || loginForm.$pristine" type="submit">Login</button>
 
     <div data-ng-hide="$ctrl.message == ''" class="alert alert-danger">
 

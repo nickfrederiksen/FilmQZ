@@ -8,8 +8,8 @@ class AppController implements ng.IController {
     private currentState: StateObject | ng.ui.IState | undefined;
 
     constructor($scope: ng.IScope,
-                private authService: AuthService,
-                $transitions: TransitionService) {
+        private authService: AuthService,
+        $transitions: TransitionService) {
 
         this.buildTopNavigation();
 
@@ -77,6 +77,15 @@ class AppController implements ng.IController {
             isVisible: this.authService.authentication.isAuth === true,
             sref: "manage",
             text: "Manage"
+        });
+
+        this.topNavigation.push({
+            anonymousOnly: false,
+            authorizedOnly: true,
+            isActive: false,
+            isVisible: this.authService.authentication.isAuth === true,
+            sref: "app.editProfile",
+            text: "Profile"
         });
     }
 }

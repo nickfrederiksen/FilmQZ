@@ -1,4 +1,5 @@
 ﻿import { AppComponent } from "../App/App.Component";
+import { EditProfileComponent } from "../App/Components/Account/EditProfile.Component";
 import { LoginComponent } from "../App/Components/Account/Login.Component";
 import { RegisterComponent } from "../App/Components/Account/Register.Component";
 import { HomeComponent } from "../App/Components/Home/Home.Component";
@@ -23,4 +24,5 @@ export function SetupComponents(app: angular.IModule): void {
     app.component(ManageTeamsComponent.NAME, new ManageTeamsComponent());
     app.component(CreateTeamComponent.NAME, new CreateTeamComponent());
     app.component(EditTeamComponent.NAME, new EditTeamComponent());
+    app.component(EditProfileComponent.NAME, new EditProfileComponent());
 }

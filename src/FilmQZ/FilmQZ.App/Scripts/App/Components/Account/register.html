@@ -1,18 +1,18 @@
-﻿<form class="form-login" role="form" data-ng-submit="$ctrl.signUp()">
+﻿<form class="form-login" role="form" name="signupForm" data-ng-submit="$ctrl.signUp()">
 
 
 
     <h2 class="form-login-heading">Sign up</h2>
 
     <input type="text" class="form-control" placeholder="enter email address" data-ng-model="$ctrl.registration.Email" required
-           autofocus>
+        autofocus>
 
     <input type="password" class="form-control" placeholder="Enter password" data-ng-model="$ctrl.registration.Password" required>
 
     <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="$ctrl.registration.ConfirmPassword"
-           required>
+        required>
 
-    <button class="btn btn-lg btn-info btn-block" type="submit">Submit</button>
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-disabled="signupForm.$invalid || signupForm.$pristine">Submit</button>
 
     <div data-ng-hide="$ctrl.message == ''" data-ng-class="($ctrl.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
 

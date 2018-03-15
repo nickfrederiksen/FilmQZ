@@ -1,0 +1,24 @@
+<form data-ng-submit="$ctrl.updateProfile()" name="profileForm">
+    <div class="form-group">
+        <label for="fullName">Full name</label>
+        <input type="text" class="form-control" required id="fullName" aria-describedby="fullNameHelp" placeholder="Enter full name"
+            data-ng-model="$ctrl.profile.FullName" />
+        <small id="fullNameHelp" class="form-text text-muted">This is your name, by which people can identify you.</small>
+    </div>
+    <div class="form-group">
+        <label for="phoneNumber">Phone number</label>
+        <input type="tel" class="form-control" id="phoneNumber" aria-describedby="phoneNumberHelp" placeholder="Phone number" data-ng-model="$ctrl.profile.PhoneNumber"
+        />
+        <small id="phoneNumberHelp" class="form-text text-muted">This is your phoneNumber, this will not be public.</small>
+    </div>
+    <div class="form-group">
+        <label for="description">Profile description</label>
+        <textarea class="form-control" id="description" rows="10" data-ng-model="$ctrl.profile.Description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" data-ng-disabled="profileForm.$invalid || profileForm.$pristine">Submit</button>
+    <div data-ng-hide="$ctrl.message == ''" class="alert alert-danger">
+
+        {{$ctrl.message}}
+
+    </div>
+</form>

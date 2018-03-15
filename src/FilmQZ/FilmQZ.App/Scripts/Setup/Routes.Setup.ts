@@ -1,4 +1,5 @@
 ﻿import { AppComponent } from "../App/App.Component";
+import { EditProfileComponent } from "../App/Components/Account/EditProfile.Component";
 import { LoginComponent } from "../App/Components/Account/Login.Component";
 import { RegisterComponent } from "../App/Components/Account/Register.Component";
 import { HomeComponent } from "../App/Components/Home/Home.Component";
@@ -33,6 +34,12 @@ export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
         component: LoginComponent.NAME,
         name: "app.login",
         url: "^/account/login",
+    });
+
+    $stateProvider.state({
+        component: EditProfileComponent.NAME,
+        name: "app.editProfile",
+        url: "^/account/profile",
     });
 
     $stateProvider.state({

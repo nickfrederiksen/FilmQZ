@@ -75,12 +75,6 @@ export class AuthService {
         return deferred.promise;
     }
 
-    private SignOffLocal() {
-        this.localStorageService.remove("authorizationData");
-        this.authentication.isAuth = false;
-        this.authentication.Email = "";
-    }
-
     public fillAuthData(): void {
 
         const authData: IAuthenticationInfo = this.localStorageService.get<IAuthenticationInfo>("authorizationData");
@@ -89,6 +83,12 @@ export class AuthService {
             this.authentication.Email = authData.Email;
         }
 
+    }
+
+    private SignOffLocal() {
+        this.localStorageService.remove("authorizationData");
+        this.authentication.isAuth = false;
+        this.authentication.Email = "";
     }
 }
 

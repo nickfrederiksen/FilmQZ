@@ -381,6 +381,36 @@ namespace FilmQZ.App.Controllers.Api
             return Ok();
         }
 		
+		[Route("Profile/{userId?}")]
+		//[Route("Profile/{userId}", Name ="getAProfile")]
+		[HttpGet]
+		public async Task<IHttpActionResult> GetProfile(CancellationToken cancellationToken, string userId = null)
+		{
+			bool isOwnProfile = string.IsNullOrWhiteSpace(userId);
+			if (isOwnProfile)
+			{
+				userId = User.Identity.GetUserId();
+			}
+
+			var profile = await this.databaseContext.UserProfiles.SingleOrDefaultAsync(p => p.UserId == userId, cancellationToken);
+
+			if (profile == null)
+			{
+				return NotFound();
+			}
+			else
+			{
+				var model = new UserProfileModel()
+				{
+					Description = profile.Description,
+					FullName = profile.FullName,
+					PhoneNumber = isOwnProfile ? profile.PhoneNumber : null
+				};
+
+				return Ok(model);
+			}
+		}
+
 		[Route("Profile")]
 		[HttpPut]
 		public async Task<IHttpActionResult> UpdateProfile(UserProfileUpdateModel model,CancellationToken cancellationToken)

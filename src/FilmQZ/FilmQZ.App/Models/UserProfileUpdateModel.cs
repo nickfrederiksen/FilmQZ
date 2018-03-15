@@ -7,15 +7,7 @@ using System.Threading.Tasks;
 
 namespace FilmQZ.App.Models
 {
-    public class UserProfileUpdateModel
+    public class UserProfileUpdateModel : UserProfileModel
     {
-		[Required]
-		public string FullName { get; set; }
-
-		[DataType(DataType.PhoneNumber)]
-		public string PhoneNumber { get; set; }
-
-		[DataType(DataType.Html)]
-		public string Description { get; set; }
 	}
 }
