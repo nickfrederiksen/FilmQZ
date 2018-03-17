@@ -12,7 +12,7 @@ export class EditQuestionDirective implements angular.IDirective {
         onDelete: "&"
     };
 
-    public templateUrl = require("./Views/EditQuestion.html");
+    public templateUrl = require("../../../Views/Manage/Games/Directives/EditQuestion.html");
     public controller = "directive.editQuestionController";
     public controllerAs = "$ctrl";
 }

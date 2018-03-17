@@ -29,5 +29,5 @@ export class CreateTeamComponent implements ng.IComponentOptions {
 
     public controller = ["$state", "teamResources", CreateTeamController];
 
-    public templateUrl = require("./CreateTeam.html");
+    public templateUrl = require("../../Views/Manage/Teams/CreateTeam.html");
 }

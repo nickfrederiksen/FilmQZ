@@ -29,6 +29,6 @@ export class CreateGameComponent implements ng.IComponentOptions {
 
     public controller = ["gameResources", "$state", CreateGameController];
 
-    public templateUrl = require("./createGame.html");
+    public templateUrl = require("../../Views/Manage/Games/createGame.html");
 
 }

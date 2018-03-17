@@ -32,5 +32,5 @@ export class HomeComponent implements ng.IComponentOptions {
 
     public controller = ["$http", HomeController];
 
-    public templateUrl = require("./home.html");
+    public templateUrl = require("../../Views/Home.Component.html");
 }

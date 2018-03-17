@@ -13,7 +13,7 @@ export class EditRoundDirective implements angular.IDirective {
         onRoundDelete: "&"
     };
 
-    public templateUrl = require("./Views/EditRound.html");
+    public templateUrl = require("../../../Views/Manage/Games/Directives/EditRound.html");
     public controller = "directive.editRoundController";
     public controllerAs = "$ctrl";
 }

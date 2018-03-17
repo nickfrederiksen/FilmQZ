@@ -30,5 +30,5 @@ class EditProfileController implements ng.IController {
 export class EditProfileComponent implements ng.IComponentOptions {
     public static NAME: string = "editProfileView";
     public controller = ["accountResources", EditProfileController];
-    public templateUrl = require("./editProfile.html");
+    public templateUrl = require("../../Views/Account/editProfile.html");
 }

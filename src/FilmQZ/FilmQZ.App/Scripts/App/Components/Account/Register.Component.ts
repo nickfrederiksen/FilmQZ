@@ -10,8 +10,8 @@ class RegisterController implements ng.IController {
     };
 
     constructor(private $state: ng.ui.IStateService,
-                private $timeout: ng.ITimeoutService,
-                private authService: AuthService) {
+        private $timeout: ng.ITimeoutService,
+        private authService: AuthService) {
     }
 
     public signUp(): void {
@@ -52,5 +52,5 @@ class RegisterController implements ng.IController {
 export class RegisterComponent implements ng.IComponentOptions {
     public static NAME: string = "registerView";
     public controller = ["$state", "$timeout", "authService", RegisterController];
-    public templateUrl = require("./register.html");
+    public templateUrl = require("../../Views/Account/register.html");
 }

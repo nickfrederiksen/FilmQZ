@@ -228,6 +228,6 @@ export class EditGameComponent implements ng.IComponentOptions {
     public controller = ["$scope",
         "$stateParams", "gameResources", "roundResources", "questionResources", EditGameController];
 
-    public templateUrl = require("./editGame.html");
+    public templateUrl = require("../../Views/Manage/Games/editGame.html");
 
 }

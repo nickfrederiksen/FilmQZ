@@ -7,7 +7,7 @@ export class LogoutButtonDirective implements angular.IDirective {
     }
 
     public scope = {};
-    public templateUrl = require("./Views/LogoutButton.html");
+    public templateUrl = require("../Views/Directives/LogoutButton.html");
     public controller = "directive.logoutButtonController";
     public controllerAs = "ctrl";
 }

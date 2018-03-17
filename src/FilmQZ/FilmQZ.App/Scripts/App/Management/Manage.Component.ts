@@ -69,5 +69,5 @@ class ManageController implements ng.IController {
 export class ManageComponent implements ng.IComponentOptions {
     public static NAME: string = "manageView";
     public controller = ["$state", "$transitions", ManageController];
-    public templateUrl = require("./manage.html");
+    public templateUrl = require("../Views/Manage.Component.html");
 }

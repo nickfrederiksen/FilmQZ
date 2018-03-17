@@ -46,5 +46,5 @@ export class EditTeamComponent implements ng.IComponentOptions {
 
     public controller = ["$stateParams", "teamResources", EditTeamController];
 
-    public templateUrl = require("./EditTeam.html");
+    public templateUrl = require("../../Views/Manage/Teams/EditTeam.html");
 }

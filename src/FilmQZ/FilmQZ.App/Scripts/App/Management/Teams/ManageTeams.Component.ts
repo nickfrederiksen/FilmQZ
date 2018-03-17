@@ -48,5 +48,5 @@ export class ManageTeamsComponent implements ng.IComponentOptions {
 
     public controller = ["teamResources", ManageTeamsController];
 
-    public templateUrl = require("./ManageTeams.html");
+    public templateUrl = require("../../Views/Manage/Teams/ManageTeams.html");
 }

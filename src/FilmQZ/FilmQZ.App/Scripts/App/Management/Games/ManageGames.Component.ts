@@ -31,6 +31,6 @@ export class ManageGamesComponent implements ng.IComponentOptions {
 
     public controller = ["gameResources", ManageGamesController];
 
-    public templateUrl = require("./manageGames.html");
+    public templateUrl = require("../../Views/Manage/Games/manageGames.html");
 
 }

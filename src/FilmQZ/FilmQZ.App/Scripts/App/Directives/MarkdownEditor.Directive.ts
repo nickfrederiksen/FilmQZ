@@ -14,7 +14,7 @@ export class MarkdownEditorDirective implements angular.IDirective {
         name: "@"
     };
 
-    public templateUrl = require("./Views/markdownEditor.html");
+    public templateUrl = require("../Views/Directives/markdownEditor.html");
     public controller = "directive.MarkdownEditorController";
     public controllerAs = "ctrl";
 }
