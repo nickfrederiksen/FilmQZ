@@ -7,7 +7,7 @@ import { EditRoundController, EditRoundDirective } from "../App/Management/Games
 
 export function SetupDirectives(app: angular.IModule): void {
     app.controller("directive.logoutButtonController", ["$scope", "authService", LogoutButtonController]);
-    app.controller("directive.editRoundController", ["$scope", "questionResources", EditRoundController]);
+    app.controller("directive.editRoundController", ["$scope", "manageQuestionResources", EditRoundController]);
     app.controller("directive.editQuestionController", [EditQuestionController]);
     app.controller("directive.MarkdownEditorController", ["$scope", "$sce", MarkdownEditorController]);
 

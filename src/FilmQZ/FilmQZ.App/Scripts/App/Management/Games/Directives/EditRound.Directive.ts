@@ -25,7 +25,7 @@ export class EditRoundController {
     public form!: ng.IFormController;
 
     // tslint:disable-next-line:no-empty
-    constructor($scope: ng.IScope, private questionResources: ManageQuestionResources) {
+    constructor($scope: ng.IScope, private manageQuestionResources: ManageQuestionResources) {
         $scope.$watch(() => this.model, () => {
             this.loadQuestions();
         });
@@ -59,7 +59,7 @@ export class EditRoundController {
     public loadQuestions() {
         if (this.model.isNew !== true) {
 
-            this.questionResources.GetAll(this.model.GameId, this.model.Id)
+            this.manageQuestionResources.GetAll(this.model.GameId, this.model.Id)
                 .then((response) => {
                     this.model.questions = response.data;
                 });

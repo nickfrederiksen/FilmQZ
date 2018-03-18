@@ -9,10 +9,10 @@ class EditGameController implements ng.IController {
     private asyncJobs: string[] = [];
 
     constructor(private $scope: ns.Management.Game.IEditGameComponentScope,
-                private $stateParams: ng.ui.IStateParamsService,
-                private gameResources: ManageGameResources,
-                private roundResources: ManageRoundResources,
-                private questionResources: ManageQuestionResources) {
+        private $stateParams: ng.ui.IStateParamsService,
+        private manageGameResources: ManageGameResources,
+        private manageRoundResources: ManageRoundResources,
+        private manageQuestionResources: ManageQuestionResources) {
 
         this.loadGame();
     }
@@ -27,7 +27,7 @@ class EditGameController implements ng.IController {
                 Name: this.gameModel.Name
             };
 
-            this.gameResources.Update(gameId, updateModel)
+            this.manageGameResources.Update(gameId, updateModel)
                 .then(() => {
                     this.$scope.editGame.$setSubmitted();
                     this.asyncJobs.splice(this.asyncJobs.indexOf(gameId), 1);
@@ -105,7 +105,7 @@ class EditGameController implements ng.IController {
 
     private deleteRound(gameId: string, round: ns.Management.Round.IEditiableRoundListItem) {
 
-        this.roundResources.Delete(gameId, round.Id)
+        this.manageRoundResources.Delete(gameId, round.Id)
             .then(() => {
                 this.asyncJobs.splice(this.asyncJobs.indexOf(round.Id), 1);
                 if (this.asyncJobs.length === 0) {
@@ -120,7 +120,7 @@ class EditGameController implements ng.IController {
             Name: round.Name
         };
 
-        this.roundResources.Create(gameId, createModel)
+        this.manageRoundResources.Create(gameId, createModel)
             .then(() => {
                 this.asyncJobs.splice(this.asyncJobs.indexOf(round.Id), 1);
                 if (this.asyncJobs.length === 0) {
@@ -134,7 +134,7 @@ class EditGameController implements ng.IController {
             Description: round.Description,
             Name: round.Name
         };
-        this.roundResources.Update(gameId, round.Id, roundUpdateModel)
+        this.manageRoundResources.Update(gameId, round.Id, roundUpdateModel)
             .then(() => {
                 this.asyncJobs.splice(this.asyncJobs.indexOf(round.Id), 1);
                 if (this.asyncJobs.length === 0) {
@@ -146,10 +146,10 @@ class EditGameController implements ng.IController {
     }
 
     private deleteQuestion(gameId: string,
-                           roundId: string,
-                           question: ns.Management.Question.IEditiableQuestionListItem) {
+        roundId: string,
+        question: ns.Management.Question.IEditiableQuestionListItem) {
 
-        this.questionResources.Delete(gameId, roundId, question.Id)
+        this.manageQuestionResources.Delete(gameId, roundId, question.Id)
             .then(() => {
                 this.asyncJobs.splice(this.asyncJobs.indexOf(question.Id), 1);
                 if (this.asyncJobs.length === 0) {
@@ -159,8 +159,8 @@ class EditGameController implements ng.IController {
     }
 
     private createQuestion(gameId: string,
-                           roundId: string,
-                           question: ns.Management.Question.IEditiableQuestionListItem) {
+        roundId: string,
+        question: ns.Management.Question.IEditiableQuestionListItem) {
 
         const createModel: ns.Management.Question.ICreateQuestionModel = {
             Point: question.Point,
@@ -168,7 +168,7 @@ class EditGameController implements ng.IController {
             Text: question.Text
         };
 
-        this.questionResources.Create(gameId, roundId, createModel)
+        this.manageQuestionResources.Create(gameId, roundId, createModel)
             .then(() => {
                 this.asyncJobs.splice(this.asyncJobs.indexOf(question.Id), 1);
                 if (this.asyncJobs.length === 0) {
@@ -178,15 +178,15 @@ class EditGameController implements ng.IController {
     }
 
     private updateQuestion(gameId: string,
-                           roundId: string,
-                           question: ns.Management.Question.IEditiableQuestionListItem) {
+        roundId: string,
+        question: ns.Management.Question.IEditiableQuestionListItem) {
 
         const roundUpdateModel: ns.Management.Question.IUpdateQuestionModel = {
             Point: question.Point,
             QuestionType: question.QuestionType,
             Text: question.Text
         };
-        this.questionResources.Update(gameId, roundId, question.Id, roundUpdateModel)
+        this.manageQuestionResources.Update(gameId, roundId, question.Id, roundUpdateModel)
             .then(() => {
                 this.asyncJobs.splice(this.asyncJobs.indexOf(question.Id), 1);
                 if (this.asyncJobs.length === 0) {
@@ -198,7 +198,7 @@ class EditGameController implements ng.IController {
     private loadGame() {
 
         this.loadRounds();
-        this.gameResources.GetSingle(this.$stateParams.id)
+        this.manageGameResources.GetSingle(this.$stateParams.id)
             .then((resp) => {
                 this.gameModel = resp.data;
                 this.$scope.editGame.$setPristine();
@@ -210,7 +210,7 @@ class EditGameController implements ng.IController {
 
     private loadRounds() {
 
-        this.roundResources.GetAll(this.$stateParams.id)
+        this.manageRoundResources.GetAll(this.$stateParams.id)
             .then((resp) => {
                 this.rounds = resp.data;
             },
@@ -226,7 +226,7 @@ export class EditGameComponent implements ng.IComponentOptions {
     public static NAME: string = "editGameView";
 
     public controller = ["$scope",
-        "$stateParams", "gameResources", "roundResources", "questionResources", EditGameController];
+        "$stateParams", "manageGameResources", "manageRoundResources", "manageQuestionResources", EditGameController];
 
     public templateUrl = require("../../Views/Manage/Games/editGame.html");
 

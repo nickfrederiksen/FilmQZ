@@ -18,19 +18,19 @@ using FilmQZ.Core.Entities;
 using FilmQZ.Core.Extensions;
 using System.Web.Http.Description;
 using FilmQZ.Core.Logging;
-using FilmQZ.App.BusinessLogic.Enums;
+using FilmQZ.Core.Entities.Relations;
 
 namespace FilmQZ.App.Controllers.Api.Management
 {
 	[RoutePrefix("api/management/teams")]
-	public class TeamController : ApiController
+	public class ManageTeamController : ApiController
 	{
 		private readonly DatabaseContext dbContext;
 		private readonly URLHelpers urlHelpers;
 		private readonly LogHelper logHelper;
 		private readonly ApplicationUserManager userManager;
 
-		public TeamController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper, ApplicationUserManager userManager)
+		public ManageTeamController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper, ApplicationUserManager userManager)
 		{
 			this.dbContext = dbContext;
 			this.urlHelpers = urlHelpers;
@@ -102,12 +102,21 @@ namespace FilmQZ.App.Controllers.Api.Management
 
 			return Ok();
 		}
-		[Route("{id:Guid}/unsubscribe")]
+
+		[Route("{id:Guid}/kick/{userId}")]
 		[HttpDelete]
-		public async Task<IHttpActionResult> UnSubscribe(Guid id, CancellationToken cancellationToken)
+		public async Task<IHttpActionResult> KickUser(Guid id, string userId, CancellationToken cancellationToken)
 		{
-			var userId = User.Identity.GetUserId();
-			var teamSubscription = await dbContext.UserTeams.SingleOrDefaultAsync(ut => ut.UserId == userId && ut.TeamId == id);
+
+			var currentUserId = User.Identity.GetUserId();
+
+			var cantKick = await this.dbContext.Teams.AnyAsync(t => t.Id == id && (t.TeamOwnerId == userId || t.TeamOwnerId != currentUserId), cancellationToken);
+			if (cantKick)
+			{
+				return StatusCode(HttpStatusCode.Forbidden);
+			}
+
+			var teamSubscription = await dbContext.UserTeams.SingleOrDefaultAsync(ut => ut.UserId == userId && ut.TeamId == id, cancellationToken);
 
 			if (teamSubscription == null)
 			{
@@ -120,33 +129,31 @@ namespace FilmQZ.App.Controllers.Api.Management
 			return Ok();
 		}
 
-		[Route("{filter}")]
+		[Route("")]
 		[HttpGet]
 		[ResponseType(typeof(IEnumerable<TeamListItemModel>))]
-		public async Task<IHttpActionResult> GetAll(TeamFilter filter, CancellationToken cancellationToken)
+		public async Task<IHttpActionResult> GetAll(CancellationToken cancellationToken)
 		{
-			IEnumerable<TeamListItemModel> listItems;
-			if (filter == TeamFilter.Membership)
-			{
-				listItems = await GetMemberOf(cancellationToken);
-			}
-			else if (filter == TeamFilter.Owner)
-			{
-				listItems = await GetOwnerOf(cancellationToken);
-			}
-			else if (filter == TeamFilter.NotRelated)
-			{
-				listItems = await GetNotRelatedTo(cancellationToken);
-			}
-			else
-			{
-				listItems = await GetAll(cancellationToken);
-			}
+			var userId = User.Identity.GetUserId();
+			var teams = from t in dbContext.Teams
+						let isOwner = t.TeamOwnerId == userId
+						where isOwner || (isOwner == false && t.Users.Any(u => u.UserId == userId))
+						orderby isOwner descending
+						select new TeamListItemModel()
+						{
+							CreatedDate = t.CreatedDate,
+							Id = t.Id,
+							Name = t.Name,
+							URL = t.URL,
+							IsOwner = isOwner
+						};
+
+			var listItems = await teams.ToListAsync(cancellationToken);
 
 			return base.Ok(listItems);
 		}
 
-		[Route("{id:Guid}", Name = "manageTeamId")]
+		[Route("{id:Guid}")]
 		[HttpGet]
 		[ResponseType(typeof(TeamEntityModel))]
 		public async Task<IHttpActionResult> GetSingle(Guid id, CancellationToken cancellationToken)
@@ -257,73 +264,6 @@ namespace FilmQZ.App.Controllers.Api.Management
 			{
 				return await this.dbContext.Teams.AnyAsync(g => g.Name == createModel.Name, cancellationToken);
 			}
-		}
-
-		private async Task<IEnumerable<TeamListItemModel>> GetMemberOf(CancellationToken cancellationToken)
-		{
-			var userId = User.Identity.GetUserId();
-			var teams = from t in dbContext.Teams
-						where t.TeamOwnerId != userId && t.Users.Any(u => u.UserId == userId)
-						select new TeamListItemModel()
-						{
-							CreatedDate = t.CreatedDate,
-							Id = t.Id,
-							Name = t.Name,
-							URL = t.URL
-						};
-
-			var listItems = await teams.ToListAsync(cancellationToken);
-			return listItems;
-		}
-
-		private async Task<IEnumerable<TeamListItemModel>> GetOwnerOf(CancellationToken cancellationToken)
-		{
-			var userId = User.Identity.GetUserId();
-			var teams = from t in dbContext.Teams
-						where t.TeamOwnerId == userId
-						select new TeamListItemModel()
-						{
-							CreatedDate = t.CreatedDate,
-							Id = t.Id,
-							Name = t.Name,
-							URL = t.URL
-						};
-
-			var listItems = await teams.ToListAsync(cancellationToken);
-			return listItems;
-		}
-
-		private async Task<IEnumerable<TeamListItemModel>> GetAll(CancellationToken cancellationToken)
-		{
-			var teams = from t in dbContext.Teams
-						select new TeamListItemModel()
-						{
-							CreatedDate = t.CreatedDate,
-							Id = t.Id,
-							Name = t.Name,
-							URL = t.URL
-						};
-
-			var listItems = await teams.ToListAsync(cancellationToken);
-			return listItems;
-		}
-
-		private async Task<IEnumerable<TeamListItemModel>> GetNotRelatedTo(CancellationToken cancellationToken)
-		{
-			var userId = User.Identity.GetUserId();
-
-			var teams = from t in dbContext.Teams
-						where t.TeamOwnerId != userId && t.Users.Any(u => u.UserId == userId) == false
-						select new TeamListItemModel()
-						{
-							CreatedDate = t.CreatedDate,
-							Id = t.Id,
-							Name = t.Name,
-							URL = t.URL
-						};
-
-			var listItems = await teams.ToListAsync(cancellationToken);
-			return listItems;
 		}
 	}
 }

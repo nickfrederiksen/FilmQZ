@@ -9,8 +9,13 @@ namespace FilmQZ.App.Models.Management.Team
     public class TeamListItemModel
     {
         public Guid Id { get; set; }
+
         public string Name { get; set; }
+
         public string URL { get; set; }
+
         public DateTime CreatedDate { get; set; }
-    }
+
+		public bool IsOwner { get; set; }
+	}
 }

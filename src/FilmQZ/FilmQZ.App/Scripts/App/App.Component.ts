@@ -70,6 +70,15 @@ class AppController implements ng.IController {
             sref: "app.login",
             text: "Login"
         });
+
+        this.topNavigation.push({
+            anonymousOnly: false,
+            authorizedOnly: true,
+            isActive: false,
+            isVisible: this.authService.authentication.isAuth === true,
+            sref: "app.teams",
+            text: "Teams"
+        });
         this.topNavigation.push({
             anonymousOnly: false,
             authorizedOnly: true,

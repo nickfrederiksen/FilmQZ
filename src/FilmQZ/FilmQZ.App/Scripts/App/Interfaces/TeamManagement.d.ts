@@ -1,13 +1,14 @@
 declare namespace ns.Management.Team {
-    export interface ITeamEntityModel {
+    export interface ITeamEntityModel extends ITeamListItemModel {
+
+    }
+
+    export interface ITeamListItemModel {
         Id: string;
         Name: string;
         URL: string;
         CreatedDate: Date;
-
-    }
-
-    export interface ITeamListItemModel extends ITeamEntityModel {
+        IsOwner: boolean;
 
     }
 

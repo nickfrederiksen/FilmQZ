@@ -3,6 +3,8 @@ import { EditProfileComponent } from "../App/Components/Account/EditProfile.Comp
 import { LoginComponent } from "../App/Components/Account/Login.Component";
 import { RegisterComponent } from "../App/Components/Account/Register.Component";
 import { HomeComponent } from "../App/Components/Home/Home.Component";
+import { TeamComponent } from "../App/Components/Team/Team.Component";
+import { TeamsComponent } from "../App/Components/Team/Teams.Component";
 import { CreateGameComponent } from "../App/Management/Games/CreateGame.Component";
 import { EditGameComponent } from "../App/Management/Games/EditGame.Component";
 import { ManageGamesComponent } from "../App/Management/Games/ManageGames.Component";
@@ -22,6 +24,18 @@ export function SetupRoutes($stateProvider: ng.ui.IStateProvider): void {
         component: HomeComponent.NAME,
         name: "app.home",
         url: "^/home",
+    });
+
+    $stateProvider.state({
+        component: TeamsComponent.NAME,
+        name: "app.teams",
+        url: "^/teams",
+    });
+
+    $stateProvider.state({
+        component: TeamComponent.NAME,
+        name: "app.team",
+        url: "^/teams/{id}",
     });
 
     $stateProvider.state({

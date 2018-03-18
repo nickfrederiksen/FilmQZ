@@ -8,16 +8,17 @@ class EditTeamController implements ng.IController {
 
     public errorMessage: string | undefined;
 
-    constructor(private $stateParams: ng.ui.IStateParamsService,
-                private teamResources: ManageTeamResources) {
+    private readonly teamId: any;
 
+    constructor($stateParams: ng.ui.IStateParamsService,
+                private manageTeamResources: ManageTeamResources) {
+
+        this.teamId = $stateParams.id;
         this.loadTeam();
     }
 
     public updateTeam = () => {
-        const teamId = this.$stateParams.id;
-
-        this.teamResources.Update(teamId, this.model)
+        this.manageTeamResources.Update(this.teamId, this.model)
             .then(() => {
                 this.loadTeam();
             }, (err) => {
@@ -25,15 +26,20 @@ class EditTeamController implements ng.IController {
             });
     }
 
-    private loadTeam() {
-        const teamId = this.$stateParams.id;
+    public kickUser = (userId: string) => {
+        this.manageTeamResources.KickUser(this.teamId, userId)
+            .then(() => {
+                this.loadTeam();
+            });
+    }
 
-        this.teamResources.GetSingle(teamId)
+    private loadTeam() {
+        this.manageTeamResources.GetSingle(this.teamId)
             .then((resp) => {
                 this.model = resp.data;
             });
 
-        this.teamResources.GetMembers(teamId)
+        this.manageTeamResources.GetMembers(this.teamId)
             .then((resp) => {
                 this.teamMembers = resp.data;
             });
@@ -44,7 +50,7 @@ export class EditTeamComponent implements ng.IComponentOptions {
 
     public static NAME: string = "editTeamView";
 
-    public controller = ["$stateParams", "teamResources", EditTeamController];
+    public controller = ["$stateParams", "manageTeamResources", EditTeamController];
 
     public templateUrl = require("../../Views/Manage/Teams/EditTeam.html");
 }

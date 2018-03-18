@@ -235,7 +235,6 @@
       <DependentUpon>201711242212131_addReferenceToUsersOnTeamsAndGames.cs</DependentUpon>
     </Compile>
     <Compile Include="Authentication\Migrations\Configuration.cs" />
-    <Compile Include="BusinessLogic\Enums\TeamFilter.cs" />
     <Compile Include="BusinessLogic\Helpers\URLHelpers.cs" />
     <Compile Include="BusinessLogic\Interfaces\ICrudController.cs" />
     <Compile Include="Controllers\Api\AccountController.cs" />
@@ -243,8 +242,10 @@
     <Compile Include="Controllers\Api\Management\GameController.cs" />
     <Compile Include="Controllers\Api\Management\QuestionController.cs" />
     <Compile Include="Controllers\Api\Management\RoundController.cs" />
-    <Compile Include="Controllers\Api\Management\TeamController.cs" />
+    <Compile Include="Controllers\Api\Management\ManageTeamController.cs" />
+    <Compile Include="Controllers\Api\TeamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RedirectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -268,6 +269,8 @@
     <Compile Include="Models\Management\Team\TeamMemberModel.cs" />
     <Compile Include="Models\Management\Team\UpdateTeamModel.cs" />
     <Compile Include="Models\Play\GameListModel.cs" />
+    <Compile Include="Models\Teams\TeamItem.cs" />
+    <Compile Include="Models\Teams\TeamProfileModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
     <Compile Include="Models\UserProfileUpdateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

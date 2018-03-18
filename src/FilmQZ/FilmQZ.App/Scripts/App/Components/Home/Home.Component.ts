@@ -1,36 +1,32 @@
-﻿class HomeController implements ng.IController {
+﻿import { ManageTeamResources } from "../../Resources/Manage.Team.Resources";
 
-    public welcome: string = "hello ng";
+class HomeController implements ng.IController {
 
-    constructor(private $http: ng.IHttpService) { // DevSkim: ignore DS137138
+    public teams = new TeamsModel();
 
-        console.log("Hello world...");
-
+    constructor(private manageTeamResources: ManageTeamResources) { // DevSkim: ignore DS137138
+        this.loadTeams();
     }
 
-    public test(): void {
-
-        this.$http.post<string>("/api/management/game", { name: "test" })
-
+    private loadTeams() {
+        this.manageTeamResources.GetAll()
             .then((resp) => {
-
-                console.log(resp);
-
-            }, (resp) => {
-
-                console.log(resp);
-
+                this.teams.OwnTeams = resp.data.filter((i) => i.IsOwner);
+                this.teams.SubscribedTeams = resp.data.filter((i) => i.IsOwner === false);
             });
-
     }
+}
 
+class TeamsModel {
+    public OwnTeams: ns.Management.Team.ITeamListItemModel[] = [];
+    public SubscribedTeams: ns.Management.Team.ITeamListItemModel[] = [];
 }
 
 export class HomeComponent implements ng.IComponentOptions {
 
     public static NAME: string = "homeView";
 
-    public controller = ["$http", HomeController];
+    public controller = ["manageTeamResources", HomeController];
 
     public templateUrl = require("../../Views/Home.Component.html");
 }

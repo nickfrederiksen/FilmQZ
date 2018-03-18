@@ -1,43 +1,33 @@
-import { TeamFilter } from "../../Enums/TeamFilter";
 import { ManageTeamResources } from "../../Resources/Manage.Team.Resources";
+import { TeamResources } from "../../Resources/Team.Resources";
 
 class ManageTeamsController implements ng.IController {
     public myTeams: ns.Management.Team.ITeamListItemModel[] = [];
     public myMemberships: ns.Management.Team.ITeamListItemModel[] = [];
 
-    constructor(private teamResources: ManageTeamResources) { // DevSkim: ignore DS137138
+    constructor(private manageTeamResources: ManageTeamResources,
+                private teamResources: TeamResources) { // DevSkim: ignore DS137138
         this.loadTeams();
     }
 
     public DeleteTeam = (teamId: string) => {
-        this.teamResources.Delete(teamId)
+        this.manageTeamResources.Delete(teamId)
             .then(() => {
                 this.loadTeams();
             });
     }
 
-    public UnSubscribe = (teamId: string) => {
-        this.teamResources.UnSubscribe(teamId)
+    public Unsubscribe = (teamUrl: string) => {
+        this.teamResources.Unsubscribe(teamUrl)
             .then(() => {
-                this.loadMembershipTeams();
+                this.loadTeams();
             });
     }
 
     private loadTeams() {
-        this.loadOwnTeams();
-
-        this.loadMembershipTeams();
-    }
-
-    private loadMembershipTeams() {
-        this.teamResources.Get(TeamFilter.Membership).then((teamResult) => {
-            this.myMemberships = teamResult.data;
-        });
-    }
-
-    private loadOwnTeams() {
-        this.teamResources.Get(TeamFilter.Owner).then((teamResult) => {
-            this.myTeams = teamResult.data;
+        this.manageTeamResources.GetAll().then((teamResult) => {
+            this.myTeams = teamResult.data.filter((i) => i.IsOwner);
+            this.myMemberships = teamResult.data.filter((i) => i.IsOwner === false);
         });
     }
 }
@@ -46,7 +36,7 @@ export class ManageTeamsComponent implements ng.IComponentOptions {
 
     public static NAME: string = "manageTeamsView";
 
-    public controller = ["teamResources", ManageTeamsController];
+    public controller = ["manageTeamResources", ManageTeamsController];
 
     public templateUrl = require("../../Views/Manage/Teams/ManageTeams.html");
 }

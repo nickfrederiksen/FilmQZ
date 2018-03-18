@@ -8,12 +8,12 @@ class CreateTeamController implements ng.IController {
 
     constructor(
         private $state: ng.ui.IStateService,
-        private teamResources: ManageTeamResources) { // DevSkim: ignore DS137138
+        private manageTeamResources: ManageTeamResources) { // DevSkim: ignore DS137138
     }
 
     public createTeam = () => {
         this.errorMessage = undefined;
-        this.teamResources.Create(this.model)
+        this.manageTeamResources.Create(this.model)
             .then((response) => {
 
                 this.$state.transitionTo("manage.editTeam", { id: response.data.Id });
@@ -27,7 +27,7 @@ export class CreateTeamComponent implements ng.IComponentOptions {
 
     public static NAME: string = "createTeamView";
 
-    public controller = ["$state", "teamResources", CreateTeamController];
+    public controller = ["$state", "manageTeamResources", CreateTeamController];
 
     public templateUrl = require("../../Views/Manage/Teams/CreateTeam.html");
 }
