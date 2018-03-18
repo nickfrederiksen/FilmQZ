@@ -1,3 +1,4 @@
+import { Component } from "../../Abstracts/Component";
 import { AccountResources } from "../../Resources/Account.Resources";
 
 class EditProfileController implements ng.IController {
@@ -27,8 +28,20 @@ class EditProfileController implements ng.IController {
     }
 }
 
-export class EditProfileComponent implements ng.IComponentOptions {
-    public static NAME: string = "editProfileView";
+export class EditProfileComponent extends Component {
     public controller = ["accountResources", EditProfileController];
     public templateUrl = require("../../Views/Account/editProfile.html");
+
+    constructor(app: angular.IModule) {
+        super("editProfileView", app);
+    }
+
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "app.editProfile",
+            sortOrder: 6,
+            url: "^/account/profile",
+        };
+    }
 }

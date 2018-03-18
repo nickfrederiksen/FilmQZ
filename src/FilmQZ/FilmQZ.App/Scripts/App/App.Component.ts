@@ -1,4 +1,5 @@
 ﻿import { StateObject, TransitionService } from "@uirouter/angularjs";
+import { Component } from "./Abstracts/Component";
 import { AuthService } from "./Services/Auth.Service";
 class AppController implements ng.IController {
 
@@ -99,8 +100,19 @@ class AppController implements ng.IController {
     }
 }
 
-export class AppComponent implements ng.IComponentOptions {
-    public static NAME: string = "appView";
+export class AppComponent extends Component {
     public controller = ["$scope", "authService", "$transitions", AppController];
     public templateUrl = require("./Views/app.component.html");
+
+    constructor(app: angular.IModule) {
+        super( "appView", app);
+    }
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "app",
+            sortOrder: 0,
+            url: "/"
+        };
+    }
 }

@@ -1,3 +1,4 @@
+import { Component } from "../../Abstracts/Component";
 import { TeamResources } from "../../Resources/Team.Resources";
 
 class TeamController implements ng.IController {
@@ -21,11 +22,21 @@ class TeamController implements ng.IController {
     }
 }
 
-export class TeamComponent implements ng.IComponentOptions {
-
-    public static NAME: string = "teamView";
+export class TeamComponent extends Component {
 
     public controller = ["$stateParams", "teamResources", TeamController];
 
     public templateUrl = require("../../Views/Team.Component.html");
+
+    constructor(app: angular.IModule) {
+        super("teamView", app);
+    }
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "app.team",
+            sortOrder: 3,
+            url: "^/teams/{id}",
+        };
+    }
 }

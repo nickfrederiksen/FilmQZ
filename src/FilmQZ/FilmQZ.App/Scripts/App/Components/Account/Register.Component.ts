@@ -1,4 +1,5 @@
-﻿import { AuthService, INewUserModel } from "../../Services/Auth.Service";
+﻿import { Component } from "../../Abstracts/Component";
+import { AuthService, INewUserModel } from "../../Services/Auth.Service";
 class RegisterController implements ng.IController {
     public savedSuccessfully: boolean = false;
     public message: string = "";
@@ -10,8 +11,8 @@ class RegisterController implements ng.IController {
     };
 
     constructor(private $state: ng.ui.IStateService,
-        private $timeout: ng.ITimeoutService,
-        private authService: AuthService) {
+                private $timeout: ng.ITimeoutService,
+                private authService: AuthService) {
     }
 
     public signUp(): void {
@@ -49,8 +50,20 @@ class RegisterController implements ng.IController {
     }
 }
 
-export class RegisterComponent implements ng.IComponentOptions {
-    public static NAME: string = "registerView";
+export class RegisterComponent extends Component {
     public controller = ["$state", "$timeout", "authService", RegisterController];
     public templateUrl = require("../../Views/Account/register.html");
+
+    constructor(app: angular.IModule) {
+        super("registerView", app);
+    }
+
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "app.register",
+            sortOrder: 4,
+            url: "^/account/register"
+        };
+    }
 }

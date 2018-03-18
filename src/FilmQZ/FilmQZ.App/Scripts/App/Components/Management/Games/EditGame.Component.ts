@@ -1,6 +1,7 @@
-import { ManageGameResources } from "../../Resources/Manage.Game.Resources";
-import { ManageQuestionResources } from "../../Resources/Manage.Question.Resources";
-import { ManageRoundResources } from "../../Resources/Manage.Round.Resources";
+import { Component } from "../../../Abstracts/Component";
+import { ManageGameResources } from "../../../Resources/Manage.Game.Resources";
+import { ManageQuestionResources } from "../../../Resources/Manage.Question.Resources";
+import { ManageRoundResources } from "../../../Resources/Manage.Round.Resources";
 
 class EditGameController implements ng.IController {
 
@@ -9,10 +10,10 @@ class EditGameController implements ng.IController {
     private asyncJobs: string[] = [];
 
     constructor(private $scope: ns.Management.Game.IEditGameComponentScope,
-        private $stateParams: ng.ui.IStateParamsService,
-        private manageGameResources: ManageGameResources,
-        private manageRoundResources: ManageRoundResources,
-        private manageQuestionResources: ManageQuestionResources) {
+                private $stateParams: ng.ui.IStateParamsService,
+                private manageGameResources: ManageGameResources,
+                private manageRoundResources: ManageRoundResources,
+                private manageQuestionResources: ManageQuestionResources) {
 
         this.loadGame();
     }
@@ -146,8 +147,8 @@ class EditGameController implements ng.IController {
     }
 
     private deleteQuestion(gameId: string,
-        roundId: string,
-        question: ns.Management.Question.IEditiableQuestionListItem) {
+                           roundId: string,
+                           question: ns.Management.Question.IEditiableQuestionListItem) {
 
         this.manageQuestionResources.Delete(gameId, roundId, question.Id)
             .then(() => {
@@ -159,8 +160,8 @@ class EditGameController implements ng.IController {
     }
 
     private createQuestion(gameId: string,
-        roundId: string,
-        question: ns.Management.Question.IEditiableQuestionListItem) {
+                           roundId: string,
+                           question: ns.Management.Question.IEditiableQuestionListItem) {
 
         const createModel: ns.Management.Question.ICreateQuestionModel = {
             Point: question.Point,
@@ -178,8 +179,8 @@ class EditGameController implements ng.IController {
     }
 
     private updateQuestion(gameId: string,
-        roundId: string,
-        question: ns.Management.Question.IEditiableQuestionListItem) {
+                           roundId: string,
+                           question: ns.Management.Question.IEditiableQuestionListItem) {
 
         const roundUpdateModel: ns.Management.Question.IUpdateQuestionModel = {
             Point: question.Point,
@@ -221,13 +222,26 @@ class EditGameController implements ng.IController {
 
 }
 
-export class EditGameComponent implements ng.IComponentOptions {
-
-    public static NAME: string = "editGameView";
-
+export class EditGameComponent extends Component {
     public controller = ["$scope",
-        "$stateParams", "manageGameResources", "manageRoundResources", "manageQuestionResources", EditGameController];
+        "$stateParams",
+        "manageGameResources",
+        "manageRoundResources",
+        "manageQuestionResources",
+        EditGameController];
 
-    public templateUrl = require("../../Views/Manage/Games/editGame.html");
+    public templateUrl = require("../../../Views/Manage/Games/editGame.html");
 
+    constructor(app: angular.IModule) {
+        super("editGameView", app);
+    }
+
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "manage.editGame",
+            sortOrder: 103,
+            url: "^/manage/games/{id}",
+        };
+    }
 }

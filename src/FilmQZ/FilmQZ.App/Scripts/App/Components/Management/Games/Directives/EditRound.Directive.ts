@@ -1,5 +1,5 @@
-import { QuestionType } from "../../../Enums/QuestionTypes";
-import { ManageQuestionResources } from "../../../Resources/Manage.Question.Resources";
+import { QuestionType } from "../../../../Enums/QuestionTypes";
+import { ManageQuestionResources } from "../../../../Resources/Manage.Question.Resources";
 
 export class EditRoundDirective implements angular.IDirective {
 
@@ -13,7 +13,7 @@ export class EditRoundDirective implements angular.IDirective {
         onRoundDelete: "&"
     };
 
-    public templateUrl = require("../../../Views/Manage/Games/Directives/EditRound.html");
+    public templateUrl = require("../../../../Views/Manage/Games/Directives/EditRound.html");
     public controller = "directive.editRoundController";
     public controllerAs = "$ctrl";
 }

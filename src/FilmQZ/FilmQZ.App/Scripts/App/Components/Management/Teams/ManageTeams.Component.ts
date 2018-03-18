@@ -1,5 +1,6 @@
-import { ManageTeamResources } from "../../Resources/Manage.Team.Resources";
-import { TeamResources } from "../../Resources/Team.Resources";
+import { Component } from "../../../Abstracts/Component";
+import { ManageTeamResources } from "../../../Resources/Manage.Team.Resources";
+import { TeamResources } from "../../../Resources/Team.Resources";
 
 class ManageTeamsController implements ng.IController {
     public myTeams: ns.Management.Team.ITeamListItemModel[] = [];
@@ -32,11 +33,21 @@ class ManageTeamsController implements ng.IController {
     }
 }
 
-export class ManageTeamsComponent implements ng.IComponentOptions {
-
-    public static NAME: string = "manageTeamsView";
-
+export class ManageTeamsComponent extends Component {
     public controller = ["manageTeamResources", ManageTeamsController];
 
-    public templateUrl = require("../../Views/Manage/Teams/ManageTeams.html");
+    public templateUrl = require("../../../Views/Manage/Teams/ManageTeams.html");
+
+    constructor(app: angular.IModule) {
+        super("manageTeamsView", app);
+    }
+
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "manage.manageTeams",
+            sortOrder: 104,
+            url: "^/manage/teams",
+        };
+    }
 }

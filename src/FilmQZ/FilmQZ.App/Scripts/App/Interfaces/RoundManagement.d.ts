@@ -1,11 +1,11 @@
 declare namespace ns.Management.Round {
 
     export interface IRoundListItemModel {
-        Id: string;
         CreatedDate: Date;
-        Name: string;
         Description: string;
         GameId: string;
+        Id: string;
+        Name: string;
     }
 
     export interface ICreateRoundModel {

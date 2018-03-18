@@ -1,4 +1,5 @@
-﻿import { ManageTeamResources } from "../../Resources/Manage.Team.Resources";
+﻿import { Component } from "../../Abstracts/Component";
+import { ManageTeamResources } from "../../Resources/Manage.Team.Resources";
 
 class HomeController implements ng.IController {
 
@@ -22,11 +23,20 @@ class TeamsModel {
     public SubscribedTeams: ns.Management.Team.ITeamListItemModel[] = [];
 }
 
-export class HomeComponent implements ng.IComponentOptions {
-
-    public static NAME: string = "homeView";
-
+export class HomeComponent extends Component {
     public controller = ["manageTeamResources", HomeController];
-
     public templateUrl = require("../../Views/Home.Component.html");
+
+    constructor(app: angular.IModule) {
+        super("homeView", app);
+    }
+
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "app.home",
+            sortOrder: 1,
+            url: "^/home",
+        };
+    }
 }

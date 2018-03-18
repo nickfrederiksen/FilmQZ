@@ -1,4 +1,5 @@
-import { ManageGameResources } from "../../Resources/Manage.Game.Resources";
+import { Component } from "../../../Abstracts/Component";
+import { ManageGameResources } from "../../../Resources/Manage.Game.Resources";
 
 class CreateGameController implements ng.IController {
 
@@ -23,12 +24,22 @@ class CreateGameController implements ng.IController {
 
 }
 
-export class CreateGameComponent implements ng.IComponentOptions {
-
-    public static NAME: string = "createGameView";
-
+export class CreateGameComponent extends Component {
     public controller = ["manageGameResources", "$state", CreateGameController];
 
-    public templateUrl = require("../../Views/Manage/Games/createGame.html");
+    public templateUrl = require("../../../Views/Manage/Games/createGame.html");
+
+    constructor(app: angular.IModule) {
+        super("createGameView", app);
+    }
+
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "manage.createGame",
+            sortOrder: 102,
+            url: "^/manage/games/create",
+        };
+    }
 
 }

@@ -1,4 +1,5 @@
-import { ManageTeamResources } from "../../Resources/Manage.Team.Resources";
+import { Component } from "../../../Abstracts/Component";
+import { ManageTeamResources } from "../../../Resources/Manage.Team.Resources";
 
 class EditTeamController implements ng.IController {
 
@@ -46,11 +47,21 @@ class EditTeamController implements ng.IController {
     }
 }
 
-export class EditTeamComponent implements ng.IComponentOptions {
-
-    public static NAME: string = "editTeamView";
-
+export class EditTeamComponent extends Component {
     public controller = ["$stateParams", "manageTeamResources", EditTeamController];
 
-    public templateUrl = require("../../Views/Manage/Teams/EditTeam.html");
+    public templateUrl = require("../../../Views/Manage/Teams/EditTeam.html");
+
+    constructor(app: angular.IModule) {
+        super("editTeamView", app);
+    }
+
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "manage.editTeam",
+            sortOrder: 106,
+            url: "^/manage/teams/{id}",
+        };
+    }
 }

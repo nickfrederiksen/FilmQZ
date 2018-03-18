@@ -4,7 +4,7 @@ import { bootstrap, element, module } from "angular";
 import "angular-local-storage";
 import { AuthService } from "./App/Services/Auth.Service";
 
-import { SetupComponents } from "./Setup/Components.Setup";
+import { components, SetupComponents } from "./Setup/Components.Setup";
 import { SetupDirectives } from "./Setup/Directives.Setup";
 import { SetupResources } from "./Setup/Resource.Setup";
 import { SetupRoutes } from "./Setup/Routes.Setup";
@@ -16,7 +16,7 @@ function Configure($stateProvider: ng.ui.IStateProvider,
                    localStorageServiceProvider: angular.local.storage.ILocalStorageServiceProvider,
 ): void {
 
-    SetupRoutes($stateProvider);
+    SetupRoutes($stateProvider, components);
 
     $urlRouterProvider.otherwise("/home");
     localStorageServiceProvider.setPrefix("FilmQZ");

@@ -1,4 +1,5 @@
-﻿import { AuthService, ILoginInfo } from "../../Services/Auth.Service";
+﻿import { Component } from "../../Abstracts/Component";
+import { AuthService, ILoginInfo } from "../../Services/Auth.Service";
 class LoginController implements ng.IController {
     public loginData: ILoginInfo = {
         Email: "",
@@ -22,8 +23,20 @@ class LoginController implements ng.IController {
     }
 }
 
-export class LoginComponent implements ng.IComponentOptions {
-    public static NAME: string = "loginView";
+export class LoginComponent extends Component {
     public controller = ["$state", "authService", LoginController];
     public templateUrl = require("../../Views/Account/login.html");
+
+    constructor(app: angular.IModule) {
+        super("loginView", app);
+    }
+
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "app.login",
+            sortOrder: 5,
+            url: "^/account/login",
+        };
+    }
 }

@@ -23,14 +23,14 @@ using FilmQZ.Core.Entities.Relations;
 namespace FilmQZ.App.Controllers.Api.Management
 {
 	[RoutePrefix("api/management/teams")]
-	public class ManageTeamController : ApiController
+	public class TeamManagementController : ApiController
 	{
 		private readonly DatabaseContext dbContext;
 		private readonly URLHelpers urlHelpers;
 		private readonly LogHelper logHelper;
 		private readonly ApplicationUserManager userManager;
 
-		public ManageTeamController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper, ApplicationUserManager userManager)
+		public TeamManagementController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper, ApplicationUserManager userManager)
 		{
 			this.dbContext = dbContext;
 			this.urlHelpers = urlHelpers;

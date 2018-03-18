@@ -17,11 +17,11 @@ using System.Web.Http.Description;
 namespace FilmQZ.App.Controllers.Api.Management
 {
     [RoutePrefix("api/management/game/{gameId:Guid}/rounds/{roundId:Guid}/questions")]
-    public class QuestionController : ApiController, IRoundIdCrudController<UpdateQuestionModel, CreateQuestionModel>
+    public class QuestionManagementController : ApiController, IRoundIdCrudController<UpdateQuestionModel, CreateQuestionModel>
     {
         private readonly DatabaseContext dbContext;
 
-        public QuestionController(DatabaseContext dbContext)
+        public QuestionManagementController(DatabaseContext dbContext)
         {
             this.dbContext = dbContext;
         }

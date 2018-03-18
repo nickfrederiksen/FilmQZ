@@ -1,5 +1,6 @@
 ﻿import { TransitionService } from "@uirouter/angularjs";
 import { StateObject } from "@uirouter/core";
+import { Component } from "../../Abstracts/Component";
 class ManageController implements ng.IController {
 
     public year = new Date().getFullYear();
@@ -66,8 +67,20 @@ class ManageController implements ng.IController {
     }
 }
 
-export class ManageComponent implements ng.IComponentOptions {
-    public static NAME: string = "manageView";
+export class ManageComponent extends Component {
     public controller = ["$state", "$transitions", ManageController];
-    public templateUrl = require("../Views/Manage.Component.html");
+    public templateUrl = require("../../Views/Manage.Component.html");
+
+    constructor(app: angular.IModule) {
+        super("manageView", app);
+    }
+
+    public Route(): ns.ISortedRoute {
+        return {
+            component: this.name,
+            name: "manage",
+            sortOrder: 100,
+            url: "/manage",
+        };
+    }
 }

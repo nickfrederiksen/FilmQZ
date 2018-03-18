@@ -1,9 +1,10 @@
-﻿import { CollapseDirective } from "../App/Directives/Collapse.Directive";
+﻿// tslint:disable-next-line:max-line-length
+import { EditQuestionController, EditQuestionDirective } from "../App/Components/Management/Games/Directives/EditQuestion.Directive";
+// tslint:disable-next-line:max-line-length
+import { EditRoundController, EditRoundDirective } from "../App/Components/Management/Games/Directives/EditRound.Directive";
+import { CollapseDirective } from "../App/Directives/Collapse.Directive";
 import { LogoutButtonController, LogoutButtonDirective } from "../App/Directives/LogoutButton.Directive";
 import { MarkdownEditorController, MarkdownEditorDirective } from "../App/Directives/MarkdownEditor.Directive";
-// tslint:disable-next-line:max-line-length
-import { EditQuestionController, EditQuestionDirective } from "../App/Management/Games/Directives/EditQuestion.Directive";
-import { EditRoundController, EditRoundDirective } from "../App/Management/Games/Directives/EditRound.Directive";
 
 export function SetupDirectives(app: angular.IModule): void {
     app.controller("directive.logoutButtonController", ["$scope", "authService", LogoutButtonController]);

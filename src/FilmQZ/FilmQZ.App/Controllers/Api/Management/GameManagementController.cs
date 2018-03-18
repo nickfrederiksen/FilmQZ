@@ -24,13 +24,13 @@ using System.Web.Http.Description;
 namespace FilmQZ.App.Controllers.Api.Management
 {
     [RoutePrefix("api/management/game")]
-    public class GameController : ApiController, ICrudController<UpdateGameModel, CreateGameModel>
+    public class GameManagementController : ApiController, ICrudController<UpdateGameModel, CreateGameModel>
     {
         private readonly DatabaseContext dbContext;
         private readonly URLHelpers urlHelpers;
         private readonly LogHelper logHelper;
 
-        public GameController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper)
+        public GameManagementController(DatabaseContext dbContext, URLHelpers urlHelpers, LogHelper logHelper)
         {
             this.dbContext = dbContext;
             this.urlHelpers = urlHelpers;

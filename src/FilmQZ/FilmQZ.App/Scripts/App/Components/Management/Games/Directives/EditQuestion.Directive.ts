@@ -1,4 +1,4 @@
-import { QuestionType } from "../../../Enums/QuestionTypes";
+import { QuestionType } from "../../../../Enums/QuestionTypes";
 
 export class EditQuestionDirective implements angular.IDirective {
 
@@ -12,7 +12,7 @@ export class EditQuestionDirective implements angular.IDirective {
         onDelete: "&"
     };
 
-    public templateUrl = require("../../../Views/Manage/Games/Directives/EditQuestion.html");
+    public templateUrl = require("../../../../Views/Manage/Games/Directives/EditQuestion.html");
     public controller = "directive.editQuestionController";
     public controllerAs = "$ctrl";
 }
